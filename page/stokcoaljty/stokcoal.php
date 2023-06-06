@@ -12,8 +12,6 @@
               <th>No</th>
               <th>Nama RC</th>
               <th>Warna</th>
-              <th>Keluar</th>
-              <th>Masuk</th>
               <th>Stok</th>
               <th>Pengaturan</th>
 
@@ -33,8 +31,6 @@
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $data['nama_rc'] ?></td>
                 <td><?php echo $data['warna'] ?></td>
-                <td><?php echo $data['keluar'] ?></td>
-                <td><?php echo $data['masuk'] ?></td>
                 <td><?php echo $data['stok'] ?></td>
 
 

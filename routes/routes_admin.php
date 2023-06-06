@@ -54,6 +54,58 @@
               }
             }
 
+            if ($page == "barge") {
+              if ($aksi == "") {
+                include "../page/barge/barge.php";
+              }
+              if ($aksi == "tambahbarge") {
+                include "../page/barge/tambahbarge.php";
+              }
+              if ($aksi == "ubahbarge") {
+                include "../page/barge/ubahbarge.php";
+              }
+
+              if ($aksi == "hapusbarge") {
+                include "../page/barge/hapusbarge.php";
+              }
+            }
+
+            if ($page == "haultruck") {
+              if ($aksi == "") {
+                include "../page/haultruck/haultruck.php";
+              }
+              if ($aksi == "tambahhaultruck") {
+                include "../page/haultruck/tambahhaultruck.php";
+              }
+              if ($aksi == "ubahhaultruck") {
+                include "../page/haultruck/ubahhaultruck.php";
+              }
+
+              if ($aksi == "hapushaultruck") {
+                include "../page/haultruck/hapushaultruck.php";
+              }
+            }
+
+            if ($page == "po") {
+              if ($aksi == "") {
+                include "../page/po/po.php";
+              }
+              if ($aksi == "tambahpo") {
+                include "../page/po/tambahpo.php";
+              }
+              if ($aksi == "ubahpo") {
+                include "../page/po/ubahpo.php";
+              }
+
+              if ($aksi == "hapuspo") {
+                include "../page/po/hapuspo.php";
+              }
+              if ($aksi == "simpanpo") {
+                include "../page/po/simpanpo.php";
+              }
+            }
+
+
             if ($page == "satuanbarang") {
               if ($aksi == "") {
                 include "../page/satuanbarang/satuan.php";
@@ -198,6 +250,15 @@
               }
             }
 
+            if ($page == "loading") {
+              if ($aksi == "") {
+                include "../page/loading/loading.php";
+              }
+              if ($aksi == "tambahloading") {
+                include "../page/loading/tambahloading.php";
+              }
+            }
+
 
             if ($page == "crushingjty") {
               if ($aksi == "") {
@@ -256,6 +317,10 @@
               }
             }
 
+            if ($page == "printbarangmasuk") {
+              include "../page/laporan/exbarangmasuk.php";
+            }
+
             if ($page == "laporan_pegawai") {
               if ($aksi == "") {
                 include "../page/laporan/laporan_pegawai.php";
@@ -270,10 +335,15 @@
                 include "../page/laporan/laporan_gudang.php";
               }
             }
+
             if ($page == "laporan_barangkeluar") {
               if ($aksi == "") {
                 include "../page/laporan/laporan_barangkeluar.php";
               }
+            }
+
+            if ($page == "printbarangkeluar") {
+              include "../page/laporan/exbarangkeluar.php";
             }
 
             if ($page == "laporan_porang") {

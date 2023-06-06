@@ -7,7 +7,7 @@ session_start();
 
 $koneksi = new mysqli("localhost", "root", "", "inventori");
 
-if (empty($_SESSION['superadmin'])) {
+if (empty($_SESSION['username'])) {
 
   header("location:login.php");
 }

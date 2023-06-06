@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 $koneksi = new mysqli("localhost", "root", "", "inventori");
 
@@ -73,7 +72,7 @@ $koneksi = new mysqli("localhost", "root", "", "inventori");
 							<div class="col-lg-6">
 								<div class="p-5">
 									<div class="text-center">
-										<h1 class="h4 text-gray-900 mb-4">INVENTORY CONTROL (POWERHOUSE)</h1>
+										<h1 class="h4 text-gray-900 mb-4">POWERHOUSE APP</h1>
 									</div>
 									<form class="user" method="post">
 										<div class="form-group">
@@ -115,7 +114,7 @@ $koneksi = new mysqli("localhost", "root", "", "inventori");
 <?php
 
 
-
+session_start();
 if (isset($_POST['login'])) {
 	$username = mysqli_real_escape_string($koneksi,$_POST['username']);
 	$salt = "xgsuahkgfbioqy789p12640y98uio190836";
@@ -131,11 +130,12 @@ if (isset($_POST['login'])) {
 
 		if ($data['level'] == 'superadmin' && $level == 'superadmin') {
 			$_SESSION['superadmin'] = $data['id'];
+			
 
 			header("location:index/index_superadmin.php");
 		} else if ($data['level'] == 'admin' && $level == 'admin') {
 			$_SESSION['admin'] = $data['id'];
-
+			
 			header("location:index/index_admin.php");
 		} else if ($data['level'] == 'petugas' && $level == 'petugas') {
 			$_SESSION['petugas'] = $data['id'];

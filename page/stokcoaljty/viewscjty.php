@@ -14,6 +14,31 @@ $data = mysqli_fetch_assoc($sql2);
     </div>
 
     <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Total Keluar</th>
+                <th>Total Masuk</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $coba = mysqli_query($koneksi, "SELECT SUM(jumlah) AS jum  FROM crushingjty WHERE id_rcjty = $id");
+            $tamps = mysqli_fetch_assoc($coba);
+            $total = $tamps['jum'];
+
+            $coba2 = mysqli_query($koneksi, "SELECT SUM(jumlah) AS jum  FROM transfer WHERE id_rcjty = $id");
+            $tamps2 = mysqli_fetch_assoc($coba2);
+            $total2 = $tamps2['jum'];
+
+            $hasil = $total + $total2;
+            ?>
+            <tr>
+                <td><?php echo  $hasil; ?></td>
+                <td><?php echo  $hasil; ?></td>
+            </tr>
+        </tbody>
+    </table>
 
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">CRUSHING</h6>
@@ -63,7 +88,7 @@ $data = mysqli_fetch_assoc($sql2);
                 <th>Tanggal</th>
                 <th>Start</th>
                 <th>Finish</th>
-                <th>Jumlah Masuk</th>
+                <th>Jumlah</th>
             </tr>
         </thead>
         <tbody>

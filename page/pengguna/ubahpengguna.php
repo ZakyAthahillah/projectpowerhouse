@@ -1,5 +1,3 @@
-
-
 <?php
  $id = $_GET['id'];
  $sql2 = $koneksi->query("select * from users where id = '$id'");

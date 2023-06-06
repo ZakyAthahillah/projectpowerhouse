@@ -1,123 +1,93 @@
-<!doctype html>
-<html class="no-js" lang="en">
-
 <?php
+// Mengimpor library FPDF
+
+
+// Membuat koneksi ke database
 include '../../koneksibarang.php';
+
+// Memeriksa apakah form telah disubmit
+if (isset($_POST['submit'])) {
+    // Mengambil nilai dari form
+    $tanggal = $_POST['tanggal'];
+    $bulan = $_POST['bulan'];
+    $tahun = $_POST['tahun'];
+
+    // Membuat objek PDF
+    $pdf = new FPDF();
+    $pdf->AddPage();
+
+    // Menambahkan judul laporan
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 10, 'Laporan Berdasarkan Tanggal/Bulan/Tahun', 0, 1, 'C');
+
+    // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(0, 10, 'Tanggal/Bulan/Tahun: ' . $tanggal . '/' . $bulan . '/' . $tahun, 0, 1);
+
+    // Menambahkan header tabel
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(30, 10, 'ID', 1, 0, 'C');
+    $pdf->Cell(60, 10, 'Nama', 1, 0, 'C');
+    $pdf->Cell(50, 10, 'Alamat', 1, 1, 'C');
+
+    // Mengambil data dari database
+    $cek = "SELECT * FROM barang_keluar WHERE DAY(tanggal) = '$tanggal' AND MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'";
+    $result = mysqli_query($koneksi, $cek);
+
+    // Menampilkan data dalam tabel
+    $pdf->SetFont('Arial', '', 12);
+    while ($pr = mysqli_fetch_assoc($result)) {
+        $pdf->Cell(30, 10, $pr['id'], 1, 0, 'C');
+        $pdf->Cell(60, 10, $pr['nama_barang'], 1, 0);
+        $pdf->Cell(50, 10, $pr['tanggal'], 1, 1);
+    }
+
+    // Mengakhiri dokumen PDF
+    $pdf->Output();
+}
 ?>
 
+<!DOCTYPE html>
 <html>
 
 <head>
-  <title>Laporan Barang Keluar</title>
-  <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <script src="../../dataTables/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
-  <script src="../../printasset/popper.min.js"></script>
-  <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="../../printasset/jquery.dataTables.css">
-  <link rel="stylesheet" type="text/css" href="../../printasset/buttons.dataTables.min.css">
-  <link rel="stylesheet" type="text/css" href="../../printasset/jquery.dataTables.min.css">
-  <script type="text/javascript" charset="utf8" src="../../vendor/datatables/jquery.dataTables.js"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144808195-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-144808195-1');
-  </script>
-
+    <title>Laporan Berdasarkan Tanggal/Bulan/Tahun</title>
 </head>
 
 <body>
-  <div class="container">
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Laporan Barang Keluar<a href="http://localhost/projectpowerhouse/index/index_admin.php?page=laporan_barangkeluar" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
-    </div>
-  </div>
-    <div class="data-tables datatable-dark">
-      <table class="display" id="dataTable3" style="width:100%">
-        <thead class="thead-dark">
-          <tr>
-            <th>No</th>
-            <th>Id Transaksi</th>
-            <th>Tanggal Keluar</th>
-            <th>Kode Barang</th>
-            <th>Nama Barang</th>
-            <th>Jumlah Keluar</th>
-            <th>Satuan</th>
-            <th>Penerima</th>
-            <th>Catatan</th>
-            <!--<th>Opsi</th>-->
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          $no = 1;
-          $sql = $koneksi->query("select * from barang_keluar
-          inner join pegawai on barang_keluar.id_pegawai = pegawai.id_pegawai");
-          while ($data = $sql->fetch_assoc()) {
-
-          ?>
-
-            <tr>
-              <td><?php echo $no++; ?></td>
-								<td><?php echo $data['id_transaksi'] ?></td>
-								<td><?php echo $data['tanggal'] ?></td>
-								<td><?php echo $data['kode_barang'] ?></td>
-								<td><?php echo $data['nama_barang'] ?></td>
-								<td><?php echo $data['jumlah'] ?></td>
-								<td><?php echo $data['satuan'] ?></td>
-								<td><?php echo $data['nama'] ?></td>
-								<td><?php echo $data['catatan'] ?></td>
-
-            </tr>
-          <?php
-          }
-          ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <script>
-    $(document).ready(function() {
-      $('#dataTable3').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-          'copy', 'csv', 'excel', 'pdf', 'print',
-        ]
-      });
-    });
-  </script>
-
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script> -->
-
-  <script src="../../printasset/jquery-3.5.1.js"></script>
-  <script src="../../printasset/jquery.dataTables.min.js"></script>
-  <script src="../../printasset/dataTables.buttons.min.js"></script>
-  <script src="../../printasset/buttons.flash.min.js"></script>
-  <script src="../../printasset/jszip.min.js"></script>
-  <script src="../../printasset/pdfmake.min.js"></script>
-  <script src="../../printasset/vfs_fonts.js"></script>
-  <script src="../../printasset/buttons.html5.min.js"></script>
-  <script src="../../printasset/buttons.print.min.js"></script>
-
-
+    <h1>Laporan Berdasarkan Tanggal/Bulan/Tahun</h1>
+    <form method="POST" action="">
+        <label>Tanggal:</label>
+        <select name="tanggal">
+            <?php
+            for ($i = 1; $i <= 31; $i++) {
+                echo '<option value="' . $i . '">' . $i . '</option>';
+            }
+            ?>
+        </select>
+        <label>Bulan:</label>
+        <select name="bulan">
+            <?php
+            $bulan_array = array(
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'J
+                uli', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            );
+            foreach ($bulan_array as $index => $bulan) {
+                echo '<option value="' . ($index + 1) . '">' . $bulan . '</option>';
+            }
+            ?>
+        </select>
+        <label>Tahun:</label>
+        <select name="tahun">
+            <?php
+            for ($i = 2021; $i <= 2023; $i++) {
+                echo '<option value="' . $i . '">' . $i . '</option>';
+            }
+            ?>
+        </select>
+        <br><br>
+        <input type="submit" name="submit" value="Tampilkan Laporan">
+    </form>
 
 </body>
 

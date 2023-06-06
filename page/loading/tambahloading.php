@@ -1,8 +1,8 @@
 <script>
 	function sum() {
 		var stok = document.getElementById('stok').value;
-		var jumlahmasuk = document.getElementById('jumlahmasuk').value;
-		var result = parseFloat(stok) + parseFloat(jumlahmasuk);
+		var jumlahkeluar = document.getElementById('jumlahkeluar').value;
+		var result = parseFloat(stok) - parseFloat(jumlahkeluar);
 		if (!isNaN(result)) {
 			document.getElementById('jumlah').value = result;
 		}
@@ -49,10 +49,10 @@
 						</div>
 
 
-						<label for="">Crushing To</label>
+						<label for="">Loading From</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="crushingto" id="select_crushingjty" class="form-control">
+								<select name="loadingfrom" id="select_loadingjty" class="form-control">
 									<option value="">--------------- Pilih Barang ---------------</option>
 									<?php
 
@@ -68,10 +68,27 @@
 
 						<div class="tampung"></div>
 
+                        <label for="">Loading To</label>
+						<div class="form-group">
+							<div class="form-line">
+								<select name="loadingto" id="select_bargejty" class="form-control">
+									<option value="">--------------- Pilih Barang ---------------</option>
+									<?php
+
+									$sql = $koneksi->query("select * from barge order by id_barge");
+									while ($data = $sql->fetch_assoc()) {
+										echo "<option value='$data[id_barge].$data[nama_barge]'>$data[nama_barge]</option>";
+									}
+									?>
+
+								</select>
+							</div>
+						</div>
+
 						<label for="">Jumlah</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" name="jumlahmasuk" id="jumlahmasuk" onkeyup="sum()" class="form-control" />
+								<input type="text" name="jumlahkeluar" id="jumlahkeluar" onkeyup="sum()" class="form-control" />
 
 							</div>
 						</div>
@@ -103,11 +120,17 @@
 
 					if (isset($_POST['simpan'])) {
 						$tanggal = $_POST['tanggal'];
-						$id_rcjty = $_POST['crushingto'];
+						$id_rcjty = $_POST['loadingfrom'];
 						$pecah_rc = explode(".", $id_rcjty);
 						$id_rcjty = $pecah_rc[0];
 						$nama_rc = $pecah_rc[1];
-						$jumlahmasuk = $_POST['jumlahmasuk'];
+
+                        $id_barge = $_POST['loadingto'];
+						$pecah_barge = explode(".", $id_barge);
+						$id_barge = $pecah_barge[0];
+						$nama_barge = $pecah_barge[1];
+
+						$jumlahkeluar = $_POST['jumlahkeluar'];
 						$jumlah = $_POST['jumlah'];
 
 						$start = $_POST['start'];
@@ -115,7 +138,7 @@
 						$finish = $_POST['finish'];
 						$catatan = $_POST['catatan'];
 
-						$sql = $koneksi->query("insert into crushing(tanggal, start, finish, id_rcjty, jumlah, catatan) values('$tanggal','$start','$finish','$id_rcjty','$jumlahmasuk', '$catatan')");
+						$sql = $koneksi->query("insert into loading(tanggal, start, finish, id_rcjty, id_barge, beltscale) values('$tanggal','$start','$finish','$id_rcjty', '$id_barge','$jumlahkeluar')");
 						$sql2 = $koneksi->query("update scjty set stok='$jumlah' where id_rcjty='$id_rcjty'");
 
 
@@ -126,7 +149,7 @@
 					?>
 							<script type="text/javascript">
 								alert("Simpan Data Berhasil");
-								window.location.href = "?page=crushing";
+								window.location.href = "?page=loading";
 							</script>
 					<?php
 						}

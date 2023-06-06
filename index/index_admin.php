@@ -1,16 +1,13 @@
 <?php
-include "../fpdf/fpdf.php";
+require('../fpdf/fpdf.php');
+$koneksi = new mysqli("localhost", "root", "", "inventori");
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+
+
 session_start();
-
-
-
-$koneksi = new mysqli("localhost", "root", "", "inventori");
-
-if (empty($_SESSION['admin'])) {
-
-  header("location:login.php");
+if (!isset($_SESSION['admin'])) {
+  header("location:../login.php");
 }
 
 
@@ -46,6 +43,7 @@ if (empty($_SESSION['admin'])) {
 
   <!-- CHART -->
   <script src="../vendor/chart.js/Chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 
@@ -146,7 +144,7 @@ if (empty($_SESSION['admin'])) {
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="?page=oos">
+        <a class="nav-link" href="?page=po">
           <i class="fas fa-fw fa-box"></i>
           <span>PRE - ORDER</span>
         </a>
@@ -164,13 +162,14 @@ if (empty($_SESSION['admin'])) {
         <div id="collapseLaporan" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu Laporan:</h6>
-            <a class="collapse-item" href="?page=laporan_gudang">Laporan Data Barang</a>
+            <a class="collapse-item" href="?page=laporan_gudang">Laporan Monitoring Barang</a>
             <a class="collapse-item" href="?page=laporan_barangmasuk">Laporan Barang Masuk</a>
             <a class="collapse-item" href="?page=laporan_barangkeluar">Laporan Barang Keluar</a>
-            <a class="collapse-item" href="?page=laporan_pegawai">Laporan Data Pegawai</a>
-            <a class="collapse-item" href="?page=laporan_supplier">Laporan Supplier</a>
+            <!-- <a class="collapse-item" href="?page=laporan_pegawai">Laporan Data Pegawai</a>
+            <a class="collapse-item" href="?page=laporan_supplier">Laporan Supplier</a> -->
             <a class="collapse-item" href="?page=laporan_penerima">Laporan Penerima Barang</a>
             <a class="collapse-item" href="?page=laporan_pengirim">Laporan Pengirim Barang</a>
+            <a class="collapse-item" href="?page=laporan_pengirim">Laporan Pre-Order</a>
           </div>
         </div>
       </li>
@@ -180,6 +179,21 @@ if (empty($_SESSION['admin'])) {
       <div class="sidebar-heading text-light">
         PRODUKSI BATUBARA
       </div>
+
+      <li class="nav-item active">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMDPB" aria-expanded="true" aria-controls="collapseMDPB">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>DATA MASTER</span>
+        </a>
+        <div id="collapseMDPB" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header text-dark">Menu:</h6>
+            <a class="collapse-item" href="?page=haultruck">Data Hauling Truck</a>
+            <a class="collapse-item" href="?page=barge">Data Barge</a>
+          </div>
+        </div>
+      </li>
+
 
       <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStockcoaljty" aria-expanded="true" aria-controls="collapseStockcoaljty">
@@ -256,7 +270,7 @@ if (empty($_SESSION['admin'])) {
         <div id="collapseLoading" class="collapse" aria-labelledby="headingLoading" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=gudang">Data Loading</a>
+            <a class="collapse-item" href="?page=loading">Data Loading</a>
           </div>
         </div>
       </li>
@@ -271,11 +285,13 @@ if (empty($_SESSION['admin'])) {
         <div id="collapseLapPB" class="collapse" aria-labelledby="headingLapPB" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=gudang">Laporan Data Stock Coal</a>
+            <a class="collapse-item" href="?page=gudang">Laporan Stock Coal Jetty</a>
+            <a class="collapse-item" href="?page=gudang">Laporan Stock Coal ICF</a>
             <a class="collapse-item" href="?page=gudang">Laporan Data Transfer</a>
             <a class="collapse-item" href="?page=gudang">Laporan Data Crushing</a>
             <a class="collapse-item" href="?page=gudang">Laporan Data Blending</a>
             <a class="collapse-item" href="?page=gudang">Laporan Data Loading</a>
+            <a class="collapse-item" href="?page=gudang">Data Transfer Haul Truck</a>
           </div>
         </div>
       </li>
@@ -421,7 +437,7 @@ if (empty($_SESSION['admin'])) {
   <!--SCRIPT GET RCJTY-->
   <script>
     jQuery(document).ready(function($) {
-      $('#select_crushingjty,#select_transferjty').change(function() { // Jika Select Box id provinsi dipilih
+      $('#select_crushingjty,#select_transferjty,#select_loadingjty').change(function() { // Jika Select Box id provinsi dipilih
         var tamp = $(this).val(); // Ciptakan variabel provinsi
         $.ajax({
           type: 'POST', // Metode pengiriman data menggunakan POST
@@ -561,11 +577,11 @@ if (empty($_SESSION['admin'])) {
   </script>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
   <script src="../select2/js/select2.min.js"></script>
 
   <script>
-    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty").select2({
+    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item").select2({
       theme: 'bootstrap4',
       placeholder: "- Pilih -"
     });
