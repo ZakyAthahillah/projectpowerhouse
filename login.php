@@ -143,7 +143,7 @@ if (isset($_POST['login'])) {
 			header("location:index/index_user.php");
 		}
 	} else {
-		echo '<div class="container"> <center><div class="alert alert-danger alert-dismissible">
+		echo '<div class="container"> <center><div class="alert alert-warning alert-dismissible">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<strong>Login Gagal!, Harap Periksa Kembali Username, Password, dan Level
 	  </div><center></div>';
