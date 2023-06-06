@@ -54,6 +54,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
+    <div class="container">
     <h1>Laporan Berdasarkan Bulan dan Tahun</h1>
     <form method="POST" action=""> 
         <label>Bulan:</label>
@@ -79,6 +80,7 @@ if (isset($_POST['submit'])) {
         <br><br>
         <input type="submit" name="submit" value="Tampilkan Laporan">
     </form>
+    </div>
 
 </body>
 

@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-row">
                         <label for="item">Nama Barang :</label>
-                        <select name="item[]" class="select2">
+                        <select name="item[]" class="select2" class="form-control">
                             <?php
                             // Koneksi ke database MySQL
                             $servername = "localhost";
@@ -47,16 +47,15 @@
                                     echo "<option value='$id'>$name</option>";
                                 }
                             }
-
                             $conn->close();
                             ?>
                         </select>
-                        <input type="text" name="input[]" placeholder="Jumlah">
-                        <button type="button" onclick="removeForm(this)">Hapus</button>
+                        <input type="text" name="input[]" placeholder="Jumlah" class="form-control w-25">
+                        <button type="button" onclick="removeForm(this)" class="btn btn-danger">-</button>
                     </div>
                 </div>
-                <button type="button" onclick="addForm()">Tambah Form</button>
-                <button type="submit">Simpan</button>
+                <button type="button" onclick="addForm()" class="btn btn-success">Tambah Form</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
 
             <script>
@@ -99,8 +98,8 @@
                     $conn->close();
                     ?>
                 </select>
-                <input type="text" name="input[]" placeholder="Jumlah">
-                <button type="button" onclick="removeForm(this)">Hapus</button>
+                <input type="text" name="input[]" placeholder="Jumlah" class="form-control w-25">
+                <button type="button" onclick="removeForm(this)" class="btn btn-danger">-</button>
             `;
                     formContainer.appendChild(formRow);
                     $('.select2').select2(); // Menginisialisasi Select2 pada form baru

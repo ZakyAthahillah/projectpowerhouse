@@ -24,7 +24,7 @@ if (isset($_POST['item']) && isset($_POST['input'])) {
         $item = $conn->real_escape_string($items[$i]);
         $input = $conn->real_escape_string($inputs[$i]);
 
-        $sql = "INSERT INTO po (kode_po, tanggal, kode_barang, jumlah, status) VALUES ('$id','$tanggal','$item','$input', '$status')";
+        $sql = "INSERT INTO po (kode_po, tanggal, kode_barang, jumlah_po, status) VALUES ('$id','$tanggal','$item','$input', '$status')";
         if ($conn->query($sql) !== TRUE) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
