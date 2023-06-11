@@ -10,6 +10,7 @@
           <thead>
             <tr>
               <th>No</th>
+              <th>Kode SBP</th>
               <th>Tanggal</th>
               <th>Start</th>
               <th>Finish</th>
@@ -37,6 +38,7 @@
 
               <tr>
                 <td><?php echo $no++; ?></td>
+                <td><?php echo $data['kode_sbp'] ?></td>
                 <td><?php echo $data['tanggal'] ?></td>
                 <td><?php echo $data['start'] ?></td>
                 <td><?php echo $data['finish'] ?></td>

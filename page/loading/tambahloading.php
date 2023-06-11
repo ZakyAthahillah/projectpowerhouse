@@ -25,7 +25,22 @@
 
 					<form method="POST" enctype="multipart/form-data">
 
+						<label for="">Kode SBP</label>
+						<div class="form-group">
+							<div class="form-line">
+								<select name="kode_sbp" id="select_kodesbp" class="form-control">
+									<option value="">--------------- Pilih Barang ---------------</option>
+									<?php
 
+									$sql = $koneksi->query("select * from sbp");
+									while ($data = $sql->fetch_assoc()) {
+										echo "<option value='$data[kode_sbp]'>$data[kode_sbp] | $data[tittle]</option>";
+									}
+									?>
+
+								</select>
+							</div>
+						</div>
 
 						<label for="">Tanggal</label>
 						<div class="form-group">
@@ -68,7 +83,7 @@
 
 						<div class="tampung"></div>
 
-                        <label for="">Loading To</label>
+						<label for="">Loading To</label>
 						<div class="form-group">
 							<div class="form-line">
 								<select name="loadingto" id="select_bargejty" class="form-control">
@@ -124,8 +139,8 @@
 						$pecah_rc = explode(".", $id_rcjty);
 						$id_rcjty = $pecah_rc[0];
 						$nama_rc = $pecah_rc[1];
-
-                        $id_barge = $_POST['loadingto'];
+						$kode_sbp = $_POST['kode_sbp'];
+						$id_barge = $_POST['loadingto'];
 						$pecah_barge = explode(".", $id_barge);
 						$id_barge = $pecah_barge[0];
 						$nama_barge = $pecah_barge[1];
@@ -138,7 +153,7 @@
 						$finish = $_POST['finish'];
 						$catatan = $_POST['catatan'];
 
-						$sql = $koneksi->query("insert into loading(tanggal, start, finish, id_rcjty, id_barge, beltscale) values('$tanggal','$start','$finish','$id_rcjty', '$id_barge','$jumlahkeluar')");
+						$sql = $koneksi->query("insert into loading(kode_sbp, tanggal, start, finish, id_rcjty, id_barge, beltscale) values('$kode_sbp','$tanggal','$start','$finish','$id_rcjty', '$id_barge','$jumlahkeluar')");
 						$sql2 = $koneksi->query("update scjty set stok='$jumlah' where id_rcjty='$id_rcjty'");
 
 

@@ -2,7 +2,7 @@
 $id = $_GET['id_supplier'];
 //menyertakan file fpdf, file fpdf.php di dalam folder FPDF yang diekstrak
 include "../../fpdf/fpdf.php";
-include "../../koneksibarang.php";
+include "../../koneksi.php";
 
 //membuat objek baru bernama pdf dari class FPDF
 //dan melakukan setting kertas l : landscape, A5 : ukuran kertas

@@ -52,7 +52,7 @@
 									<?php }?>
           </tbody>
         </table>
-        <a href="?page=printbarangkeluar" class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i></a>
+        <a href="../page/laporan/exbarangkeluar.php" class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i></a>
 
         </tbody>
         </table>

@@ -1,7 +1,7 @@
 <?php
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-$koneksi = new mysqli("localhost", "root", "", "inventori");
+include 'koneksi.php';
 
 
 ?>
@@ -107,6 +107,23 @@ $koneksi = new mysqli("localhost", "root", "", "inventori");
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="js/demo/datatables-demo.js"></script>
 </body>
 
 </html>
@@ -116,10 +133,10 @@ $koneksi = new mysqli("localhost", "root", "", "inventori");
 
 session_start();
 if (isset($_POST['login'])) {
-	$username = mysqli_real_escape_string($koneksi,$_POST['username']);
+	$username = mysqli_real_escape_string($koneksi, $_POST['username']);
 	$salt = "xgsuahkgfbioqy789p12640y98uio190836";
 	$passwordsalt = $_POST['password'] . $salt;
-	$password = md5(mysqli_real_escape_string($koneksi,$passwordsalt));
+	$password = md5(mysqli_real_escape_string($koneksi, $passwordsalt));
 	$level = $_POST['level'];
 	$sql = mysqli_query($koneksi, "SELECT * FROM users WHERE username='{$username}' AND password='{$password}'");
 	$ketemu = $sql->num_rows;
@@ -130,12 +147,12 @@ if (isset($_POST['login'])) {
 
 		if ($data['level'] == 'superadmin' && $level == 'superadmin') {
 			$_SESSION['superadmin'] = $data['id'];
-			
+
 
 			header("location:index/index_superadmin.php");
 		} else if ($data['level'] == 'admin' && $level == 'admin') {
 			$_SESSION['admin'] = $data['id'];
-			
+
 			header("location:index/index_admin.php");
 		} else if ($data['level'] == 'petugas' && $level == 'petugas') {
 			$_SESSION['petugas'] = $data['id'];
@@ -145,26 +162,9 @@ if (isset($_POST['login'])) {
 	} else {
 		echo '<div class="container"> <center><div class="alert alert-warning alert-dismissible">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		<strong>Login Gagal!, Harap Periksa Kembali Username, Password, dan Level
+		<strong>Login Gagal !!! , Harap Periksa Kembali Username, Password, dan Level atau <a href="pengaduan.php">Beritahu Admin Disini</a>
 	  </div><center></div>';
 	}
 }
 
 ?>
-
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>

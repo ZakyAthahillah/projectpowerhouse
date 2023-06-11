@@ -7,12 +7,6 @@ $idsatuan = $tampil['id_satuan'];
 $idjenis = $tampil['id_jenis'];
 $level = $tampil['level'];
 
-
-
-
-
-
-
 ?>
 
 <div class="container-fluid">

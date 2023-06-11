@@ -1,6 +1,7 @@
 <?php
 require('../fpdf/fpdf.php');
-$koneksi = new mysqli("localhost", "root", "", "inventori");
+include '../koneksi.php';
+
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
@@ -258,6 +259,7 @@ if (!isset($_SESSION['admin'])) {
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu:</h6>
             <a class="collapse-item" href="?page=gudang">Data Blending</a>
+            <a class="collapse-item" href="?page=sbp">SBP</a>
           </div>
         </div>
       </li>
@@ -581,7 +583,7 @@ if (!isset($_SESSION['admin'])) {
   <script src="../select2/js/select2.min.js"></script>
 
   <script>
-    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item").select2({
+    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item,#select_kodesbp").select2({
       theme: 'bootstrap4',
       placeholder: "- Pilih -"
     });

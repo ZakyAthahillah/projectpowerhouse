@@ -3,6 +3,7 @@ $id = $_GET['id_pegawai'];
 $sql2 = $koneksi->query("select * from pegawai where id_pegawai = '$id'");
 $tampil = $sql2->fetch_assoc();
 $nama = $tampil['nama'];
+$bagian = $tampil['bagian'];
 ?>
 
 <div class="container-fluid">
@@ -39,14 +40,12 @@ $nama = $tampil['nama'];
 						<div class="form-group">
 							<div class="form-line">
 								<select name="bagian" class="form-control show-tick">
-									<option value=""><?php echo $tampil['bagian']; ?></option>
-									<option value="">-- Pilih Bagian --</option>
-									<option value="Foreman Mechanical">Foreman Mechanical</option>
-									<option value="Foreman Electrical">Foreman Electrical</option>
-									<option value="Helper Mechanical">Helper Mechanical</option>
-									<option value="Operator Control Room">Operator Control Room</option>
-									<option value="Assistant Foreman Electrical">Assistant Foreman Electrical</option>
-									<option value="Foreman Mechanical">Foreman Control Room</option>
+									<option <?php if ($bagian == "Foreman Mechanical") echo 'selected'; ?> value="Foreman Mechanical">Foreman Mechanical</option>
+									<option <?php if ($bagian == "Foreman Electrical") echo 'selected'; ?> value="Foreman Electrical">Foreman Electrical</option>
+									<option <?php if ($bagian == "Helper Mechanical") echo 'selected'; ?> value="Helper Mechanical">Helper Mechanical</option>
+									<option <?php if ($bagian == "Operator Control Room") echo 'selected'; ?> value="Operator Control Room">Operator Control Room</option>
+									<option <?php if ($bagian == "Assistant Foreman Electrical") echo 'selected'; ?> value="Assistant Foreman Electrical">Assistant Foreman Electrical</option>
+									<option <?php if ($bagian == "Foreman Control Room") echo 'selected'; ?> value="Foreman Control Room">Foreman Control Room</option>
 								</select>
 							</div>
 						</div>

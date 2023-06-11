@@ -32,7 +32,6 @@
                         </div>
 
 
-
                         <input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
 
                     </form>
@@ -45,10 +44,6 @@
                     if (isset($_POST['simpan'])) {
                         $nama_barge = $_POST['nama_barge'];
                         $status = $_POST['status'];
-
-
-
-
 
                         $sql = $koneksi->query("insert into barge (nama_barge, status) values('$nama_barge', '$status')");
 
@@ -63,6 +58,4 @@
                     <?php
                         }
                     }
-
-
                     ?>

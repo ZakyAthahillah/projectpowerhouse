@@ -77,7 +77,7 @@
   						<label for="">Barang</label>
   						<div class="form-group">
   							<div class="form-line">
-  								<select name="barang" id="select_barang" class="form-control">
+  								<select name="barang" id="select_barang" class="form-control" required>
   									<option value="">--------------- Pilih Barang ---------------</option>
   									<?php
 
@@ -118,7 +118,7 @@
   						<label for="">Supplier</label>
   						<div class="form-group">
   							<div class="form-line">
-  								<select name="pengirim" id="select_suplier" class="form-control" />
+  								<select name="pengirim" id="select_suplier" class="form-control"  required/>
   								<option value="">-- Pilih Supplier --</option>
   								<?php
 

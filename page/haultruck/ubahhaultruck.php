@@ -2,6 +2,7 @@
 $id = $_GET['id_haultruck'];
 $sql2 = $koneksi->query("select * from haultruck where id_haultruck = '$id'");
 $tampil = $sql2->fetch_assoc();
+$status = $tampil['status'];
 
 
 
@@ -36,8 +37,8 @@ $tampil = $sql2->fetch_assoc();
                         <div class="form-group">
                             <div class="form-line">
                                 <select name="status" id="select_status" class="form-control">
-                                    <option value='<span class="badge badge-success">Baik</span>'>Baik</option>
-                                    <option value='<span class="badge badge-warning">Maintenance</span>'>Maintenance</option>
+                                    <option <?php if ($status == '<span class="badge badge-success">Baik</span>') echo 'selected'; ?> value='<span class="badge badge-success">Baik</span>'>Baik</option>
+                                    <option <?php if ($status == '<span class="badge badge-warning">Maintenance</span>') echo 'selected'; ?> value='<span class="badge badge-warning">Maintenance</span>'>Maintenance</option>
                                 </select>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 <?php
-include("../../koneksibarang.php");
+include("../../koneksi.php");
 $tamp = $_POST['tamp'];
 $pecah_bar = explode(".", $tamp);
 $id_rcjty = $pecah_bar[0];
