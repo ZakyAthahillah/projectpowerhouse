@@ -1,8 +1,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Stock Coal Rom Jetty</h6>
-      <br>
-      <a href="?page=stokcoaljty&aksi=tambahsc" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
+      <h6 class="m-0 font-weight-bold text-primary">Laporan Stock Coal Rom Jetty</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -13,8 +11,6 @@
               <th>Nama RC</th>
               <th>Warna</th>
               <th>Stok</th>
-              <th>Pengaturan</th>
-
             </tr>
           </thead>
 
@@ -32,17 +28,12 @@
                 <td><?php echo $data['nama_rcjty'] ?></td>
                 <td><?php echo $data['warna'] ?></td>
                 <td><?php echo $data['stok'] ?></td>
-
-
-                <td>
-                <a href="?page=stokcoaljty&aksi=viewscjty&id_rcjty=<?php echo $data['id_rcjty'] ?>" class="btn btn-success btn-circle"><i class="fas fa-search"></i></a>
-                </td>
               </tr>
             <?php } ?>
 
           </tbody>
         </table>
-
+        <a href="../page/laporan/produksibb/exstockcoaljty.php" class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i></a>
         </tbody>
         </table>
       </div>

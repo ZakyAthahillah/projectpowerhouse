@@ -30,21 +30,21 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="date" name="tanggal" class="form-control" id="tanggal" value="" />
 							</div>
 						</div>
 
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="time" name="start" class="form-control" id="start" value="" />
 							</div>
 						</div>
 
 						<label for="">Finish</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="time" name="finish" class="form-control" id="finish" value="" />
 							</div>
 						</div>
 
@@ -58,7 +58,7 @@
 
 									$sql = $koneksi->query("select * from scicf order by id_rcicf");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcicf].$data[nama_rc]'>$data[id_rcicf] | $data[nama_rc]</option>";
+										echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[id_rcicf] | $data[nama_rcicf]</option>";
 									}
 									?>
 

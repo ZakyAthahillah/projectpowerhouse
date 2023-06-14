@@ -17,7 +17,7 @@
                   <label for="">RC</label>
                   <div class="form-group">
                      <div class="form-line">
-                      <input type="text" name="nama_rc" class="form-control" />	 
+                      <input type="text" name="nama_rcjty" class="form-control" />	 
                   </div>
                   </div>
 
@@ -54,12 +54,12 @@
                   <?php
                   
                   if (isset($_POST['simpan'])) {
-                      $nama_rc= $_POST['nama_rc'];
+                      $nama_rcjty= $_POST['nama_rcjty'];
                       
           
   
                       
-                      $sql = $koneksi->query("insert into scjty (nama_rc) values('$nama_rc')");
+                      $sql = $koneksi->query("insert into scjty (nama_rcjty) values('$nama_rcjty')");
                       
                       if ($sql) {
                           ?>

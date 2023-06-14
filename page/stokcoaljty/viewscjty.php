@@ -6,7 +6,7 @@ $data = mysqli_fetch_assoc($sql2);
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-            <h4 class="m-0 font-weight-bold text-primary text-center">RANGKUMAN RIWAYAT STOCK COAL JETTY <?= $data['nama_rc']; ?> (<?= $data['warna']; ?>)
+            <h4 class="m-0 font-weight-bold text-primary text-center">RANGKUMAN RIWAYAT STOCK COAL JETTY <?= $data['nama_rcjty']; ?> (<?= $data['warna']; ?>)
         </h6>
         <br>
         <a href="?page=stokcoaljty" class="btn btn-success float-right"><i class="fas fa-arrow-left">Kembali</i></a>
@@ -49,6 +49,7 @@ $data = mysqli_fetch_assoc($sql2);
                     <th>Tanggal</th>
                     <th>Start</th>
                     <th>Finish</th>
+                    <th>Crushing To</th>
                     <th>Jumlah</th>
                 </tr>
             </thead>
@@ -56,7 +57,10 @@ $data = mysqli_fetch_assoc($sql2);
                 <?php
 
                 $no = 1;
-                $sql = mysqli_query($koneksi, "select * from crushingjty where id_rcjty = $id");
+                $sql = mysqli_query($koneksi, "SELECT *
+                FROM crushingjty AS c
+                INNER JOIN scjty AS s ON c.id_rcjty = s.id_rcjty
+                WHERE c.id_rcjty = $id");
                 while ($data = mysqli_fetch_assoc($sql)) {
 
                 ?>
@@ -66,6 +70,7 @@ $data = mysqli_fetch_assoc($sql2);
                         <td><?php echo $data['tanggal'] ?></td>
                         <td><?php echo $data['start'] ?></td>
                         <td><?php echo $data['finish'] ?></td>
+                        <td><?php echo $data['nama_rcjty'] ?></td>
                         <td><?php echo $data['jumlah'] ?></td>
                     </tr>
                 <?php } ?>
@@ -86,6 +91,8 @@ $data = mysqli_fetch_assoc($sql2);
                     <th>Tanggal</th>
                     <th>Start</th>
                     <th>Finish</th>
+                    <th>Transfer From (ICF)</th>
+                    <th>Transfer To (JETTY)</th>
                     <th>Jumlah</th>
                 </tr>
             </thead>
@@ -93,7 +100,10 @@ $data = mysqli_fetch_assoc($sql2);
                 <?php
 
                 $no = 1;
-                $sql = mysqli_query($koneksi, "select * from transfer where id_rcjty = $id");
+                $sql = mysqli_query($koneksi, "SELECT * FROM transfer AS t
+                INNER JOIN scicf AS c ON t.id_rcicf = c.id_rcicf
+                INNER JOIN scjty AS j ON t.id_rcjty = j.id_rcjty
+                WHERE j.id_rcjty = $id");
                 while ($data = mysqli_fetch_assoc($sql)) {
 
                 ?>
@@ -103,6 +113,8 @@ $data = mysqli_fetch_assoc($sql2);
                         <td><?php echo $data['tanggal'] ?></td>
                         <td><?php echo $data['start'] ?></td>
                         <td><?php echo $data['finish'] ?></td>
+                        <td><?php echo $data['nama_rcjty'] ?></td>
+                        <td><?php echo $data['nama_rcicf'] ?></td>
                         <td><?php echo $data['jumlah'] ?></td>
                     </tr>
                 <?php } ?>
@@ -132,10 +144,10 @@ $data = mysqli_fetch_assoc($sql2);
                 <?php
 
                 $no = 1;
-                $sql = mysqli_query($koneksi, "select * from loading
-            inner join barge on loading.id_barge = barge.id_barge
-            inner join scjty on loading.id_rcjty = scjty.id_rcjty
-            ");
+                $sql = mysqli_query($koneksi, "SELECT * FROM loading AS l
+                INNER JOIN barge AS b ON l.id_barge = b.id_barge
+                INNER JOIN scjty AS s ON l.id_rcjty = s.id_rcjty
+                WHERE s.id_rcjty = $id");
                 while ($data = mysqli_fetch_assoc($sql)) {
 
                 ?>
@@ -144,7 +156,7 @@ $data = mysqli_fetch_assoc($sql2);
                         <td><?php echo $data['tanggal'] ?></td>
                         <td><?php echo $data['start'] ?></td>
                         <td><?php echo $data['finish'] ?></td>
-                        <td><?php echo $data['nama_rc'] ?></td>
+                        <td><?php echo $data['nama_rcjty'] ?></td>
                         <td><?php echo $data['warna'] ?></td>
                         <td><?php echo $data['nama_barge'] ?></td>
                         <td><?php echo $data['beltscale'] ?></td>

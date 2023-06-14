@@ -29,7 +29,7 @@
 
               <tr>
                 <td><?php echo $no++; ?></td>
-                <td><?php echo $data['nama_rc'] ?></td>
+                <td><?php echo $data['nama_rcicf'] ?></td>
                 <td><?php echo $data['warna'] ?></td>
                 <td><?php echo $data['stok'] ?></td>
                 <td>

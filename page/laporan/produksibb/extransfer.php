@@ -1,6 +1,6 @@
 <?php
-include '../../koneksi.php';
-require '../../fpdf/fpdf.php';
+include '../../../koneksi.php';
+require '../../../fpdf/fpdf.php';
 
 // Memeriksa apakah form telah disubmit
 if (isset($_POST['submit'])) {
@@ -15,30 +15,39 @@ if (isset($_POST['submit'])) {
 
     // Menambahkan judul laporan
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'Laporan Berdasarkan Bulan/Tahun', 0, 1, 'C');
+    $pdf->Cell(0, 10, 'LAPORAN TRANSFER COAL ICF TO JETTY', 0, 1, 'C');
 
     // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, 'Bulan/Tahun: ' . $bulan . '/' . $tahun, 0, 1);
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 10, 'Bulan ' . $bulan . ', Tahun ' . $tahun, 0, 1, 'C');
 
     // Menambahkan header tabel
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(30, 10, 'ID', 1, 0, 'C');
-    $pdf->Cell(60, 10, 'Nama', 1, 0, 'C');
-    $pdf->Cell(50, 10, 'Alamat', 1, 1, 'C');
+    $pdf->Cell(35, 10, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Start', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Finish', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Crushing From (ICF)', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Crushing To (JETTY)', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Jumlah', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Catatan', 1, 1, 'C');
 
     // Menampilkan data dalam tabel
     $pdf->SetFont('Arial', '', 12);
-    $tampil = mysqli_query($koneksi, "select * from barang_masuk where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
+    $tampil = mysqli_query($koneksi, "select * from transfer
+    inner join scicf on transfer.id_rcicf = scicf.id_rcicf
+    inner join scjty on transfer.id_rcjty = scjty.id_rcjty where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
         $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0);
-        $pdf->Cell(135, 6, $hasil['nama_barang'], 1, 0);
-        $pdf->Cell(25, 6, $hasil['jumlah'], 1, 1);
+        $pdf->Cell(35, 6, $hasil['start'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['finish'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['nama_rcicf'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['nama_rcjty'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['jumlah'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['catatan'], 1, 1);
     }
     // Mengakhiri dokumen PDF
     $pdf->Output();
 }
-
 
 if (isset($_POST['submits'])) {
     // Mengambil nilai dari form
@@ -52,25 +61,34 @@ if (isset($_POST['submits'])) {
 
     // Menambahkan judul laporan
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'Laporan Berdasarkan Bulan/Tahun', 0, 1, 'C');
+    $pdf->Cell(0, 10, 'LAPORAN TRANSFER COAL ICF TO JETTY', 0, 1, 'C');
 
     // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, 'Bulan/Tahun: ' . $bulan . '/' . $tahun, 0, 1);
+
 
     // Menambahkan header tabel
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(30, 10, 'ID', 1, 0, 'C');
-    $pdf->Cell(60, 10, 'Nama', 1, 0, 'C');
-    $pdf->Cell(50, 10, 'Alamat', 1, 1, 'C');
+    $pdf->Cell(35, 10, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Start', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Finish', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Crushing From (ICF)', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Crushing To (JETTY)', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Jumlah', 1, 0, 'C');
+    $pdf->Cell(35, 10, 'Catatan', 1, 1, 'C');
 
     // Menampilkan data dalam tabel
     $pdf->SetFont('Arial', '', 12);
-    $tampil = mysqli_query($koneksi, "select * from barang_masuk");
+    $tampil = mysqli_query($koneksi, "select * from transfer
+    inner join scicf on transfer.id_rcicf = scicf.id_rcicf
+    inner join scjty on transfer.id_rcjty = scjty.id_rcjty");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
         $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0);
-        $pdf->Cell(135, 6, $hasil['nama_barang'], 1, 0);
-        $pdf->Cell(25, 6, $hasil['jumlah'], 1, 1);
+        $pdf->Cell(35, 6, $hasil['start'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['finish'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['nama_rcicf'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['nama_rcjty'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['jumlah'], 1, 0);
+        $pdf->Cell(35, 6, $hasil['catatan'], 1, 1);
     }
     // Mengakhiri dokumen PDF
     $pdf->Output();
@@ -84,19 +102,19 @@ if (isset($_POST['submits'])) {
 <head>
     <title>Cetak Laporan</title>
 </head>
-<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../../css/bootstrap.min.css">
 
 <body>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand font-weight-bold" href="#">
-            <img src="../../img/bayan.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="../../../img/bayan.png" width="30" height="30" class="d-inline-block align-top" alt="">
             PT. WBM MEMBER OF BAYAN GROUP
         </a>
     </nav>
     <div class="container">
         <div class="form-group">
             <div class="form-line">
-                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN BARANG MASUK BERDASARKAN BULAN DAN TAHUN<a href="../../index/index_admin.php?page=laporan_barangmasuk" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6></h6>
+                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN TRANSFER COAL ICF TO JETTY BERDASARKAN BULAN DAN TAHUN<a href="../../../index/index_admin.php?page=laporan_crushingicf" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6></h6>
             </div>
         </div>
         <form method="POST" action="">
@@ -138,8 +156,8 @@ if (isset($_POST['submits'])) {
                     </div>
                 </div>
             </div>
-                <script src="../../vendor/jquery/jquery.slim.min.js"></script>
-                <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <script src="../../../vendor/jquery/jquery.slim.min.js"></script>
+                <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

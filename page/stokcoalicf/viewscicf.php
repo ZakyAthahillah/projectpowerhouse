@@ -8,7 +8,7 @@ $data = mysqli_fetch_assoc($sql2);
     <br>
     <br>
     <div class="card-header py-3">
-        <h4 class="m-0 font-weight-bold text-primary text-center">RANGKUMAN RIWAYAT STOCK COAL ICF <?= $data['nama_rc']; ?></h4>
+        <h4 class="m-0 font-weight-bold text-primary text-center">RANGKUMAN RIWAYAT STOCK COAL ICF <?= $data['nama_rcicf']; ?></h4>
         <br>
         <a href="?page=stokcoalicf" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a>
     </div>
@@ -26,14 +26,18 @@ $data = mysqli_fetch_assoc($sql2);
                 <th>Tanggal</th>
                 <th>Start</th>
                 <th>Finish</th>
-                <th>Jumlah</th>
+                <th>Crushing To</th>
+                <th>Jumlah Masuk</th>
             </tr>
         </thead>
         <tbody>
             <?php
 
             $no = 1;
-            $sql = mysqli_query($koneksi, "select * from crushingicf where id_rcicf = $id");
+            $sql = mysqli_query($koneksi, "SELECT *
+            FROM crushingicf AS c
+            INNER JOIN scicf AS s ON c.id_rcicf = s.id_rcicf
+            WHERE c.id_rcicf = $id");
             while ($data = mysqli_fetch_assoc($sql)) {
 
             ?>
@@ -43,6 +47,7 @@ $data = mysqli_fetch_assoc($sql2);
                     <td><?php echo $data['tanggal'] ?></td>
                     <td><?php echo $data['start'] ?></td>
                     <td><?php echo $data['finish'] ?></td>
+                    <td><?php echo $data['nama_rcicf'] ?></td>
                     <td><?php echo $data['jumlah'] ?></td>
                 </tr>
             <?php } ?>
@@ -63,6 +68,8 @@ $data = mysqli_fetch_assoc($sql2);
                 <th>Tanggal</th>
                 <th>Start</th>
                 <th>Finish</th>
+                <th>Transfer From (ICF)</th>
+                <th>Transfer To (JETTY)</th>
                 <th>Jumlah Keluar</th>
             </tr>
         </thead>
@@ -70,7 +77,10 @@ $data = mysqli_fetch_assoc($sql2);
             <?php
 
             $no = 1;
-            $sql = mysqli_query($koneksi, "select * from transfer where id_rcicf = $id");
+            $sql = mysqli_query($koneksi, "SELECT * FROM transfer AS t
+            INNER JOIN scicf AS c ON t.id_rcicf = c.id_rcicf
+            INNER JOIN scjty AS j ON t.id_rcjty = j.id_rcjty
+            WHERE c.id_rcicf = $id");
             while ($data = mysqli_fetch_assoc($sql)) {
 
             ?>
@@ -80,6 +90,8 @@ $data = mysqli_fetch_assoc($sql2);
                     <td><?php echo $data['tanggal'] ?></td>
                     <td><?php echo $data['start'] ?></td>
                     <td><?php echo $data['finish'] ?></td>
+                    <td><?php echo $data['nama_rcicf'] ?></td>
+                    <td><?php echo $data['nama_rcjty'] ?></td>
                     <td><?php echo $data['jumlah'] ?></td>
                 </tr>
             <?php } ?>

@@ -89,14 +89,18 @@ $tambah = $jumlah2 - $jumlah;
 							$sql2 = $koneksi->query("delete from barang_masuk where id = '$id'");
 
 							if ($sql) {
-					?>
-
-								<script type="text/javascript">
-									alert("Riwayat Berhasil Dihapus");
-									window.location.href = "?page=barangmasuk";
+								echo "
+								<script>
+									Swal.fire({
+										title: 'SUKSES!',
+										text: 'Data Berhasil Dihapus',
+										icon: 'success',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=barangmasuk';
+									});
 								</script>
-
-					<?php
+								";
 							}
 						}
 					}

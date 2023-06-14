@@ -47,11 +47,12 @@ if (!isset($_SESSION['admin'])) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
-
+  <!-- SWEET ALERT 2 -->
+  <script src="../vendor/sweetalert2/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="../vendor/sweetalert2/sweetalert2.min.css" id="theme-styles">
 </head>
 
 <body id="page-top">
-
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -170,7 +171,7 @@ if (!isset($_SESSION['admin'])) {
             <a class="collapse-item" href="?page=laporan_supplier">Laporan Supplier</a> -->
             <a class="collapse-item" href="?page=laporan_penerima">Laporan Penerima Barang</a>
             <a class="collapse-item" href="?page=laporan_pengirim">Laporan Pengirim Barang</a>
-            <a class="collapse-item" href="?page=laporan_pengirim">Laporan Pre-Order</a>
+            <a class="collapse-item" href="?page=laporan_po">Laporan Pre-Order</a>
           </div>
         </div>
       </li>
@@ -258,7 +259,7 @@ if (!isset($_SESSION['admin'])) {
         <div id="collapseBlending" class="collapse" aria-labelledby="headingBlending" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=gudang">Data Blending</a>
+            <a class="collapse-item" href="?page=blending">Data Blending</a>
             <a class="collapse-item" href="?page=sbp">SBP</a>
           </div>
         </div>
@@ -287,13 +288,14 @@ if (!isset($_SESSION['admin'])) {
         <div id="collapseLapPB" class="collapse" aria-labelledby="headingLapPB" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=gudang">Laporan Stock Coal Jetty</a>
-            <a class="collapse-item" href="?page=gudang">Laporan Stock Coal ICF</a>
-            <a class="collapse-item" href="?page=gudang">Laporan Data Transfer</a>
-            <a class="collapse-item" href="?page=gudang">Laporan Data Crushing</a>
-            <a class="collapse-item" href="?page=gudang">Laporan Data Blending</a>
-            <a class="collapse-item" href="?page=gudang">Laporan Data Loading</a>
-            <a class="collapse-item" href="?page=gudang">Data Transfer Haul Truck</a>
+            <a class="collapse-item" href="?page=laporan_stockcoaljty">Laporan Stock Coal Jetty</a>
+            <a class="collapse-item" href="?page=laporan_stockcoalicf">Laporan Stock Coal ICF</a>
+            <a class="collapse-item" href="?page=laporan_transfer">Laporan Data Transfer</a>
+            <a class="collapse-item" href="?page=laporan_crushingjty">Laporan Data Crushing Jetty</a>
+            <a class="collapse-item" href="?page=laporan_crushingicf">Laporan Data Crushing ICF</a>
+            <a class="collapse-item" href="?page=laporan_blending">Laporan Data Blending</a>
+            <a class="collapse-item" href="?page=laporan_loading">Laporan Data Loading</a>
+            <a class="collapse-item" href="?page=laporan_transhaul">Data Transfer Haul Truck</a>
           </div>
         </div>
       </li>
@@ -398,7 +400,6 @@ if (!isset($_SESSION['admin'])) {
     </div>
   </div>
 
-
   <!-- Bootstrap core JavaScript-->
   <script src="../vendor/jquery/jquery.min.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -416,6 +417,7 @@ if (!isset($_SESSION['admin'])) {
 
   <!-- Page level custom scripts -->
   <script src="../js/demo/datatables-demo.js"></script>
+
 
   <!--SCRIPT GET BARANG-->
   <script>

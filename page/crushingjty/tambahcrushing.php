@@ -30,21 +30,21 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="date" name="tanggal" class="form-control" id="tanggal" value="" />
 							</div>
 						</div>
 
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="time" name="start" class="form-control" id="start" value="" />
 							</div>
 						</div>
 
 						<label for="">Finish</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="time" name="finish" class="form-control" id="finish" value="" />
 							</div>
 						</div>
 
@@ -58,7 +58,7 @@
 
 									$sql = $koneksi->query("select * from scjty order by id_rcjty");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcjty].$data[nama_rc]'>$data[id_rcjty] | $data[nama_rc]</option>";
+										echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[id_rcjty] | $data[nama_rcjty]</option>";
 									}
 									?>
 
@@ -115,7 +115,7 @@
 						$finish = $_POST['finish'];
 						$catatan = $_POST['catatan'];
 
-						$sql = $koneksi->query("insert into crushing(tanggal, start, finish, id_rcjty, jumlah, catatan) values('$tanggal','$start','$finish','$id_rcjty','$jumlahmasuk', '$catatan')");
+						$sql = $koneksi->query("insert into crushingjty(tanggal, start, finish, id_rcjty, jumlah, catatan) values('$tanggal','$start','$finish','$id_rcjty','$jumlahmasuk', '$catatan')");
 						$sql2 = $koneksi->query("update scjty set stok='$jumlah' where id_rcjty='$id_rcjty'");
 
 
@@ -126,7 +126,7 @@
 					?>
 							<script type="text/javascript">
 								alert("Simpan Data Berhasil");
-								window.location.href = "?page=crushing";
+								window.location.href = "?page=crushingjty";
 							</script>
 					<?php
 						}

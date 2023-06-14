@@ -65,7 +65,7 @@ $jumlah = 0;
 						<label for="">Jenis Barang</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="jenis_barang" class="form-control" id="select_jenis">
+								<select name="jenis_barang" class="form-control" id="select_jenis" required>
 									<option value="">-- Pilih Jenis Barang --</option>
 									<?php
 
@@ -94,7 +94,7 @@ $jumlah = 0;
 						<label for="">Satuan Barang</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="satuan" class="form-control" id="select_satuan">
+								<select name="satuan" class="form-control" id="select_satuan" required>
 									<option value="">-- Pilih Satuan Barang --</option>
 									<?php
 
@@ -112,7 +112,7 @@ $jumlah = 0;
 						<label for="">Lokasi Barang</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="lokasi" id="select_lokasi" class="form-control">
+								<select name="lokasi" id="select_lokasi" class="form-control" required>
 									<option value="">-- Pilih Lokasi Barang --</option>
 									<?php
 
@@ -153,14 +153,31 @@ $jumlah = 0;
 						$sql = $koneksi->query("insert into gudang (kode_barang, nama_barang, id_jenis, jumlah, id_satuan, id_lokasi ) values('$kode_barang','$nama_barang','$jenis_barang','$jumlah','$satuan', '$lokasi')");
 
 						if ($sql) {
-					?>
-
-							<script type="text/javascript">
-								alert("Data Berhasil Disimpan");
-								window.location.href = "?page=gudang";
+							echo "
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=gudang';
+								});
 							</script>
-
-					<?php
+							";
+						} else {
+							echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=gudang';
+								});
+							</script>
+							";
 						}
 					}
 

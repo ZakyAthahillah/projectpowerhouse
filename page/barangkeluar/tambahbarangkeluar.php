@@ -174,19 +174,25 @@
   								window.location.href = "?page=barangkeluar&aksi=tambahbarangkeluar";
   							</script>
 
-  							<?php
+  					<?php
 							} else {
 
 								$sql = $koneksi->query("insert into barang_keluar (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, id_pegawai, catatan, total) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$penerima','$catatan','$total')");
 								// $sql2 = $koneksi-> query("update gudang set jumlah=(jumlah) where kode_barang='$kode_barang'");
 
 								if ($sql) {
-								?>
-  								<script type="text/javascript">
-  									alert("Simpan Data Berhasil");
-  									window.location.href = "?page=barangkeluar";
-  								</script>
-  					<?php
+									echo "
+									<script>
+										Swal.fire({
+											title: 'SUKSES!',
+											text: 'Data Berhasil Dihapus',
+											icon: 'success',
+											confirmButtonText: 'OK'
+										}).then(() => {
+											window.location.href = '?page=barangkeluar';
+										});
+									</script>
+									";
 								}
 							}
 						}

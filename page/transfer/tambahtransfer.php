@@ -68,7 +68,7 @@
 
 									$sql = $koneksi->query("select * from scicf order by id_rcicf");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcicf].$data[nama_rc]'>$data[nama_rc]</option>";
+										echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[nama_rcicf]</option>";
 									}
 									?>
 
@@ -88,7 +88,7 @@
 
 									$sql = $koneksi->query("select * from scjty order by id_rcjty");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcjty].$data[nama_rc]'>$data[nama_rc]</option>";
+										echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty]</option>";
 									}
 									?>
 

@@ -17,28 +17,14 @@
                   <label for="">RC</label>
                   <div class="form-group">
                      <div class="form-line">
-                      <input type="text" name="nama_rc" class="form-control" />	 
+                      <input type="text" name="nama_rcicf" class="form-control" />	 
                   </div>
                   </div>
 
-                  <label for="">Keluar</label>
+                  <label for="">Stok</label>
                   <div class="form-group">
                      <div class="form-line">
-                      <input type="text" name="keluar" class="form-control" />	 
-                  </div>
-                  </div>
-
-                  <label for="">Masuk</label>
-                  <div class="form-group">
-                     <div class="form-line">
-                      <input type="text" name="masuk" class="form-control" />	 
-                  </div>
-                  </div>
-
-                  <label for="">Stock</label>
-                  <div class="form-group">
-                     <div class="form-line">
-                      <input type="text" name="stock" class="form-control" />	 
+                      <input type="text" name="stok" class="form-control" />	 
                   </div>
                   </div>
           
@@ -54,12 +40,13 @@
                   <?php
                   
                   if (isset($_POST['simpan'])) {
-                      $nama_rc= $_POST['nama_rc'];
+                      $nama_rcicf= $_POST['nama_rcicf'];
+                      $stok= $_POST['stok'];
                       
           
   
                       
-                      $sql = $koneksi->query("insert into scicf (nama_rc) values('$nama_rc')");
+                      $sql = $koneksi->query("insert into scicf (nama_rcicf, stok) values('$nama_rcicf', '$stok')");
                       
                       if ($sql) {
                           ?>

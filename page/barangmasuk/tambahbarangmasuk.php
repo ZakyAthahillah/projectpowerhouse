@@ -168,16 +168,19 @@
 							$sql = $koneksi->query("insert into barang_masuk (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, id_supplier, catatan) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$pengirim', '$catatan')");
 
 
-
-
-
 							if ($sql) {
-						?>
-  							<script type="text/javascript">
-  								alert("Simpan Data Berhasil");
-  								window.location.href = "?page=barangmasuk";
-  							</script>
-  					<?php
+								echo "
+								<script>
+									Swal.fire({
+										title: 'SUKSES!',
+										text: 'Data Berhasil Dihapus',
+										icon: 'success',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=barangmasuk';
+									});
+								</script>
+								";
 							}
 						}
 

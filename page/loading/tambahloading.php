@@ -15,7 +15,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Tambah Data Crushing<a href="?page=crushing" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+			<h6 class="m-0 font-weight-bold text-primary">Tambah Data Loading<a href="?page=loading" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -64,7 +64,7 @@
 						</div>
 
 
-						<label for="">Loading From</label>
+						<label for="">Loading From (Jetty)</label>
 						<div class="form-group">
 							<div class="form-line">
 								<select name="loadingfrom" id="select_loadingjty" class="form-control">
@@ -73,7 +73,7 @@
 
 									$sql = $koneksi->query("select * from scjty order by id_rcjty");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcjty].$data[nama_rc]'>$data[id_rcjty] | $data[nama_rc]</option>";
+										echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty]</option>";
 									}
 									?>
 
@@ -83,7 +83,7 @@
 
 						<div class="tampung"></div>
 
-						<label for="">Loading To</label>
+						<label for="">Loading To (Barge)</label>
 						<div class="form-group">
 							<div class="form-line">
 								<select name="loadingto" id="select_bargejty" class="form-control">

@@ -61,6 +61,14 @@
               }
             }
 
+            if ($page == "blending") {
+              if ($aksi == "") {
+                include "../page/blending/blending.php";
+              }
+              if ($aksi == "tambahblending") {
+                include "../page/blending/tambahblending.php";
+              }
+            }
 
             if ($page == "jenisbarang") {
               if ($aksi == "") {
@@ -390,4 +398,58 @@
             }
             if ($page == "home_admin") {
               include "../home_admin.php";
+            }
+
+            if ($page == "laporan_stockcoaljty") {
+              if ($aksi == "") {
+                include "../page/laporan/produksibb/laporan_stockcoaljty.php";
+              }
+            }
+
+            if ($page == "laporan_stockcoalicf") {
+              if ($aksi == "") {
+                include "../page/laporan/produksibb/laporan_stockcoalicf.php";
+              }
+            }
+
+            if ($page == "laporan_crushingjty") {
+              if ($aksi == "") {
+                include "../page/laporan/produksibb/laporan_crushingjty.php";
+              }
+            }
+
+            if ($page == "laporan_crushingicf") {
+              if ($aksi == "") {
+                include "../page/laporan/produksibb/laporan_crushingicf.php";
+              }
+            }
+
+            if ($page == "laporan_transfer") {
+              if ($aksi == "") {
+                include "../page/laporan/produksibb/laporan_transfer.php";
+              }
+            }
+
+            if ($page == "laporan_blending") {
+              if ($aksi == "") {
+                include "../page/laporan/produksibb/laporan_blending.php";
+              }
+            }
+
+            if ($page == "laporan_loading") {
+              if ($aksi == "") {
+                include "../page/laporan/produksibb/laporan_loading.php";
+              }
+            }
+
+            if ($page == "laporan_transhaul") {
+              if ($aksi == "") {
+                include "../page/laporan/produksibb/laporan_transhaul.php";
+              }
+            }
+
+            if ($page == "laporan_po") {
+              if ($aksi == "") {
+                include "../page/laporan/laporan_po.php";
+              }
             }

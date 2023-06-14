@@ -27,7 +27,7 @@
 
             $no = 1;
             $sql = mysqli_query($koneksi,"select * from crushingicf
-            inner join scicf on crushingicf.id_rcicf = scicf.id_rcicf
+            inner join scicf on crushingicf.id_rcicf = scicf.id_rcicf order by tanggal desc
            ");
             while ($data = mysqli_fetch_assoc($sql)) {
 
@@ -38,7 +38,7 @@
                 <td><?php echo $data['tanggal'] ?></td>
                 <td><?php echo $data['start'] ?></td>
                 <td><?php echo $data['finish'] ?></td>
-                <td><?php echo $data['nama_rc'] ?></td>
+                <td><?php echo $data['nama_rcicf'] ?></td>
                 <td><?php echo $data['jumlah'] ?></td>
                 <td><?php echo $data['catatan'] ?></td>
 

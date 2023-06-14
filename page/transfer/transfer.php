@@ -13,9 +13,10 @@
               <th>Tanggal</th>
               <th>Start</th>
               <th>Finish</th>
-              <th>Transfer From</th>
-              <th>Transfer To</th>
+              <th>Transfer From (ICF)</th>
+              <th>Transfer To (JETTY)</th>
               <th>Jumlah</th>
+              <th>Haul Truck</th>
               <th>Catatan</th>
               <th>Pengaturan</th>
 
@@ -30,6 +31,7 @@
             $sql = mysqli_query($koneksi,"select * from transfer
             inner join scicf on transfer.id_rcicf = scicf.id_rcicf
             inner join scjty on transfer.id_rcjty = scjty.id_rcjty
+            inner join haultruck on transfer.id_haultruck = haultruck.id_haultruck order by tanggal desc
            ");
             while ($data = mysqli_fetch_assoc($sql)) {
 
@@ -40,9 +42,10 @@
                 <td><?php echo $data['tanggal'] ?></td>
                 <td><?php echo $data['start'] ?></td>
                 <td><?php echo $data['finish'] ?></td>
-                <td><?php echo $data['nama_rc'] ?></td>
-                <td><?php echo $data['nama_rc'] ?></td>
+                <td><?php echo $data['nama_rcicf'] ?></td>
+                <td><?php echo $data['nama_rcjty'] ?></td>
                 <td><?php echo $data['jumlah'] ?></td>
+                <td><?php echo $data['nama_haultruck'] ?></td>
                 <td><?php echo $data['catatan'] ?></td>
 
 

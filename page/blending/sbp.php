@@ -26,14 +26,6 @@
 						$nomor_urut = 0;
 						$result = selectAllData();
 						$countData = mysqli_num_rows($result);
-
-						if ($countData < 1) {
-						?>
-							<tr>
-								<td colspan="5" style="text-align: center; font-weight: bold; font-size: 12px; padding: 5px; color: red">TIDAK ADA DATA</td>
-							</tr>
-							<?php
-						} else {
 							while ($row = mysqli_fetch_assoc($result)) {
 								$nomor_urut = $nomor_urut + 1;
 							?>
@@ -50,7 +42,6 @@
 								</tr>
 						<?php
 							}
-						}
 						?>
 					</tbody>
 				</table>

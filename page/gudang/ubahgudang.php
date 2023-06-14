@@ -145,15 +145,19 @@ $level = $tampil['level'];
 
 						$sql = $koneksi->query("update gudang set kode_barang='$kode_barang', nama_barang='$nama_barang', id_jenis='$jenis_barang', id_satuan='$satuan', id_lokasi='$lokasi' where kode_barang='$kode_barang'");
 
-						if ($sql2) {
-					?>
-
-							<script type="text/javascript">
-								alert("Data Berhasil Diubah");
-								window.location.href = "?page=gudang";
-							</script>
-
-					<?php
+						if ($sql) {
+						echo "
+						<script>
+							Swal.fire({
+								title: 'SUKSES!',
+								text: 'Data Berhasil Diubah',
+								icon: 'success',
+								confirmButtonText: 'OK'
+							}).then(() => {
+								window.location.href = '?page=gudang';
+							});
+						</script>
+						";
 						}
 					}
 					?>

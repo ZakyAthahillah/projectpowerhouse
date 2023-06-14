@@ -19,7 +19,7 @@
 							<th>Kode Barang</th>
 							<th>Nama Barang</th>
 							<th>Jumlah</th>
-                            <th>Status</th>
+							<th>Status</th>
 							<th>Pengaturan</th>
 
 						</tr>
@@ -28,38 +28,35 @@
 
 					<tbody>
 						<?php
-
 						$no = 1;
-						$sql = $koneksi->query("select * from po
-						inner join gudang on po.kode_barang = gudang.kode_barang");
+						$sql = $koneksi->query("SELECT po.kode_po, po.tanggal, po.status, GROUP_CONCAT(gudang.nama_barang SEPARATOR ', ') AS nama_gabung, GROUP_CONCAT(po.kode_barang SEPARATOR ', ') AS kode_barang_gabung, GROUP_CONCAT(po.jumlah_po SEPARATOR ', ') AS jumlah_po_gabung
+						FROM po
+						INNER JOIN gudang ON po.kode_barang = gudang.kode_barang
+						GROUP BY po.kode_po order by tanggal desc");
 						while ($data = $sql->fetch_assoc()) {
-
+							$nama_gabung = '<li style="list-style-type: none;">' . str_replace(", ", "</li><li style='list-style-type: none;'>", $data['nama_gabung']) . '</li>';
+							$kode_barang_gabung = '<li style="list-style-type: decimal;">' . str_replace(", ", "</li><li style='list-style-type: decimal;'>", $data['kode_barang_gabung']) . '</li>';
+							$jumlah_po_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_po_gabung']) . '</li>';
 						?>
 
 							<tr>
 								<td><?php echo $no++; ?></td>
 								<td><?php echo $data['kode_po'] ?></td>
 								<td><?php echo $data['tanggal'] ?></td>
-								<td><?php echo $data['kode_barang'] ?></td>
-								<td><?php echo $data['nama_barang'] ?></td>
-								<td><?php echo $data['jumlah_po'] ?></td>
+								<td><?php echo $kode_barang_gabung ?></td>
+								<td><?php echo $nama_gabung ?></td>
+								<td><?php echo $jumlah_po_gabung ?></td>
 								<td><?php echo $data['status'] ?></td>
-
-
 								<td>
-									<a href="?page=barangkeluar&aksi=batalbarangkeluar&id=<?php echo $data['id'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-ban"></i></a>
+									<a href="?page=po&aksi=ubahpo&kode_po=<?php echo $data['kode_po'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
+									<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=po&aksi=hapuspo&kode_po=<?php echo $data['kode_po'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
 								</td>
 							</tr>
 						<?php } ?>
-
 					</tbody>
-				</table>
-				
-				</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 
 </div>
-
