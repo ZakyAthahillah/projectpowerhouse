@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Data Riwayat Crushing Jetty</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Data Riwayat Crushing ICF</h6>
       <br>
       <a href="?page=crushingicf&aksi=tambahcrushing" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
     </div>
@@ -44,8 +44,7 @@
 
 
                 <td>
-                  <a href="?page=gudang&aksi=ubahgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=gudang&aksi=hapusgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                <a href="?page=crushingicf&aksi=batalcrushingicf&id_crushing=<?php echo $data['id_crushing'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-ban"></i></a>
                 </td>
               </tr>
             <?php } ?>

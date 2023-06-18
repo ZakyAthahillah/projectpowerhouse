@@ -21,19 +21,24 @@ $data = mysqli_fetch_assoc($sql2);
             </thead>
             <tbody>
                 <?php
-                $coba = mysqli_query($koneksi, "SELECT SUM(jumlah) AS jum  FROM crushingjty WHERE id_rcjty = $id");
-                $tamps = mysqli_fetch_assoc($coba);
+                $q = mysqli_query($koneksi, "SELECT SUM(jumlah) AS jum  FROM crushingjty WHERE id_rcjty = $id");
+                $tamps = mysqli_fetch_assoc($q);
                 $total = $tamps['jum'];
 
-                $coba2 = mysqli_query($koneksi, "SELECT SUM(jumlah) AS jum  FROM transfer WHERE id_rcjty = $id");
-                $tamps2 = mysqli_fetch_assoc($coba2);
+                $q2 = mysqli_query($koneksi, "SELECT SUM(jumlah) AS jum  FROM transfer WHERE id_rcjty = $id");
+                $tamps2 = mysqli_fetch_assoc($q2);
                 $total2 = $tamps2['jum'];
 
-                $hasil = $total + $total2;
+                $q3 = mysqli_query($koneksi, "SELECT SUM(beltscale) AS jum  FROM loading WHERE id_rcjty = $id");
+                $tamps = mysqli_fetch_assoc($q3);
+                $total3 = $tamps['jum'];
+
+                $hasilmasuk = $total + $total2;
+                $hasilkeluar = $total3;
                 ?>
                 <tr>
-                    <td><?php echo  $hasil; ?></td>
-                    <td><?php echo  $hasil; ?></td>
+                    <td><?php echo  $hasilkeluar; ?></td>
+                    <td><?php echo  $hasilmasuk; ?></td>
                 </tr>
             </tbody>
         </table>

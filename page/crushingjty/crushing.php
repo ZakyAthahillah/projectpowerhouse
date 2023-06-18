@@ -14,6 +14,7 @@
               <th>Start</th>
               <th>Finish</th>
               <th>Crushing To</th>
+              <th>Warna</th>
               <th>Jumlah</th>
               <th>Catatan</th>
               <th>Pengaturan</th>
@@ -39,13 +40,13 @@
                 <td><?php echo $data['start'] ?></td>
                 <td><?php echo $data['finish'] ?></td>
                 <td><?php echo $data['nama_rcjty'] ?></td>
+                <td><?php echo $data['warna'] ?></td>
                 <td><?php echo $data['jumlah'] ?></td>
                 <td><?php echo $data['catatan'] ?></td>
 
 
                 <td>
-                  <a href="?page=gudang&aksi=ubahgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=gudang&aksi=hapusgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                  <a href="?page=crushingjty&aksi=batalcrushingjty&id_crushing=<?php echo $data['id_crushing'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-ban"></i></a>
                 </td>
               </tr>
             <?php } ?>

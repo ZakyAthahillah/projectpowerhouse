@@ -13,7 +13,7 @@ include 'koneksi.php';
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Inventory Control</title>
+	<title>POWERHOUSE APP</title>
 
 	<!-- Custom fonts for this template-->
 	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -86,7 +86,7 @@ include 'koneksi.php';
 												<option value="" selected disabled>Please Select</option>
 												<!-- <option value="superadmin">Super Admin</option> -->
 												<option value="admin">Admin</option>
-												<option value="petugas">Pegawai</option>
+												<option value="pegawai">Pegawai</option>
 											</select>
 										</div>
 										<input type="submit" name="login" class="btn btn-primary btn-user btn-block" value="Masuk" />
@@ -154,10 +154,10 @@ if (isset($_POST['login'])) {
 			$_SESSION['admin'] = $data['id'];
 
 			header("location:index/index_admin.php");
-		} else if ($data['level'] == 'petugas' && $level == 'petugas') {
-			$_SESSION['petugas'] = $data['id'];
+		} else if ($data['level'] == 'pegawai' && $level == 'pegawai') {
+			$_SESSION['pegawai'] = $data['id'];
 
-			header("location:index/index_user.php");
+			header("location:index/index_pegawai.php");
 		}
 	} else {
 		echo '<div class="container"> <center><div class="alert alert-warning alert-dismissible">

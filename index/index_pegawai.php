@@ -7,7 +7,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 
 session_start();
-if (!isset($_SESSION['admin'])) {
+if (!isset($_SESSION['pegawai'])) {
   header("location:../login.php");
 }
 
@@ -72,8 +72,8 @@ if (!isset($_SESSION['admin'])) {
 
 
       <?php
-      if ($_SESSION['admin']) {
-        $user = $_SESSION['admin'];
+      if ($_SESSION['pegawai']) {
+        $user = $_SESSION['pegawai'];
       }
       $sql = $koneksi->query("select * from users where id='$user'");
       $data = $sql->fetch_assoc();
@@ -82,7 +82,7 @@ if (!isset($_SESSION['admin'])) {
       <!--sidebar start-->
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="?page=home_admin">
+        <a class="nav-link" href="?page=home_pegawai">
           <i class="fas fa-fw fa-home"></i>
           <span>DASHBOARD</span></a>
       </li>
@@ -150,30 +150,6 @@ if (!isset($_SESSION['admin'])) {
           <i class="fas fa-fw fa-box"></i>
           <span>PRE - ORDER</span>
         </a>
-      </li>
-
-      <!-- Heading -->
-
-
-
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLaporan" aria-expanded="true" aria-controls="collapseLaporan">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>LAPORAN</span>
-        </a>
-        <div id="collapseLaporan" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header text-dark">Menu Laporan:</h6>
-            <a class="collapse-item" href="?page=laporan_gudang">Laporan Monitoring Barang</a>
-            <a class="collapse-item" href="?page=laporan_barangmasuk">Laporan Barang Masuk</a>
-            <a class="collapse-item" href="?page=laporan_barangkeluar">Laporan Barang Keluar</a>
-            <!-- <a class="collapse-item" href="?page=laporan_pegawai">Laporan Data Pegawai</a>
-            <a class="collapse-item" href="?page=laporan_supplier">Laporan Supplier</a> -->
-            <a class="collapse-item" href="?page=laporan_penerima">Laporan Penerima Barang</a>
-            <a class="collapse-item" href="?page=laporan_pengirim">Laporan Pengirim Barang</a>
-            <a class="collapse-item" href="?page=laporan_po">Laporan Pre-Order</a>
-          </div>
-        </div>
       </li>
 
       <!-- Divider -->
@@ -254,27 +230,6 @@ if (!isset($_SESSION['admin'])) {
         </a>
       </li>
 
-
-
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLapPB" aria-expanded="true" aria-controls="collapseLapPB">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>LAPORAN</span>
-        </a>
-        <div id="collapseLapPB" class="collapse" aria-labelledby="headingLapPB" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=laporan_stockcoaljty">Laporan Stock Coal Jetty</a>
-            <a class="collapse-item" href="?page=laporan_stockcoalicf">Laporan Stock Coal ICF</a>
-            <a class="collapse-item" href="?page=laporan_transfer">Laporan Data Transfer</a>
-            <a class="collapse-item" href="?page=laporan_crushingjty">Laporan Data Crushing Jetty</a>
-            <a class="collapse-item" href="?page=laporan_crushingicf">Laporan Data Crushing ICF</a>
-            <a class="collapse-item" href="?page=laporan_blending">Laporan Data Blending</a>
-            <a class="collapse-item" href="?page=laporan_loading">Laporan Data Loading</a>
-            <a class="collapse-item" href="?page=laporan_transhaul">Data Transfer Haul Truck</a>
-          </div>
-        </div>
-      </li>
       <hr class="sidebar-divider">
 
       <!-- Sidebar Toggler (Sidebar) -->
@@ -332,7 +287,7 @@ if (!isset($_SESSION['admin'])) {
         <div class="container-fluid">
 
           <section class="content">
-            <?php include "../routes/routes_admin.php" ?>
+            <?php include "../routes/routes_pegawai.php" ?>
           </section>
 
 

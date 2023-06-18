@@ -25,16 +25,16 @@
 
 					<form method="POST" enctype="multipart/form-data">
 
-						<label for="">Kode SBP</label>
+						<label for="">Kode SBP | Nama SBP</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="kode_sbp" id="select_kodesbp" class="form-control">
+								<select name="kode_sbp" id="select_kodesbp" class="form-control" required>
 									<option value="">--------------- Pilih Barang ---------------</option>
 									<?php
 
 									$sql = $koneksi->query("select * from sbp");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[kode_sbp]'>$data[kode_sbp] | $data[tittle]</option>";
+										echo "<option value='$data[kode_sbp]'>$data[kode_sbp] | $data[nama_sbp]</option>";
 									}
 									?>
 
@@ -45,21 +45,21 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="date" name="tanggal" class="form-control" id="tanggal" />
 							</div>
 						</div>
 
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="time" name="start" class="form-control" id="start" />
 							</div>
 						</div>
 
 						<label for="">Finish</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="time" name="finish" class="form-control" id="finish" />
 							</div>
 						</div>
 
@@ -67,7 +67,7 @@
 						<label for="">Loading From (Jetty)</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="loadingfrom" id="select_loadingjty" class="form-control">
+								<select name="loadingfrom" id="select_loadingjty" class="form-control" required>
 									<option value="">--------------- Pilih Barang ---------------</option>
 									<?php
 
@@ -86,7 +86,7 @@
 						<label for="">Loading To (Barge)</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="loadingto" id="select_bargejty" class="form-control">
+								<select name="loadingto" id="select_bargejty" class="form-control" required>
 									<option value="">--------------- Pilih Barang ---------------</option>
 									<?php
 
@@ -153,7 +153,7 @@
 						$finish = $_POST['finish'];
 						$catatan = $_POST['catatan'];
 
-						$sql = $koneksi->query("insert into loading(kode_sbp, tanggal, start, finish, id_rcjty, id_barge, beltscale) values('$kode_sbp','$tanggal','$start','$finish','$id_rcjty', '$id_barge','$jumlahkeluar')");
+						$sql = $koneksi->query("insert into loading(kode_sbp, tanggal, start, finish, id_rcjty, id_barge, beltscale, catatan) values('$kode_sbp','$tanggal','$start','$finish','$id_rcjty', '$id_barge','$jumlahkeluar', '$catatan')");
 						$sql2 = $koneksi->query("update scjty set stok='$jumlah' where id_rcjty='$id_rcjty'");
 
 

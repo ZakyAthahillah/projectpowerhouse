@@ -15,7 +15,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Tambah Data Crushing<a href="?page=crushing" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+			<h6 class="m-0 font-weight-bold text-primary">Tambah Data Crushing ICF<a href="?page=crushingicf" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -30,21 +30,21 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal" value="" />
+								<input type="date" name="tanggal" class="form-control" id="tanggal"/>
 							</div>
 						</div>
 
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" value="" />
+								<input type="time" name="start" class="form-control" id="start"/>
 							</div>
 						</div>
 
 						<label for="">Finish</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" value="" />
+								<input type="time" name="finish" class="form-control" id="finish" />
 							</div>
 						</div>
 
@@ -52,13 +52,13 @@
 						<label for="">Crushing To</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="crushingto" id="select_crushingicf" class="form-control">
+								<select name="crushingto" id="select_crushingicf" class="form-control" required>
 									<option value="">--------------- Pilih Barang ---------------</option>
 									<?php
 
 									$sql = $koneksi->query("select * from scicf order by id_rcicf");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[id_rcicf] | $data[nama_rcicf]</option>";
+										echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[nama_rcicf]</option>";
 									}
 									?>
 
@@ -107,7 +107,7 @@
 						$pecah_rc = explode(".", $id_rcicf);
 						$id_rcicf = $pecah_rc[0];
 						$nama_rc = $pecah_rc[1];
-						$jumlah = $_POST['jumlahmasuk'];
+						$jumlahmasuk = $_POST['jumlahmasuk'];
 						$jumlah = $_POST['jumlah'];
 
 						$start = $_POST['start'];
@@ -115,7 +115,7 @@
 						$finish = $_POST['finish'];
 						$catatan = $_POST['catatan'];
 
-						$sql = $koneksi->query("insert into crushingicf(tanggal, start, finish, id_rcicf, jumlah, catatan) values('$tanggal','$start','$finish','$id_rcicf','$jumlah', '$catatan')");
+						$sql = $koneksi->query("insert into crushingicf(tanggal, start, finish, id_rcicf, jumlah, catatan) values('$tanggal','$start','$finish','$id_rcicf','$jumlahmasuk', '$catatan')");
 						$sql2 = $koneksi->query("update scicf set stok='$jumlah' where id_rcicf='$id_rcicf'");
 
 

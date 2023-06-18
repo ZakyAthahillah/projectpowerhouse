@@ -1,68 +1,91 @@
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Data Transfer Coal ICF To Jetty</h6>
-      <br>
-      <a href="?page=transfer&aksi=tambahtransfer" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Data Transfer Coal ICF To Jetty</h6>
+    <br>
+    <a href="?page=transfer&aksi=tambahtransfer" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Tanggal</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Transfer From (ICF)</th>
+            <th>Transfer To (JETTY)</th>
+            <th>Jumlah</th>
+            <th>Haul Truck</th>
+            <th>Catatan</th>
+            <th>Pengaturan</th>
+
+          </tr>
+        </thead>
+
+
+        <tbody>
+          <?php
+
+          $no = 1;
+          $sql = mysqli_query($koneksi, "SELECT transfer.id_transfer, tanggal, 
+            GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
+            GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
+            GROUP_CONCAT(nama_rcicf SEPARATOR ', ') AS nama_rcicf_gabung,
+            GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung,
+            GROUP_CONCAT(nama_haultruck SEPARATOR ', ') AS nama_haultruck_gabung,
+            GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
+            GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
+            GROUP_CONCAT(id_transfer SEPARATOR ', ') AS id_transfer_gabung
+            FROM transfer
+            INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
+            INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
+            INNER JOIN haultruck ON transfer.id_haultruck = haultruck.id_haultruck
+            GROUP BY transfer.tanggal
+            ORDER BY tanggal DESC");
+
+          while ($data = mysqli_fetch_assoc($sql)) {
+            $tanggal = $data['tanggal'];
+            $start_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['start_gabung']) . '</li>';
+            $finish_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['finish_gabung']) . '</li>';
+            $nama_rcicf_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_rcicf_gabung']) . '</li>';
+            $nama_rcjty_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_rcjty_gabung']) . '</li>';
+            $nama_haultruck_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_haultruck_gabung']) . '</li>';
+            $catatan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['catatan_gabung']) . '</li>';
+            $jumlah_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_gabung']) . '</li>';
+            $id_transfer_gabung = $data['id_transfer_gabung'];
+          ?>
+
             <tr>
-              <th>No</th>
-              <th>Tanggal</th>
-              <th>Start</th>
-              <th>Finish</th>
-              <th>Transfer From (ICF)</th>
-              <th>Transfer To (JETTY)</th>
-              <th>Jumlah</th>
-              <th>Haul Truck</th>
-              <th>Catatan</th>
-              <th>Pengaturan</th>
-
+              <td><?php echo $no++; ?></td>
+              <td><?php echo $tanggal; ?></td>
+              <td><?php echo $start_gabung; ?></td>
+              <td><?php echo $finish_gabung; ?></td>
+              <td><?php echo $nama_rcicf_gabung; ?></td>
+              <td><?php echo $nama_rcjty_gabung; ?></td>
+              <td><?php echo $jumlah_gabung; ?></td>
+              <td><?php echo $nama_haultruck_gabung; ?></td>
+              <td><?php echo $catatan_gabung; ?></td>
+              <td>
+              <ul style="list-style-type: none; padding: 0; margin: 0;">
+                  <?php
+                  $id_transfer_array = explode(", ", $id_transfer_gabung);
+                  foreach ($id_transfer_array as $id_transfer) {
+                    echo '<li><a href="?page=transfer&aksi=bataltransfer&id_transfer=' . $id_transfer . '" class="btn btn-sm btn-danger btn-circle"><i class="fas fa-ban"></i></a></li>';
+                  }
+                  ?>
+                </ul>
+              </td>
             </tr>
-          </thead>
-
-
-          <tbody>
-            <?php
-
-            $no = 1;
-            $sql = mysqli_query($koneksi,"select * from transfer
-            inner join scicf on transfer.id_rcicf = scicf.id_rcicf
-            inner join scjty on transfer.id_rcjty = scjty.id_rcjty
-            inner join haultruck on transfer.id_haultruck = haultruck.id_haultruck order by tanggal desc
-           ");
-            while ($data = mysqli_fetch_assoc($sql)) {
-
-            ?>
-
-              <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $data['tanggal'] ?></td>
-                <td><?php echo $data['start'] ?></td>
-                <td><?php echo $data['finish'] ?></td>
-                <td><?php echo $data['nama_rcicf'] ?></td>
-                <td><?php echo $data['nama_rcjty'] ?></td>
-                <td><?php echo $data['jumlah'] ?></td>
-                <td><?php echo $data['nama_haultruck'] ?></td>
-                <td><?php echo $data['catatan'] ?></td>
-
-
-                <td>
-                  <a href="?page=gudang&aksi=ubahgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=gudang&aksi=hapusgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
-                </td>
-              </tr>
-            <?php } ?>
-
-          </tbody>
-        </table>
+          <?php } ?>
 
         </tbody>
-        </table>
-      </div>
+      </table>
+
+      </tbody>
+      </table>
     </div>
   </div>
+</div>
 
 </div>

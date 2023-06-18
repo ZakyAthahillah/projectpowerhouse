@@ -41,28 +41,28 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="date" name="tanggal" class="form-control" id="tanggal"/>
 							</div>
 						</div>
 
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="time" name="start" class="form-control" id="start" />
 							</div>
 						</div>
 
 						<label for="">Finish</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" value="<?php echo $tanggal_masuk; ?>" />
+								<input type="time" name="finish" class="form-control" id="finish"/>
 							</div>
 						</div>
 
                         <label for="">Transfer From (ROM ICF)</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="transferfrom" id="select_transfericf" class="form-control">
+								<select name="transferfrom" id="select_transfericf" class="form-control" required>
 									<option value="">--------------- Pilih Barang ---------------</option>
 									<?php
 
@@ -82,7 +82,7 @@
 						<label for="">Transfer To (ROM Jetty)</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="transferto" id="select_transferjty" class="form-control">
+								<select name="transferto" id="select_transferjty" class="form-control" required>
 									<option value="">--------------- Pilih Barang ---------------</option>
 									<?php
 
@@ -130,6 +130,24 @@
 						</div>
 
 						<div class="tampung1"></div>
+						
+
+						<label for="">Haul Truck</label>
+						<div class="form-group">
+							<div class="form-line">
+								<select name="haultruck" id="select_haultruck" class="form-control" required>
+									<option value="">----------SILAHKAN PILIH----------</option>
+									<?php
+
+									$sql = $koneksi->query("select * from haultruck order by id_haultruck");
+									while ($data = $sql->fetch_assoc()) {
+										echo "<option value='$data[id_haultruck]'>$data[nama_haultruck]</option>";
+									}
+									?>
+
+								</select>
+							</div>
+						</div>
 
 
 						<label for="">Catatan</label>
@@ -168,9 +186,10 @@
 						$start = $_POST['start'];
 
 						$finish = $_POST['finish'];
+						$id_haultruck = $_POST['haultruck'];
 						$catatan = $_POST['catatan'];
 
-						$sql = $koneksi->query("insert into transfer(tanggal, start, finish, id_rcjty, id_rcicf, jumlah, catatan) values('$tanggal','$start','$finish','$id_rcjty', '$id_rcicf','$jumlahkeluar', '$catatan')");
+						$sql = $koneksi->query("insert into transfer(tanggal, start, finish, id_rcjty, id_rcicf, jumlah, id_haultruck, catatan) values('$tanggal','$start','$finish','$id_rcjty', '$id_rcicf','$jumlahkeluar', '$id_haultruck', '$catatan')");
 						$sql2 = $koneksi->query("update scjty set stok='$totalmasuk' where id_rcjty='$id_rcjty'");
 						$sql3 = $koneksi->query("update scicf set stok='$totalkeluar' where id_rcicf='$id_rcicf'");
 

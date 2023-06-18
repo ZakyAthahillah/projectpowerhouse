@@ -79,9 +79,6 @@ $tambah = $jumlah + $jumlah2;
 
 
 					<?php
-
-					if (isset($_POST['simpan'])) {
-
 						if (isset($_POST['simpan'])) {
 
 							$sql = $koneksi->query("UPDATE gudang SET jumlah='$tambah' WHERE kode_barang='$kode_bar'");
@@ -103,7 +100,6 @@ $tambah = $jumlah + $jumlah2;
 								";
 							}
 						}
-					}
 					?>
 				</div>
 			</div>

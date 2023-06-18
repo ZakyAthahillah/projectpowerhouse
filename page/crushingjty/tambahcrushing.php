@@ -15,7 +15,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Tambah Data Crushing<a href="?page=crushing" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+			<h6 class="m-0 font-weight-bold text-primary">Tambah Data Crushing Jetty<a href="?page=crushingjty" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -30,21 +30,21 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal" value="" />
+								<input type="date" name="tanggal" class="form-control" id="tanggal" />
 							</div>
 						</div>
 
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" value="" />
+								<input type="time" name="start" class="form-control" id="start" />
 							</div>
 						</div>
 
 						<label for="">Finish</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" value="" />
+								<input type="time" name="finish" class="form-control" id="finish" />
 							</div>
 						</div>
 
@@ -52,7 +52,7 @@
 						<label for="">Crushing To</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="crushingto" id="select_crushingjty" class="form-control">
+								<select name="crushingto" id="select_crushingjty" class="form-control" required>
 									<option value="">--------------- Pilih Barang ---------------</option>
 									<?php
 
