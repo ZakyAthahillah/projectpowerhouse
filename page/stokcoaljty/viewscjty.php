@@ -33,8 +33,8 @@ $data = mysqli_fetch_assoc($sql2);
                 $tamps = mysqli_fetch_assoc($q3);
                 $total3 = $tamps['jum'];
 
-                $hasilmasuk = $total + $total2;
-                $hasilkeluar = $total3;
+                $hasilmasuk = $total + $total2 + 0 ;
+                $hasilkeluar = $total3 + 0 ;
                 ?>
                 <tr>
                     <td><?php echo  $hasilkeluar; ?></td>

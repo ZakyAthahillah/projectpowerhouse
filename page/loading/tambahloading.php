@@ -161,12 +161,31 @@
 
 
 						if ($sql) {
-					?>
-							<script type="text/javascript">
-								alert("Simpan Data Berhasil");
-								window.location.href = "?page=loading";
+							echo "
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=loading';
+								});
 							</script>
-					<?php
+							";
+						} else {
+							echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=loading';
+								});
+							</script>
+							";
 						}
 					}
 

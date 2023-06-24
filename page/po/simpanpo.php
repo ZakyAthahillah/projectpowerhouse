@@ -30,14 +30,18 @@ if (isset($_POST['item']) && isset($_POST['input'])) {
         }
     }
 
-?>
-
-    <script type="text/javascript">
-        alert("Data Berhasil Disimpan");
-        window.location.href = "?page=po";
+    echo "
+    <script>
+        Swal.fire({
+            title: 'SUKSES!',
+            text: 'Data Berhasil Disimpan',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.href = '?page=po';
+        });
     </script>
-
-<?php
+    ";
 }
 
 $conn->close();

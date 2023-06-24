@@ -118,7 +118,7 @@
   						<label for="">Supplier</label>
   						<div class="form-group">
   							<div class="form-line">
-  								<select name="pengirim" id="select_suplier" class="form-control"  required/>
+  								<select name="pengirim" id="select_suplier" class="form-control" required />
   								<option value="">-- Pilih Supplier --</option>
   								<?php
 
@@ -170,17 +170,30 @@
 
 							if ($sql) {
 								echo "
-								<script>
-									Swal.fire({
-										title: 'SUKSES!',
-										text: 'Data Berhasil Dihapus',
-										icon: 'success',
-										confirmButtonText: 'OK'
-									}).then(() => {
-										window.location.href = '?page=barangmasuk';
-									});
-								</script>
-								";
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=barangmasuk';
+								});
+							</script>
+							";
+							} else {
+								echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=barangmasuk';
+								});
+							</script>
+							";
 							}
 						}
 

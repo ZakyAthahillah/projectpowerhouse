@@ -7,8 +7,6 @@ $status = $tampil['status'];
 
 
 
-
-
 ?>
 
 <div class="container-fluid">

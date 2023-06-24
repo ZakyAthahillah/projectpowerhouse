@@ -6,8 +6,7 @@ require '../../../fpdf/fpdf.php';
 if (isset($_POST['submit'])) {
     // Mengambil nilai dari form
 
-    $bulan = $_POST['bulan'];
-    $tahun = $_POST['tahun'];
+    $kode_sbp = $_POST['kode_sbp'];
 
     // Membuat objek PDF
     $pdf = new FPDF('L', 'mm', 'A4');
@@ -18,8 +17,8 @@ if (isset($_POST['submit'])) {
     $pdf->Cell(0, 10, 'LAPORAN LOADING', 0, 1, 'C');
 
     // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
-    $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'Bulan ' . $bulan . ', Tahun ' . $tahun, 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, 'Kode SBP: '.$kode_sbp , 0, 1, 'C');
 
     // Menambahkan header tabel
     $pdf->SetFont('Arial', 'B', 12);
@@ -36,7 +35,7 @@ if (isset($_POST['submit'])) {
     $pdf->SetFont('Arial', '', 12);
     $tampil = mysqli_query($koneksi, "select * from loading
     inner join barge on loading.id_barge = barge.id_barge
-    inner join scjty on loading.id_rcjty = scjty.id_rcjty where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
+    inner join scjty on loading.id_rcjty = scjty.id_rcjty where kode_sbp='$kode_sbp' ");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
         $pdf->Cell(35, 6, $hasil['kode_sbp'], 1, 0);
         $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0);
@@ -123,34 +122,13 @@ if (isset($_POST['submits'])) {
             </div>
         </div>
         <form method="POST" action="">
-            <label>Bulan:</label>
+            <label>Kode SBP</label>
             <div class="form-group">
                 <div class="form-line">
-                    <select name="bulan" class="form-control">
-                        <?php
-                        $bulan_array = array(
-                            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-                        );
-                        foreach ($bulan_array as $index => $bulan) {
-                            echo '<option value="' . ($index + 1) . '">' . $bulan . '</option>';
-                        }
-                        ?>
-                    </select>
+                   <input type="text" class="form-control" name="kode_sbp">
                 </div>
             </div>
 
-            <label>Tahun:</label>
-            <div class="form-group">
-                <div class="form-line">
-                    <select name="tahun" class="form-control">
-                        <?php
-                        for ($i = 2021; $i <= 2023; $i++) {
-                            echo '<option value="' . $i . '">' . $i . '</option>';
-                        }
-                        ?>
-                    </select>
-                </div>
-            </div>
             <input type="submit" name="submit" value="Tampilkan Laporan" class="btn btn-primary">
             <br>
             <br>

@@ -9,7 +9,7 @@
 	}
 
 
-    function sum2() {
+	function sum2() {
 		var stok = document.getElementById('stokout').value;
 		var jumlahkeluar = document.getElementById('og').value;
 		var result = parseFloat(stok) - parseFloat(jumlahkeluar);
@@ -41,7 +41,7 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal"/>
+								<input type="date" name="tanggal" class="form-control" id="tanggal" />
 							</div>
 						</div>
 
@@ -55,11 +55,11 @@
 						<label for="">Finish</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish"/>
+								<input type="time" name="finish" class="form-control" id="finish" />
 							</div>
 						</div>
 
-                        <label for="">Transfer From (ROM ICF)</label>
+						<label for="">Transfer From (ROM ICF)</label>
 						<div class="form-group">
 							<div class="form-line">
 								<select name="transferfrom" id="select_transfericf" class="form-control" required>
@@ -98,22 +98,22 @@
 						<div class="tampung11"></div>
 
 						<label for="">Jumlah Keluar RC ICF</label>
-                        <div class="form-group">
+						<div class="form-group">
 							<div class="form-line">
-								<input type="text" name="jumlahkeluar" id="og"  onkeyup="sum2()" class="form-control" />
+								<input type="text" name="jumlahkeluar" id="og" onkeyup="sum2()" class="form-control" />
 
 							</div>
 						</div>
-						
+
 
 						<label for="">Jumlah Masuk RC Jetty</label>
-                        <div class="form-group">
+						<div class="form-group">
 							<div class="form-line">
 								<input type="text" name="jumlahmasuk" id="mirror" onmousemove="sum1()" class="form-control" />
 
 							</div>
 						</div>
-						
+
 
 						<label for="totalkeluar">Total Stock RC ICF</label>
 						<div class="form-group">
@@ -122,7 +122,7 @@
 							</div>
 						</div>
 
-                        <label for="totalmasuk">Total Stock RC Jetty</label>
+						<label for="totalmasuk">Total Stock RC Jetty</label>
 						<div class="form-group">
 							<div class="form-line">
 								<input readonly="readonly" name="totalmasuk" id="totalmasuk" type="number" class="form-control">
@@ -130,7 +130,7 @@
 						</div>
 
 						<div class="tampung1"></div>
-						
+
 
 						<label for="">Haul Truck</label>
 						<div class="form-group">
@@ -172,15 +172,15 @@
 						$id_rcjty = $pecah_rcjty[0];
 						$nama_rcjty = $pecah_rcjty[1];
 
-                        $id_rcicf = $_POST['transferfrom'];
-                        $pecah_rcicf = explode(".", $id_rcicf);
+						$id_rcicf = $_POST['transferfrom'];
+						$pecah_rcicf = explode(".", $id_rcicf);
 						$id_rcicf = $pecah_rcicf[0];
 						$nama_rcicf = $pecah_rcicf[1];
 
 						$jumlahmasuk = $_POST['jumlahmasuk'];
 						$jumlahkeluar = $_POST['jumlahkeluar'];
 
-                        $totalmasuk = $_POST['totalmasuk'];
+						$totalmasuk = $_POST['totalmasuk'];
 						$totalkeluar = $_POST['totalkeluar'];
 
 						$start = $_POST['start'];
@@ -198,12 +198,31 @@
 
 
 						if ($sql) {
-					?>
-							<script type="text/javascript">
-								alert("Simpan Data Berhasil");
-								window.location.href = "?page=transfer";
+							echo "
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=transfer';
+								});
 							</script>
-					<?php
+							";
+						} else {
+							echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=transfer';
+								});
+							</script>
+							";
 						}
 					}
 

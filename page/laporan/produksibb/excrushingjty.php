@@ -2,88 +2,189 @@
 include '../../../koneksi.php';
 require '../../../fpdf/fpdf.php';
 
-// Memeriksa apakah form telah disubmit
 if (isset($_POST['submit'])) {
-    // Mengambil nilai dari form
 
     $bulan = $_POST['bulan'];
     $tahun = $_POST['tahun'];
 
-    // Membuat objek PDF
-    $pdf = new FPDF('L','mm','A4');
+    $pdf = new FPDF('L', 'mm', 'A4');
+    $pdf->SetTitle('Laporan Crushing Jetty Bulan ' . $bulan . ' Tahun ' . $tahun);
     $pdf->AddPage();
 
-    // Menambahkan judul laporan
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'Laporan Berdasarkan Bulan/Tahun', 0, 1, 'C');
 
-    // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, 'Bulan/Tahun: ' . $bulan . '/' . $tahun, 0, 1);
-
-    // Menambahkan header tabel
+    $pdf->Cell(0, 7, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->Cell(0, 7, 'LAPORAN CRUSHING JETTY', 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(35, 10, 'Tanggal', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Start', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Finish', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Crushing To', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Jumlah', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Catatan', 1, 1, 'C');
+    $pdf->Cell(0, 7, 'Bulan ' . $bulan . ' Tahun ' . $tahun, 0, 1, 'C');
+    $pdf->Line(10, 35, 290, 35);
+    $pdf->SetLineWidth(1);
+    $pdf->Line(10, 34, 290, 34);
+    $pdf->SetLineWidth(0);
+    $pdf->Ln(10);
 
-    // Menampilkan data dalam tabel
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(35, 7, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(35, 7, 'Start', 1, 0, 'C');
+    $pdf->Cell(35, 7, 'Finish', 1, 0, 'C');
+    $pdf->Cell(42, 7, 'Crushing To', 1, 0, 'C');
+    $pdf->Cell(42, 7, 'Warna', 1, 0, 'C');
+    $pdf->Cell(35, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Cell(55, 7, 'Catatan', 1, 0, 'C');
+    $pdf->Ln();
+
+
+
     $pdf->SetFont('Arial', '', 12);
-    $tampil = mysqli_query($koneksi, "select * from crushingjty inner join scjty on crushingjty.id_rcjty = scjty.id_rcjty where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
-    while ($hasil = mysqli_fetch_assoc($tampil)) {
-        $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['start'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['finish'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['nama_rcjty'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['jumlah'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['catatan'], 1, 1);
+
+    // Mengambil data dari database berdasarkan kode_po yang dipilih
+    $no = 1;
+    $sql = $koneksi->query("SELECT tanggal, GROUP_CONCAT(`start` SEPARATOR ', ') AS `start_gabung`, 
+    GROUP_CONCAT(`finish` SEPARATOR ', ') AS `finish_gabung`, 
+    GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung, 
+    GROUP_CONCAT(warna SEPARATOR ', ') AS warna_gabung, 
+    GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung, 
+    GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
+    GROUP_CONCAT(id_crushing SEPARATOR ', ') AS id_crushing_gabung
+    FROM crushingjty
+    INNER JOIN scjty ON crushingjty.id_rcjty = scjty.id_rcjty
+    WHERE MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun' 
+    GROUP BY tanggal");
+
+    while ($data = $sql->fetch_assoc()) {
+        $start_gabung = explode(", ", $data['start_gabung']);
+        $finish_gabung = explode(", ", $data['finish_gabung']);
+        $nama_rcjty_gabung = explode(", ", $data['nama_rcjty_gabung']);
+        $warna_gabung = explode(", ", $data['warna_gabung']);
+        $jumlah_gabung = explode(", ", $data['jumlah_gabung']);
+        $catatan_gabung = explode(", ", $data['catatan_gabung']);
+        // Mencari jumlah baris terbanyak dari grup concat
+        $maxRows = max(count($start_gabung), count($finish_gabung), count($nama_rcjty_gabung), count($warna_gabung), count($jumlah_gabung), count($catatan_gabung));
+
+        // Menyusun ulang data agar memiliki jumlah baris yang sama
+        $start_gabung = array_pad($start_gabung, $maxRows, '');
+        $finish_gabung = array_pad($finish_gabung, $maxRows, '');
+        $nama_rcjty_gabung = array_pad($nama_rcjty_gabung, $maxRows, '');
+        $warna_gabung = array_pad($warna_gabung, $maxRows, '');
+        $jumlah_gabung = array_pad($jumlah_gabung, $maxRows, '');
+        $catatan_gabung = array_pad($catatan_gabung, $maxRows, '');
+
+
+        for ($i = 0; $i < $maxRows; $i++) {
+            if ($i == 0) {
+                $pdf->Cell(35, 7, $data['tanggal'], 1, 0, 'C');
+            } else {
+                $pdf->Cell(35, 7, '', 1, 0, 'C');
+            }
+
+            $pdf->Cell(35, 7, $start_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(35, 7, $finish_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(42, 7, $nama_rcjty_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(42, 7, $warna_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(35, 7, $jumlah_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(55, 7, $catatan_gabung[$i], 1, 0);
+
+            $pdf->Ln();
+        }
     }
-    // Mengakhiri dokumen PDF
+    // Menambahkan tanda tangan
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
+
     $pdf->Output();
 }
 
 if (isset($_POST['submits'])) {
     // Mengambil nilai dari form
 
-    $bulan = $_POST['bulan'];
-    $tahun = $_POST['tahun'];
-
-    // Membuat objek PDF
-    $pdf = new FPDF('L','mm','A4');
+    $pdf = new FPDF('L', 'mm', 'A4');
+    $pdf->SetTitle('Laporan Crushing Jetty');
     $pdf->AddPage();
 
-    // Menambahkan judul laporan
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'Laporan Berdasarkan Bulan/Tahun', 0, 1, 'C');
 
-    // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, 'Bulan/Tahun: ' . $bulan . '/' . $tahun, 0, 1);
-
-    // Menambahkan header tabel
+    $pdf->Cell(0, 7, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->Cell(0, 7, 'LAPORAN CRUSHING JETTY', 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(35, 10, 'Tanggal', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Start', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Finish', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Crushing To', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Jumlah', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Catatan', 1, 1, 'C');
+    $pdf->Line(10, 30, 290, 30);
+    $pdf->SetLineWidth(1);
+    $pdf->Line(10, 29, 290, 29);
+    $pdf->SetLineWidth(0);
+    $pdf->Ln(10);
 
-    // Menampilkan data dalam tabel
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(35, 7, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(35, 7, 'Start', 1, 0, 'C');
+    $pdf->Cell(35, 7, 'Finish', 1, 0, 'C');
+    $pdf->Cell(42, 7, 'Crushing To', 1, 0, 'C');
+    $pdf->Cell(42, 7, 'Warna', 1, 0, 'C');
+    $pdf->Cell(35, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Cell(55, 7, 'Catatan', 1, 0, 'C');
+    $pdf->Ln();
+
+
+
     $pdf->SetFont('Arial', '', 12);
-    $tampil = mysqli_query($koneksi, "select * from crushingjty inner join scjty on crushingjty.id_rcjty = scjty.id_rcjty");
-    while ($hasil = mysqli_fetch_assoc($tampil)) {
-        $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['start'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['finish'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['nama_rcjty'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['jumlah'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['catatan'], 1, 1);
+
+    // Mengambil data dari database berdasarkan kode_po yang dipilih
+    $no = 1;
+    $sql = $koneksi->query("SELECT tanggal, GROUP_CONCAT(`start` SEPARATOR ', ') AS `start_gabung`, 
+    GROUP_CONCAT(`finish` SEPARATOR ', ') AS `finish_gabung`, 
+    GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung, 
+    GROUP_CONCAT(warna SEPARATOR ', ') AS warna_gabung, 
+    GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung, 
+    GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
+    GROUP_CONCAT(id_crushing SEPARATOR ', ') AS id_crushing_gabung
+    FROM crushingjty
+    INNER JOIN scjty ON crushingjty.id_rcjty = scjty.id_rcjty 
+    GROUP BY tanggal");
+
+    while ($data = $sql->fetch_assoc()) {
+        $start_gabung = explode(", ", $data['start_gabung']);
+        $finish_gabung = explode(", ", $data['finish_gabung']);
+        $nama_rcjty_gabung = explode(", ", $data['nama_rcjty_gabung']);
+        $warna_gabung = explode(", ", $data['warna_gabung']);
+        $jumlah_gabung = explode(", ", $data['jumlah_gabung']);
+        $catatan_gabung = explode(", ", $data['catatan_gabung']);
+        // Mencari jumlah baris terbanyak dari grup concat
+        $maxRows = max(count($start_gabung), count($finish_gabung), count($nama_rcjty_gabung), count($warna_gabung), count($jumlah_gabung), count($catatan_gabung));
+
+        // Menyusun ulang data agar memiliki jumlah baris yang sama
+        $start_gabung = array_pad($start_gabung, $maxRows, '');
+        $finish_gabung = array_pad($finish_gabung, $maxRows, '');
+        $nama_rcjty_gabung = array_pad($nama_rcjty_gabung, $maxRows, '');
+        $warna_gabung = array_pad($warna_gabung, $maxRows, '');
+        $jumlah_gabung = array_pad($jumlah_gabung, $maxRows, '');
+        $catatan_gabung = array_pad($catatan_gabung, $maxRows, '');
+
+
+        for ($i = 0; $i < $maxRows; $i++) {
+            if ($i == 0) {
+                $pdf->Cell(35, 7, $data['tanggal'], 1, 0, 'C');
+            } else {
+                $pdf->Cell(35, 7, '', 1, 0, 'C');
+            }
+
+            $pdf->Cell(35, 7, $start_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(35, 7, $finish_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(42, 7, $nama_rcjty_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(42, 7, $warna_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(35, 7, $jumlah_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(55, 7, $catatan_gabung[$i], 1, 0);
+
+            $pdf->Ln();
+        }
     }
-    // Mengakhiri dokumen PDF
+    // Menambahkan tanda tangan
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
+
     $pdf->Output();
 }
 
@@ -109,7 +210,8 @@ if (isset($_POST['submits'])) {
     <div class="container">
         <div class="form-group">
             <div class="form-line">
-                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN CRUSHING JETTY BERDASARKAN BULAN DAN TAHUN<a href="../../../index/index_admin.php?page=laporan_crushingjty" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6></h6>
+                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN CRUSHING JETTY BERDASARKAN BULAN DAN TAHUN<a href="../../../index/index_admin.php?page=laporan_crushingjty" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+                </h6>
             </div>
         </div>
         <form method="POST" action="">
@@ -147,12 +249,12 @@ if (isset($_POST['submits'])) {
             <div class="form-group">
                 <div class="form-line">
                     <div class="alert alert-dark" role="alert">
-                        Atau klik tombol berikut  <input type="submit" name="submits" value="Semua Data" class="btn btn-info"> untuk menampilkan/print seluruh data.</a>
+                        Atau klik tombol berikut <input type="submit" name="submits" value="Semua Data" class="btn btn-info"> untuk menampilkan/print seluruh data.</a>
                     </div>
                 </div>
             </div>
-                <script src="../../../vendor/jquery/jquery.slim.min.js"></script>
-                <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="../../../vendor/jquery/jquery.slim.min.js"></script>
+            <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

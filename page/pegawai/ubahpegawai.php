@@ -112,28 +112,62 @@ $bagian = $tampil['bagian'];
 							$sql = $koneksi->query("update pegawai set nik='$nik', nama='$nama', bagian='$bagian', telepon='$telepon', alamat='$alamat', foto='$foto' where id_pegawai='$id'");
 
 							if ($sql) {
-					?>
-
-								<script type="text/javascript">
-									alert("Data Berhasil Diubah");
-									window.location.href = "?page=pegawai";
+								echo "
+								<script>
+									Swal.fire({
+										title: 'SUKSES!',
+										text: 'Data Berhasil Diubah',
+										icon: 'success',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=pegawai';
+									});
 								</script>
-
-							<?php
+								";
+							} else {
+								echo "
+								<script>
+									Swal.fire({
+										title: 'ERROR!',
+										text: 'Data Gagal Diubah',
+										icon: 'error',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=pegawai';
+									});
+								</script>
+								";
 							}
 						} else {
 
 							$sql = $koneksi->query("update pegawai set nik='$nik', nama='$nama', bagian='$bagian', telepon='$telepon', alamat='$alamat' where id_pegawai='$id'");
 
 							if ($sql) {
-							?>
-
-								<script type="text/javascript">
-									alert("Data Berhasil Diubah");
-									window.location.href = "?page=pegawai";
+								echo "
+								<script>
+									Swal.fire({
+										title: 'SUKSES!',
+										text: 'Data Berhasil Diubah',
+										icon: 'success',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=pegawai';
+									});
 								</script>
-
-					<?php
+								";
+							} else {
+								echo "
+								<script>
+									Swal.fire({
+										title: 'ERROR!',
+										text: 'Data Gagal Diubah',
+										icon: 'error',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=pegawai';
+									});
+								</script>
+								";
 							}
 						}
 					}

@@ -13,7 +13,7 @@
               <th>Nama RC</th>
               <th>Warna</th>
               <th>Stok</th>
-              <th>Pengaturan</th>
+              <th>Selengkapnya</th>
 
             </tr>
           </thead>
@@ -35,7 +35,7 @@
 
 
                 <td>
-                <a href="?page=stokcoaljty&aksi=viewscjty&id_rcjty=<?php echo $data['id_rcjty'] ?>" class="btn btn-success btn-circle"><i class="fas fa-search"></i></a>
+                <a href="?page=stokcoaljty&aksi=viewscjty&id_rcjty=<?php echo $data['id_rcjty'] ?>" class="btn btn-primary btn-circle"><i class="fas fa-info"></i></a>
                 </td>
               </tr>
             <?php } ?>

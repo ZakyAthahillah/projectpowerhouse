@@ -24,7 +24,7 @@ function selectAllData() {
 }
 
 function insertData($data) {
-    $query = "INSERT INTO sbp VALUES ('".$data['kode_sbp']. "','" . $data['nama_sbp'] . "','" . $data['title'] . "','" . $data['size'] . "','" . $data['ekstensi'] . "','" . $data['berkas'] . "') ";
+    $query = "INSERT INTO sbp VALUES ('".$data['kode_sbp']. "','" . $data['nama_sbp'] . "','" . $data['title'] . "','" . $data['size'] . "','" . $data['ekstensi'] . "','" . $data['berkas'] . "', '".$data['status']. "') ";
 
     $result = mysqli_query(koneksiDB(), $query);
 

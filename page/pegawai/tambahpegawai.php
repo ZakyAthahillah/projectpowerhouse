@@ -91,14 +91,31 @@
 								$sql = $koneksi->query("insert into pegawai (nik, nama, bagian, telepon, alamat, foto) values('$nik', '$nama', '$bagian', '$telepon', '$alamat', '$foto')");
 
 								if ($sql) {
-						?>
-
-  								<script type="text/javascript">
-  									alert("Data Berhasil Disimpan");
-  									window.location.href = "?page=pegawai";
-  								</script>
-
-  					<?php
+									echo "
+									<script>
+										Swal.fire({
+											title: 'SUKSES!',
+											text: 'Data Berhasil Disimpan',
+											icon: 'success',
+											confirmButtonText: 'OK'
+										}).then(() => {
+											window.location.href = '?page=pegawai';
+										});
+									</script>
+									";
+								} else {
+									echo "
+									<script>
+										Swal.fire({
+											title: 'ERROR!',
+											text: 'Data Gagal Disimpan',
+											icon: 'error',
+											confirmButtonText: 'OK'
+										}).then(() => {
+											window.location.href = '?page=pegawai';
+										});
+									</script>
+									";
 								}
 							}
 						}

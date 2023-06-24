@@ -1,10 +1,8 @@
-
-
-<?php 
+<?php
 
 
 
-$koneksi = new mysqli("localhost","root","","inventori");
+$koneksi = new mysqli("localhost", "root", "", "inventori");
 $no = mysqli_query($koneksi, "select kode_supplier from tb_supplier order by kode_supplier desc");
 $kdsupplier = mysqli_fetch_array($no);
 $kode = $kdsupplier['kode_supplier'];
@@ -19,7 +17,7 @@ $kode = $kdsupplier['kode_supplier'];
 // 	$format = "SUP-".$bulan.$tahun."00".$tambah;
 // } else if(strlen($tambah) == 2){
 // 	$format = "SUP-".$bulan.$tahun."0".$tambah;
-	
+
 // } else{
 // 	$format = "SUP-".$bulan.$tahun.$tambah;
 
@@ -30,98 +28,107 @@ $kode = $kdsupplier['kode_supplier'];
 
 
 ?>
-							
 
 
 
-  <div class="container-fluid">
 
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Tambah Supplier<a href="?page=supplier" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-							
-							
-							<div class="body">
-							
-							<form method="POST" enctype="multipart/form-data">
-							
-							<label for="">Kode Supplier</label>
-                            <div class="form-group">
-                               <div class="form-line">
-                             <input type="text" name="kode_supplier" class="form-control" id="kode_supplier" />
+<div class="container-fluid">
+
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">Tambah Supplier<a href="?page=supplier" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+
+
+				<div class="body">
+
+					<form method="POST" enctype="multipart/form-data">
+
+						<label for="">Kode Supplier</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" name="kode_supplier" class="form-control" id="kode_supplier" />
 							</div>
-                            </div>
-							
-						
-							
-							<label for="">Nama Supplier</label>
-                            <div class="form-group">
-                               <div class="form-line">
-                                <input type="text" name="nama_supplier" class="form-control" />	 
+						</div>
+
+
+
+						<label for="">Nama Supplier</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" name="nama_supplier" class="form-control" />
 							</div>
-                            </div>
-							
-					
-							<label for="">Alamat</label>
-                            <div class="form-group">
-                               <div class="form-line">
-                                <input type="text" name="alamat" class="form-control" />
-                          	 
-								</div>
-                            </div>
-					
-							
-							<label for="">Telepon</label>
-                            <div class="form-group">
-                               <div class="form-line">
-                                <input type="number" name="telepon" class="form-control" />	 
+						</div>
+
+
+						<label for="">Alamat</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" name="alamat" class="form-control" />
+
 							</div>
-                            </div>
-							
-							
-						
-								<input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
-							
-							</form>
-						
-							
-							
-							
-							<?php
-							
-							if (isset($_POST['simpan'])) {
-								$kode_supplier= $_POST['kode_supplier'];
-								$nama_supplier= $_POST['nama_supplier'];
-								$alamat= $_POST['alamat'];
-								
-								$telepon= $_POST['telepon'];
-			
-								
-								$sql = $koneksi->query("insert into tb_supplier (kode_supplier, nama_supplier, alamat, telepon) values('$kode_supplier','$nama_supplier','$alamat','$telepon')");
-								
-								if ($sql) {
-									?>
-									
-										<script type="text/javascript">
-										alert("Data Berhasil Disimpan");
-										window.location.href="?page=supplier";
-										</script>
-										
-										<?php
-								}
-								}
-							
-							
-							?>
-										
-										
-										
-								
-								
-								
-								
-								
+						</div>
+
+
+						<label for="">Telepon</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="number" name="telepon" class="form-control" />
+							</div>
+						</div>
+
+
+
+						<input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
+
+					</form>
+
+
+
+
+					<?php
+
+					if (isset($_POST['simpan'])) {
+						$kode_supplier = $_POST['kode_supplier'];
+						$nama_supplier = $_POST['nama_supplier'];
+						$alamat = $_POST['alamat'];
+
+						$telepon = $_POST['telepon'];
+
+
+						$sql = $koneksi->query("insert into tb_supplier (kode_supplier, nama_supplier, alamat, telepon) values('$kode_supplier','$nama_supplier','$alamat','$telepon')");
+
+						if ($sql) {
+							echo "
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=supplier';
+								});
+							</script>
+							";
+						} else {
+							echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=supplier';
+								});
+							</script>
+							";
+						}
+					}
+
+
+					?>

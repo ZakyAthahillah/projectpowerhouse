@@ -1,52 +1,67 @@
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Laporan Data Riwayat Crushing ICF</h6>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Laporan Data Riwayat Crushing ICF</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Tanggal</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Crushing To</th>
+            <th>Warna</th>
+            <th>Jumlah</th>
+            <th>Catatan</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <?php
+          $no = 1;
+          $sql = mysqli_query($koneksi, "SELECT tanggal, GROUP_CONCAT(`start` SEPARATOR ', ') AS `start_concat`, 
+            GROUP_CONCAT(`finish` SEPARATOR ', ') AS `finish_concat`, 
+            GROUP_CONCAT(nama_rcicf SEPARATOR ', ') AS nama_rcicf_concat, 
+            GROUP_CONCAT(warna SEPARATOR ', ') AS warna_concat, 
+            GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_concat, 
+            GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_concat,
+            GROUP_CONCAT(id_crushing SEPARATOR ', ') AS id_crushing_concat
+            FROM crushingicf
+            INNER JOIN scicf ON crushingicf.id_rcicf = scicf.id_rcicf 
+            GROUP BY tanggal
+            ORDER BY tanggal DESC");
+
+          while ($data = mysqli_fetch_assoc($sql)) {
+            $start_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['start_concat']) . '</li></ul>';
+            $finish_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['finish_concat']) . '</li></ul>';
+            $nama_rcicf_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_rcicf_concat']) . '</li></ul>';
+            $jumlah_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_concat']) . '</li></ul>';
+            $warna_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['warna_concat']) . '</li></ul>';
+            $catatan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['catatan_concat']) . '</li></ul>';
+            $id_crushing_gabung = $data['id_crushing_concat'];
+          ?>
             <tr>
-              <th>No</th>
-              <th>Tanggal</th>
-              <th>Start</th>
-              <th>Finish</th>
-              <th>Crushing To</th>
-              <th>Jumlah</th>
-              <th>Catatan</th>
+              <td><?php echo $no++; ?></td>
+              <td><?php echo $data['tanggal'] ?></td>
+              <td><?php echo $start_gabung ?></td>
+              <td><?php echo $finish_gabung ?></td>
+              <td><?php echo $nama_rcicf_gabung ?></td>
+              <td><?php echo $warna_gabung ?></td>
+              <td><?php echo $jumlah_gabung ?></td>
+              <td><?php echo $catatan_gabung ?></td>
+
             </tr>
-          </thead>
-
-
-          <tbody>
-            <?php
-
-            $no = 1;
-            $sql = mysqli_query($koneksi,"select * from crushingicf
-            inner join scicf on crushingicf.id_rcicf = scicf.id_rcicf
-           ");
-            while ($data = mysqli_fetch_assoc($sql)) {
-
-            ?>
-
-              <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $data['tanggal'] ?></td>
-                <td><?php echo $data['start'] ?></td>
-                <td><?php echo $data['finish'] ?></td>
-                <td><?php echo $data['nama_rcicf'] ?></td>
-                <td><?php echo $data['jumlah'] ?></td>
-                <td><?php echo $data['catatan'] ?></td> 
-              </tr>
-            <?php } ?>
-          </tbody>
-        </table>
-        <a href="../page/laporan/produksibb/excrushingicf.php" class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i></a>
-
+          <?php } ?>
         </tbody>
-        </table>
-      </div>
+      </table>
+      <a href="../page/laporan/produksibb/excrushingicf.php" class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i></a>
+
+      </tbody>
+      </table>
     </div>
   </div>
+</div>
 
 </div>

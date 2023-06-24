@@ -182,17 +182,30 @@
 
 								if ($sql) {
 									echo "
-									<script>
-										Swal.fire({
-											title: 'SUKSES!',
-											text: 'Data Berhasil Dihapus',
-											icon: 'success',
-											confirmButtonText: 'OK'
-										}).then(() => {
-											window.location.href = '?page=barangkeluar';
-										});
-									</script>
-									";
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=barangkeluar';
+								});
+							</script>
+							";
+								} else {
+									echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=barangkeluar';
+								});
+							</script>
+							";
 								}
 							}
 						}

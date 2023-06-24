@@ -76,7 +76,7 @@
                     <?php
 
                     if (isset($_POST['simpan'])) {
-                        $tanggal = $_POST['tanggal'];             
+                        $tanggal = $_POST['tanggal'];
                         $start = $_POST['start'];
                         $finish = $_POST['finish'];
                         $plan = $_POST['plan'];
@@ -87,12 +87,31 @@
                         $sql = $koneksi->query("insert into blending (tanggal, start, finish, plan, bcrush, ycrush, gcrush) values('$tanggal','$start','$finish', '$plan','$blue','$yellow', '$green')");
 
                         if ($sql) {
-                    ?>
-                            <script type="text/javascript">
-                                alert("Simpan Data Berhasil");
-                                window.location.href = "?page=blending";
-                            </script>
-                    <?php
+                            echo "
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=blending';
+								});
+							</script>
+							";
+                        } else {
+                            echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=blending';
+								});
+							</script>
+							";
                         }
                     }
 

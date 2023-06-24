@@ -12,31 +12,45 @@
                         <th>Start</th>
                         <th>Finish</th>
                         <th>Crushing To</th>
+                        <th>Warna</th>
                         <th>Jumlah</th>
                         <th>Catatan</th>
                     </tr>
                 </thead>
 
-
                 <tbody>
                     <?php
-
                     $no = 1;
-                    $sql = mysqli_query($koneksi, "select * from crushingjty
-            inner join scjty on crushingjty.id_rcjty = scjty.id_rcjty
-           ");
+                    $sql = mysqli_query($koneksi, "SELECT tanggal, GROUP_CONCAT(`start` SEPARATOR ', ') AS `start_concat`, 
+                    GROUP_CONCAT(`finish` SEPARATOR ', ') AS `finish_concat`, 
+                    GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_concat, 
+                    GROUP_CONCAT(warna SEPARATOR ', ') AS warna_concat, 
+                    GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_concat, 
+                    GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_concat,
+                    GROUP_CONCAT(id_crushing SEPARATOR ', ') AS id_crushing_concat
+                    FROM crushingjty
+                    INNER JOIN scjty ON crushingjty.id_rcjty = scjty.id_rcjty 
+                    GROUP BY tanggal
+                    ORDER BY tanggal DESC");
+
                     while ($data = mysqli_fetch_assoc($sql)) {
-
+                        $start_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['start_concat']) . '</li></ul>';
+                        $finish_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['finish_concat']) . '</li></ul>';
+                        $nama_rcjty_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_rcjty_concat']) . '</li></ul>';
+                        $jumlah_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_concat']) . '</li></ul>';
+                        $warna_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['warna_concat']) . '</li></ul>';
+                        $catatan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['catatan_concat']) . '</li></ul>';
+                        $id_crushing_gabung = $data['id_crushing_concat'];
                     ?>
-
                         <tr>
                             <td><?php echo $no++; ?></td>
                             <td><?php echo $data['tanggal'] ?></td>
-                            <td><?php echo $data['start'] ?></td>
-                            <td><?php echo $data['finish'] ?></td>
-                            <td><?php echo $data['nama_rcjty'] ?></td>
-                            <td><?php echo $data['jumlah'] ?></td>
-                            <td><?php echo $data['catatan'] ?></td>
+                            <td><?php echo $start_gabung ?></td>
+                            <td><?php echo $finish_gabung ?></td>
+                            <td><?php echo $nama_rcjty_gabung ?></td>
+                            <td><?php echo $warna_gabung ?></td>
+                            <td><?php echo $jumlah_gabung ?></td>
+                            <td><?php echo $catatan_gabung ?></td>
                         </tr>
                     <?php } ?>
 

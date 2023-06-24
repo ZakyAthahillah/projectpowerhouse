@@ -3,6 +3,7 @@ include 'func.php';
 
 $kode = $_POST['kode'];
 $nama = $_POST['nama'];
+$status = "Upload Baru";
 $namaFile = $_FILES['berkas']['name'];
 $x = explode('.', $namaFile);
 $ekstensiFile = strtolower(end($x));
@@ -23,6 +24,7 @@ $dataArr = array(
 	'size' => $ukuranFile,
 	'ekstensi' => $ekstensiFile,
 	'berkas' => $linkBerkas,
+	'status' => $status,
 );
 
 if ($terupload && (insertData($dataArr) == 1)) {

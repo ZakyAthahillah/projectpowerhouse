@@ -45,16 +45,16 @@
                 include "../page/blending/file";
               }
               if ($aksi == "tambahsbp") {
-                include "../page//blending/tambahsbp.php";
+                include "../page/blending/tambahsbp.php";
+              }
+              if ($aksi == "ubahsbp") {
+                include "../page/blending/ubahsbp.php";
               }
               if ($aksi == "uploadsbp") {
                 include "../page/blending/uploadsbp.php";
               }
               if ($aksi == "downloadsbp") {
                 include "../page/blending/downloadsbp.php";
-              }
-              if ($aksi == "ubahsbp") {
-                include "../page/blending/ubahsbp.php";
               }
               if ($aksi == "hapussbp") {
                 include "../page/blending/hapussbp.php";

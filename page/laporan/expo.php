@@ -4,106 +4,109 @@ require '../../fpdf/fpdf.php';
 
 // Memeriksa apakah form telah disubmit
 if (isset($_POST['submit'])) {
-    class PDF extends FPDF
-    {
-        function Header()
-        {
-            $this->SetFont('Arial', 'B', 14);
-            $this->Cell(0, 10, 'Laporan Pre-Order', 0, 1, 'C');
-            $this->Ln(5);
 
-            $this->SetFont('Arial', 'B', 12);
-            $this->Cell(30, 7, 'Kode Pre-Order', 1, 0, 'C');
-            $this->Cell(30, 7, 'Tanggal', 1, 0, 'C');
-            $this->Cell(30, 7, 'Kode Barang', 1, 0, 'C');
-            $this->Cell(150, 7, 'Nama Barang', 1, 0, 'C');
-            $this->Cell(20, 7, 'Jumlah', 1, 0, 'C');
-            $this->Ln();
-        }
-    }
+    $kode_po = $_POST['kode_po'];
 
-    if (isset($_POST['kode_po'])) {
-        $kode_po = $_POST['kode_po'];
+    $pdf = new FPDF('L', 'mm', 'A4');
+    $pdf->SetTitle('Laporan Pre-Order');
 
-        $pdf = new PDF('L', 'mm', 'A4');
-        $pdf->SetTitle('Laporan Pre-Order');
 
-        $pdf->AddPage();
-        $pdf->SetFont('Arial', '', 12);
+    $pdf->AddPage();
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 7, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 7, 'LAPORAN PRE-ORDER', 0, 1, 'C');
+    $pdf->Line(10, 31, 290, 31);
+    $pdf->SetLineWidth(1);
+    $pdf->Line(10, 30, 290, 30);
+    $pdf->SetLineWidth(0);
+    $pdf->Ln(15);
 
-        // Mengambil data dari database berdasarkan kode_po yang dipilih
-        $no = 1;
-        $sql = $koneksi->query("SELECT po.kode_po, po.tanggal, po.status, GROUP_CONCAT(gudang.kode_barang SEPARATOR ', ') AS kode_barang_gabung, GROUP_CONCAT(gudang.nama_barang SEPARATOR ', ') AS nama_barang_gabung, GROUP_CONCAT(po.jumlah_po SEPARATOR ', ') AS jumlah_po_gabung
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(30, 7, 'Kode Pre-Order', 1, 0, 'C');
+    $pdf->Cell(30, 7, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(30, 7, 'Kode Barang', 1, 0, 'C');
+    $pdf->Cell(150, 7, 'Nama Barang', 1, 0, 'C');
+    $pdf->Cell(20, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Ln();
+
+
+    $pdf->SetFont('Arial', '', 12);
+    // Mengambil data dari database berdasarkan kode_po yang dipilih
+    $no = 1;
+    $sql = $koneksi->query("SELECT po.kode_po, po.tanggal, po.status, GROUP_CONCAT(gudang.kode_barang SEPARATOR ', ') AS kode_barang_gabung, GROUP_CONCAT(gudang.nama_barang SEPARATOR ', ') AS nama_barang_gabung, GROUP_CONCAT(po.jumlah_po SEPARATOR ', ') AS jumlah_po_gabung
         FROM po
         INNER JOIN gudang ON po.kode_barang = gudang.kode_barang
         WHERE po.kode_po = '$kode_po'
         GROUP BY po.kode_po");
-        while ($data = $sql->fetch_assoc()) {
-            $kode_barang_gabung = explode(", ", $data['kode_barang_gabung']);
-            $nama_barang_gabung = explode(", ", $data['nama_barang_gabung']);
-            $jumlah_po_gabung = explode(", ", $data['jumlah_po_gabung']);
-            // Mencari jumlah baris terbanyak dari grup concat
-            $maxRows = max(count($kode_barang_gabung), count($nama_barang_gabung), count($jumlah_po_gabung));
+    while ($data = $sql->fetch_assoc()) {
+        $kode_barang_gabung = explode(", ", $data['kode_barang_gabung']);
+        $nama_barang_gabung = explode(", ", $data['nama_barang_gabung']);
+        $jumlah_po_gabung = explode(", ", $data['jumlah_po_gabung']);
+        // Mencari jumlah baris terbanyak dari grup concat
+        $maxRows = max(count($kode_barang_gabung), count($nama_barang_gabung), count($jumlah_po_gabung));
 
-            // Menyusun ulang data agar memiliki jumlah baris yang sama
-            $kode_barang_gabung = array_pad($kode_barang_gabung, $maxRows, '');
-            $nama_barang_gabung = array_pad($nama_barang_gabung, $maxRows, '');
-            $jumlah_po_gabung = array_pad($jumlah_po_gabung, $maxRows, '');
+        // Menyusun ulang data agar memiliki jumlah baris yang sama
+        $kode_barang_gabung = array_pad($kode_barang_gabung, $maxRows, '');
+        $nama_barang_gabung = array_pad($nama_barang_gabung, $maxRows, '');
+        $jumlah_po_gabung = array_pad($jumlah_po_gabung, $maxRows, '');
 
-            for ($i = 0; $i < $maxRows; $i++) {
-                if ($i == 0) {
-                    $pdf->Cell(30, 7, $data['kode_po'], 1, 0, 'C');
-                    $pdf->Cell(30, 7, $data['tanggal'], 1, 0, 'C');
-                } else {
-                    $pdf->Cell(30, 7, '', 1, 0, 'C');
-                    $pdf->Cell(30, 7, '', 1, 0, 'C');
-                }
-
-                $pdf->Cell(30, 7, $kode_barang_gabung[$i], 1, 0, 'C');
-                $pdf->Cell(150, 7, $nama_barang_gabung[$i], 1, 0, 'L');
-                $pdf->Cell(20, 7, $jumlah_po_gabung[$i], 1, 0, 'C');
-
-                $pdf->Ln();
+        for ($i = 0; $i < $maxRows; $i++) {
+            if ($i == 0) {
+                $pdf->Cell(30, 7, $data['kode_po'], 1, 0, 'C');
+                $pdf->Cell(30, 7, $data['tanggal'], 1, 0, 'C');
+            } else {
+                $pdf->Cell(30, 7, '', 1, 0, 'C');
+                $pdf->Cell(30, 7, '', 1, 0, 'C');
             }
-        }
 
-        $pdf->Output();
+            $pdf->Cell(30, 7, $kode_barang_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(150, 7, $nama_barang_gabung[$i], 1, 0, 'L');
+            $pdf->Cell(20, 7, $jumlah_po_gabung[$i], 1, 0, 'C');
+
+            $pdf->Ln();
+        }
     }
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
+
+    $pdf->Output();
 }
+
 
 if (isset($_POST['submits'])) {
 
-    class PDF extends FPDF
-    {
-        function Header()
-        {
-            $this->SetFont('Arial', 'B', 14);
-            $this->Cell(0, 10, 'Laporan Pre-Order', 0, 1, 'C');
-            $this->Ln(5);
-
-            $this->SetFont('Arial', 'B', 12);
-            $this->Cell(30, 7, 'Kode Pre-Order', 1, 0, 'C');
-            $this->Cell(30, 7, 'Tanggal', 1, 0, 'C');
-            $this->Cell(30, 7, 'Kode Barang', 1, 0, 'C');
-            $this->Cell(150, 7, 'Nama Barang', 1, 0, 'C');
-            $this->Cell(20, 7, 'Jumlah', 1, 0, 'C');
-            $this->Ln();
-        }
-    }
-
-
-    $pdf = new PDF('L', 'mm', 'A4');
+    $pdf = new FPDF('L', 'mm', 'A4');
     $pdf->SetTitle('Laporan Pre-Order');
-
     $pdf->AddPage();
-    $pdf->SetFont('Arial', '', 12);
+    
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 7, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 7, 'LAPORAN PRE-ORDER', 0, 1, 'C');
+    $pdf->Line(10, 31, 290, 31);
+    $pdf->SetLineWidth(1);
+    $pdf->Line(10, 30, 290, 30);
+    $pdf->SetLineWidth(0);
+    $pdf->Ln(15);
 
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(30, 7, 'Kode Pre-Order', 1, 0, 'C');
+    $pdf->Cell(30, 7, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(30, 7, 'Kode Barang', 1, 0, 'C');
+    $pdf->Cell(150, 7, 'Nama Barang', 1, 0, 'C');
+    $pdf->Cell(20, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Ln();
+
+    $pdf->SetFont('Arial', '', 12);
     // Mengambil data dari database
     $no = 1;
     $sql = $koneksi->query("SELECT po.kode_po, po.tanggal, po.status, GROUP_CONCAT(gudang.kode_barang SEPARATOR ', ') AS kode_barang_gabung, GROUP_CONCAT(gudang.nama_barang SEPARATOR ', ') AS nama_barang_gabung, GROUP_CONCAT(po.jumlah_po SEPARATOR ', ') AS jumlah_po_gabung
-FROM po
-INNER JOIN gudang ON po.kode_barang = gudang.kode_barang
-GROUP BY po.kode_po");
+    FROM po
+    INNER JOIN gudang ON po.kode_barang = gudang.kode_barang
+    GROUP BY po.kode_po");
     while ($data = $sql->fetch_assoc()) {
         $kode_barang_gabung = explode(", ", $data['kode_barang_gabung']);
         $nama_barang_gabung = explode(", ", $data['nama_barang_gabung']);
@@ -133,6 +136,10 @@ GROUP BY po.kode_po");
             $pdf->Ln();
         }
     }
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
 
     $pdf->Output();
 }

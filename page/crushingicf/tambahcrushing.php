@@ -30,14 +30,14 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal"/>
+								<input type="date" name="tanggal" class="form-control" id="tanggal" />
 							</div>
 						</div>
 
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start"/>
+								<input type="time" name="start" class="form-control" id="start" />
 							</div>
 						</div>
 
@@ -123,12 +123,31 @@
 
 
 						if ($sql) {
-					?>
-							<script type="text/javascript">
-								alert("Simpan Data Berhasil");
-								window.location.href = "?page=crushingicf";
+							echo "
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=crushingicf';
+								});
 							</script>
-					<?php
+							";
+						} else {
+							echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=crushingicf';
+								});
+							</script>
+							";
 						}
 					}
 

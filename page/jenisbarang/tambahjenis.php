@@ -40,16 +40,31 @@
 							$sql = $koneksi->query("insert into jenis_barang (jenis_barang) values('$jenis_barang')");
 
 							if ($sql) {
-						?>
-
-  							<script type="text/javascript">
-  								alert("Data Berhasil Disimpan");
-  								window.location.href = "?page=jenisbarang";
-  							</script>
-
-  					<?php
+								echo "
+								<script>
+									Swal.fire({
+										title: 'SUKSES!',
+										text: 'Data Berhasil Disimpan',
+										icon: 'success',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=jenisbarang';
+									});
+								</script>
+								";
+							} else {
+								echo "
+								<script>
+									Swal.fire({
+										title: 'ERROR!',
+										text: 'Data Gagal Disimpan',
+										icon: 'error',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=jenisbarang';
+									});
+								</script>
+								";
 							}
-						}
-
-
+							}
 						?>

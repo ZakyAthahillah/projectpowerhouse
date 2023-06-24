@@ -48,14 +48,31 @@
                         $sql = $koneksi->query("insert into barge (nama_barge, status) values('$nama_barge', '$status')");
 
                         if ($sql) {
-                    ?>
-
-                            <script type="text/javascript">
-                                alert("Data Berhasil Disimpan");
-                                window.location.href = "?page=barge";
-                            </script>
-
-                    <?php
-                        }
+                            echo "
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=barge';
+								});
+							</script>
+							";
+						} else {
+							echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=barge';
+								});
+							</script>
+							";
+						}
                     }
                     ?>

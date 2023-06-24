@@ -10,68 +10,106 @@ if (isset($_POST['submit'])) {
     $tahun = $_POST['tahun'];
 
     // Membuat objek PDF
-    $pdf = new FPDF('L','mm','A4');
+    $pdf = new FPDF('L', 'mm', 'A4');
+    $pdf->SetTitle('Laporan Barang Masuk Bulan ' .$bulan.' Tahun '.$tahun);
     $pdf->AddPage();
 
-    // Menambahkan judul laporan
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'Laporan Berdasarkan Bulan/Tahun', 0, 1, 'C');
 
-    // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, 'Bulan/Tahun: ' . $bulan . '/' . $tahun, 0, 1);
+    $pdf->Cell(0, 7, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 7, 'LAPORAN BARANG MASUK', 0, 1, 'C');
+    $pdf->Cell(0, 10, 'Bulan ' . $bulan . ' Tahun ' . $tahun, 0, 1, 'C');
+    $pdf->Line(10,35,290,35);
+    $pdf->SetLineWidth(1);
+    $pdf->Line(10,34,290,34);
+    $pdf->SetLineWidth(0);
+    $pdf->Ln(10);
 
     // Menambahkan header tabel
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(30, 10, 'ID', 1, 0, 'C');
-    $pdf->Cell(60, 10, 'Nama', 1, 0, 'C');
-    $pdf->Cell(50, 10, 'Alamat', 1, 1, 'C');
+    $pdf->Cell(50, 10, 'Id Transaksi', 1, 0, 'C');
+    $pdf->Cell(25, 10, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(27, 10, 'Kode Barang', 1, 0, 'C');
+    $pdf->Cell(115, 10, 'Nama Barang', 1, 0, 'C');
+    $pdf->Cell(50, 10, 'Pengirim', 1, 0, 'C');
+    $pdf->Cell(15, 10, 'Jumlah', 1, 1, 'C');
+
 
     // Menampilkan data dalam tabel
     $pdf->SetFont('Arial', '', 12);
-    $tampil = mysqli_query($koneksi, "select * from barang_masuk where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
+    $tampil = mysqli_query($koneksi, "select * from barang_masuk 
+    inner join tb_supplier on barang_masuk.id_supplier = tb_supplier.id_supplier where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
-        $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0);
-        $pdf->Cell(135, 6, $hasil['nama_barang'], 1, 0);
-        $pdf->Cell(25, 6, $hasil['jumlah'], 1, 1);
+        $pdf->Cell(50, 6, $hasil['id_transaksi'], 1, 0);
+        $pdf->Cell(25, 6, $hasil['tanggal'], 1, 0);
+        $pdf->Cell(27, 6, $hasil['kode_barang'], 1, 0);
+        $pdf->Cell(115, 6, $hasil['nama_barang'], 1, 0);
+        $pdf->Cell(50, 6, $hasil['nama_supplier'], 1, 0);
+        $pdf->Cell(15, 6, $hasil['jumlah'], 1, 1, 'C');
     }
+
+    // Menambahkan tanda tangan
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
+
+
     // Mengakhiri dokumen PDF
-    $pdf->Output();
+    $pdf->Output('Laporan Barang Masuk Bulan '.$bulan.' Tahun '.$tahun.'.pdf', 'I');
 }
 
 
 if (isset($_POST['submits'])) {
     // Mengambil nilai dari form
 
-    $bulan = $_POST['bulan'];
-    $tahun = $_POST['tahun'];
-
     // Membuat objek PDF
-    $pdf = new FPDF('L','mm','A4');
+    $pdf = new FPDF('L', 'mm', 'A4');
+    $pdf->SetTitle('Laporan Barang Masuk');
     $pdf->AddPage();
 
     // Menambahkan judul laporan
+   
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'Laporan Berdasarkan Bulan/Tahun', 0, 1, 'C');
 
-    // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, 'Bulan/Tahun: ' . $bulan . '/' . $tahun, 0, 1);
+    $pdf->Cell(0, 7, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 7, 'LAPORAN BARANG MASUK', 0, 1, 'C');
+    $pdf->Line(10,31,290,31);
+    $pdf->SetLineWidth(1);
+    $pdf->Line(10,30,290,30);
+    $pdf->SetLineWidth(0);
+    $pdf->Ln(15);
 
     // Menambahkan header tabel
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(30, 10, 'ID', 1, 0, 'C');
-    $pdf->Cell(60, 10, 'Nama', 1, 0, 'C');
-    $pdf->Cell(50, 10, 'Alamat', 1, 1, 'C');
+    $pdf->Cell(50, 10, 'Id Transaksi', 1, 0, 'C');
+    $pdf->Cell(25, 10, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(27, 10, 'Kode Barang', 1, 0, 'C');
+    $pdf->Cell(115, 10, 'Nama Barang', 1, 0, 'C');
+    $pdf->Cell(50, 10, 'Pengirim', 1, 0, 'C');
+    $pdf->Cell(15, 10, 'Jumlah', 1, 1, 'C');
+
 
     // Menampilkan data dalam tabel
     $pdf->SetFont('Arial', '', 12);
-    $tampil = mysqli_query($koneksi, "select * from barang_masuk");
+    $tampil = mysqli_query($koneksi, "select * from barang_masuk 
+    inner join tb_supplier on barang_masuk.id_supplier = tb_supplier.id_supplier");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
-        $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0);
-        $pdf->Cell(135, 6, $hasil['nama_barang'], 1, 0);
-        $pdf->Cell(25, 6, $hasil['jumlah'], 1, 1);
+        $pdf->Cell(50, 6, $hasil['id_transaksi'], 1, 0);
+        $pdf->Cell(25, 6, $hasil['tanggal'], 1, 0);
+        $pdf->Cell(27, 6, $hasil['kode_barang'], 1, 0);
+        $pdf->Cell(115, 6, $hasil['nama_barang'], 1, 0);
+        $pdf->Cell(50, 6, $hasil['nama_supplier'], 1, 0);
+        $pdf->Cell(15, 6, $hasil['jumlah'], 1, 1, 'C');
     }
+
+    // Menambahkan tanda tangan
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
     // Mengakhiri dokumen PDF
     $pdf->Output();
 }
@@ -96,7 +134,8 @@ if (isset($_POST['submits'])) {
     <div class="container">
         <div class="form-group">
             <div class="form-line">
-                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN BARANG MASUK BERDASARKAN BULAN DAN TAHUN<a href="../../index/index_admin.php?page=laporan_barangmasuk" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6></h6>
+                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN BARANG MASUK BERDASARKAN BULAN DAN TAHUN<a href="../../index/index_admin.php?page=laporan_barangmasuk" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+                </h6>
             </div>
         </div>
         <form method="POST" action="">
@@ -134,12 +173,12 @@ if (isset($_POST['submits'])) {
             <div class="form-group">
                 <div class="form-line">
                     <div class="alert alert-dark" role="alert">
-                        Atau klik tombol berikut  <input type="submit" name="submits" value="Semua Data" class="btn btn-info"> untuk menampilkan/print seluruh data.</a>
+                        Atau klik tombol berikut <input type="submit" name="submits" value="Semua Data" class="btn btn-info"> untuk menampilkan/print seluruh data.</a>
                     </div>
                 </div>
             </div>
-                <script src="../../vendor/jquery/jquery.slim.min.js"></script>
-                <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="../../vendor/jquery/jquery.slim.min.js"></script>
+            <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
