@@ -12,18 +12,28 @@ if (isset($_POST['submit'])) {
     $pdf->SetTitle('Laporan Transfer Bulan ' . $bulan . ' Tahun ' . $tahun);
     $pdf->AddPage();
 
-    $pdf->SetFont('Arial', 'B', 16);
-
-    $pdf->Cell(0, 7, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
-    $pdf->SetFont('Arial', 'B', 14);
-    $pdf->Cell(0, 7, 'LAPORAN TRANSFER', 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 15);
+    $pdf->Cell(138, 6, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(106, 6, 'Satui & Kintap, Kalimantan Selatan', 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(0, 7, 'Bulan ' . $bulan . ' Tahun ' . $tahun, 0, 1, 'C');
-    $pdf->Line(10, 35, 290, 35);
-    $pdf->SetLineWidth(1);
-    $pdf->Line(10, 34, 290, 34);
-    $pdf->SetLineWidth(0);
     $pdf->Ln(10);
+    $pdf->SetFillColor(0, 0, 255);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(282, 7, 'LAPORAN TRANSFER COAL ICF TO JETTY', 1, 1, 'C', true);
+    $pdf->Ln(2);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(0, 10, 'Bulan / Tahun : '.'Bulan ' . $bulan . ' Tahun ' . $tahun, 0, 1, 'L');
+
+    $imagePath = '../../../img/BYAN.JK.png'; // Ganti dengan path gambar Anda
+    $x = 10; // Koordinat X untuk posisi gambar
+    $y = 3; // Koordinat Y untuk posisi gambar
+    $width = 20; // Lebar gambar
+    $height = 25; // Tinggi gambar akan disesuaikan secara proporsional
+    $pdf->Image($imagePath, $x, $y, $width, $height);
+
+    $pdf->Ln(2);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(30, 7, 'Tanggal', 1, 0, 'C');
@@ -107,16 +117,26 @@ if (isset($_POST['submits'])) {
     $pdf->SetTitle('Laporan Transfer');
     $pdf->AddPage();
 
-    $pdf->SetFont('Arial', 'B', 16);
-
-    $pdf->Cell(0, 7, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 15);
+    $pdf->Cell(138, 6, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(106, 6, 'Satui & Kintap, Kalimantan Selatan', 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(0, 7, 'LAPORAN TRANSFER', 0, 1, 'C');
-    $pdf->Line(10, 30, 290, 30);
-    $pdf->SetLineWidth(1);
-    $pdf->Line(10, 29, 290, 29);
-    $pdf->SetLineWidth(0);
-    $pdf->Ln(12);
+    $pdf->Ln(10);
+    $pdf->SetFillColor(0, 0, 255);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(282, 7, 'LAPORAN TRANSFER COAL ICF TO JETTY', 1, 1, 'C', true);
+    $pdf->Ln(2);
+    $pdf->SetTextColor(0, 0, 0);
+
+    $imagePath = '../../../img/BYAN.JK.png'; // Ganti dengan path gambar Anda
+    $x = 10; // Koordinat X untuk posisi gambar
+    $y = 3; // Koordinat Y untuk posisi gambar
+    $width = 20; // Lebar gambar
+    $height = 25; // Tinggi gambar akan disesuaikan secara proporsional
+    $pdf->Image($imagePath, $x, $y, $width, $height);
+
+    $pdf->Ln(2);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(30, 7, 'Tanggal', 1, 0, 'C');
@@ -245,6 +265,7 @@ if (isset($_POST['submits'])) {
                     </select>
                 </div>
             </div>
+            
             <input type="submit" name="submit" value="Tampilkan Laporan" class="btn btn-primary">
             <br>
             <br>

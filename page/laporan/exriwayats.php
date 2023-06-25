@@ -10,15 +10,26 @@ $pdf = new FPDF('l', 'mm', 'A4');
 // membuat halaman baru
 $pdf->AddPage();
 // menyetel font yang digunakan, font yang digunakan adalah arial, bold dengan ukuran 16
-$pdf->SetFont('Arial', 'B', 16);
-$pdf->Cell(0, 7, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 15);
+$pdf->Cell(138, 6, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(106, 6, 'Satui & Kintap, Kalimantan Selatan', 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(0, 7, 'LAPORAN RIWAYAT PENGIRIM BARANG', 0, 1, 'C');
-$pdf->Line(10,31,290,31);
-$pdf->SetLineWidth(1);
-$pdf->Line(10,30,290,30);
-$pdf->SetLineWidth(0);
-$pdf->Ln(15);
+$pdf->Ln(10);
+$pdf->SetFillColor(0, 0, 255);
+$pdf->SetTextColor(255, 255, 255);
+$pdf->Cell(282, 7, 'LAPORAN RIWAYAT PENGIRIM BARANG', 1, 1, 'C', true);
+$pdf->Ln(2);
+$pdf->SetTextColor(0, 0, 0);
+
+$imagePath = '../../img/BYAN.JK.png'; // Ganti dengan path gambar Anda
+$x = 10; // Koordinat X untuk posisi gambar
+$y = 3; // Koordinat Y untuk posisi gambar
+$width = 20; // Lebar gambar
+$height = 25; // Tinggi gambar akan disesuaikan secara proporsional
+$pdf->Image($imagePath, $x, $y, $width, $height);
+
+$pdf->Ln(2);
 
 $sql2 = $koneksi->query("select * from tb_supplier where id_supplier = '$id'");
 $tampil = $sql2->fetch_assoc();
