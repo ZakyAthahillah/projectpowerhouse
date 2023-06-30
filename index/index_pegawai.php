@@ -60,7 +60,7 @@ if (!isset($_SESSION['pegawai'])) {
     <ul class="navbar-nav  bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index_admin.php">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index_pegawai.php">
         <div class="">
           <img src="../img/bayan.png" alt="" height="50px" width="50px" style="border-radius:15px;">
         </div>

@@ -71,7 +71,7 @@ $tambah = $jumlah2 + $jumlah;
                             </div>
                         </div>
 
-                        <label for="">Loading To</label>
+                        <label for="">Loading From</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="loadingfrom" class="form-control" id="loadingfrom" value="<?php echo $rcjty; ?>" readonly />
