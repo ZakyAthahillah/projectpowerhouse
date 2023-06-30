@@ -2,7 +2,7 @@
 
 
 
-$koneksi = new mysqli("localhost", "root", "", "inventori");
+
 $no = mysqli_query($koneksi, "select kode_barang from gudang order by kode_barang desc");
 $kdbarang = mysqli_fetch_array($no);
 $kode = $kdbarang['kode_barang'];
@@ -150,33 +150,49 @@ $jumlah = 0;
 						$jumlah = $_POST['jumlah'];
 
 
-						$sql = $koneksi->query("insert into gudang (kode_barang, nama_barang, id_jenis, jumlah, id_satuan, id_lokasi ) values('$kode_barang','$nama_barang','$jenis_barang','$jumlah','$satuan', '$lokasi')");
+						try {
+							$sql = $koneksi->query("INSERT INTO gudang (kode_barang, nama_barang, id_jenis, jumlah, id_satuan, id_lokasi) VALUES ('$kode_barang', '$nama_barang', '$jenis_barang', '$jumlah', '$satuan', '$lokasi')");
 
-						if ($sql) {
+							if ($sql) {
+								echo "
+									<script>
+										Swal.fire({
+											title: 'SUKSES!',
+											text: 'Data Berhasil Disimpan',
+											icon: 'success',
+											confirmButtonText: 'OK'
+										}).then(() => {
+											window.location.href = '?page=gudang';
+										});
+									</script>
+								";
+							} else {
+								echo "
+									<script>
+										Swal.fire({
+											title: 'ERROR!',
+											text: 'Data Gagal Disimpans',
+											icon: 'error',
+											confirmButtonText: 'OK'
+										}).then(() => {
+											window.location.href = '?page=gudang&aksi=tambahgudang';
+										});
+									</script>
+								";
+							}
+						} catch (mysqli_sql_exception $e) {
+							// Menampilkan pesan kesalahan
 							echo "
-							<script>
-								Swal.fire({
-									title: 'SUKSES!',
-									text: 'Data Berhasil Disimpan',
-									icon: 'success',
-									confirmButtonText: 'OK'
-								}).then(() => {
-									window.location.href = '?page=gudang';
-								});
-							</script>
-							";
-						} else {
-							echo "
-							<script>
-								Swal.fire({
-									title: 'ERROR!',
-									text: 'Data Gagal Disimpan',
-									icon: 'error',
-									confirmButtonText: 'OK'
-								}).then(() => {
-									window.location.href = '?page=gudang';
-								});
-							</script>
+								<script>
+									Swal.fire({
+										title: 'ERROR!',
+										text: 'Terjadi kesalahan dalam menyimpan data',
+										icon: 'error',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=gudang&aksi=tambahgudang';
+									});
+								</script>
 							";
 						}
 					}

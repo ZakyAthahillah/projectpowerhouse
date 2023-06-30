@@ -24,7 +24,7 @@
           $no = 1;
           $sql = mysqli_query($koneksi, "select * from scicf");
           while ($data = mysqli_fetch_assoc($sql)) {
-            
+
           ?>
 
             <tr>
@@ -33,6 +33,7 @@
               <td><?php echo $data['warna'] ?></td>
               <td><?php echo $data['stok'] ?></td>
               <td>
+                <a href="?page=stokcoalicf&aksi=ubahscicf&id_rcicf=<?php echo $data['id_rcicf'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
                 <a href="?page=stokcoalicf&aksi=viewscicf&id_rcicf=<?php echo $data['id_rcicf'] ?>" class="btn btn-primary btn-circle"><i class="fas fa-info"></i></a>
               </td>
             </tr>

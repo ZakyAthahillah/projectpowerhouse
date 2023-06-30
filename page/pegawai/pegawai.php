@@ -18,7 +18,6 @@
               <th>Bagian</th>
               <th>Foto</th>
               <th>Aksi</th>
-
             </tr>
           </thead>
 
@@ -40,7 +39,7 @@
 
                 <td>
                   <a href="?page=pegawai&aksi=ubahpegawai&id_pegawai=<?php echo $data['id_pegawai'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=pegawai&aksi=hapuspegawai&id_pegawai=<?php echo $data['id_pegawai'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                  <button onclick="confirmDelete('<?php echo $data['id_pegawai'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
                   <a href="?page=laporan_pegawai&aksi=infopegawai&id_pegawai=<?php echo $data['id_pegawai'] ?>" class="btn btn-success btn-circle"><i class="fas fa-search"></i></a>
                 </td>
               </tr>
@@ -55,3 +54,21 @@
   </div>
 
 </div>
+
+<script>
+  function confirmDelete(idPegawai) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Konfirmasi',
+      text: 'Apakah anda yakin akan menghapus data ini?',
+      showCancelButton: true,
+      confirmButtonText: 'Hapus',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "?page=pegawai&aksi=hapuspegawai&id_pegawai=" + idPegawai;
+      }
+    });
+  }
+</script>

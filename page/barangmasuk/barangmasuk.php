@@ -5,8 +5,8 @@
  	<div class="card shadow mb-4">
  		<div class="card-header py-3">
  			<h6 class="m-0 font-weight-bold text-primary">Barang Masuk</h6>
-			<br>
-			<a href="?page=barangmasuk&aksi=tambahbarangmasuk" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
+ 			<br>
+ 			<a href="?page=barangmasuk&aksi=tambahbarangmasuk" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
  		</div>
  		<div class="card-body">
  			<div class="table-responsive">
@@ -18,17 +18,11 @@
  							<th>Tanggal Masuk</th>
  							<th>Kode Barang</th>
  							<th>Nama Barang</th>
-
  							<th>Pengirim</th>
-
-
-
-
  							<th>Jumlah Masuk</th>
  							<th>Satuan Barang</th>
  							<th>Catatan</th>
  							<th>Pengaturan</th>
-
  						</tr>
  					</thead>
 
@@ -60,7 +54,7 @@
 
 
  								<td>
-								 <a href="?page=barangmasuk&aksi=batalbarangmasuk&id=<?php echo $data['id'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-ban"></i></a>
+ 									<a href="?page=barangmasuk&aksi=batalbarangmasuk&id=<?php echo $data['id'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-ban"></i></a>
  								</td>
  							</tr>
  						<?php } ?>
@@ -68,7 +62,7 @@
  					</tbody>
  				</table>
  				<br>
- 				
+
  				</tbody>
  				</table>
  			</div>

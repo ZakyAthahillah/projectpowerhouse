@@ -4,17 +4,32 @@
  $sql = $koneksi->query("delete from pegawai where id_pegawai= '$id'");
 
  if ($sql) {
- 
- ?>
- 
- 
-	<script type="text/javascript">
-	alert("Data Berhasil Dihapus");
-	window.location.href="?page=pegawai";
-	</script>
-	
- <?php
- 
- }
+
+	echo "
+<script>
+	Swal.fire({
+		title: 'SUKSES!',
+		text: 'Data Berhasil Dihapus',
+		icon: 'success',
+		confirmButtonText: 'OK'
+	}).then(() => {
+		window.location.href = '?page=pegawai';
+	});
+</script>
+";
+} else {
+	echo "
+<script>
+	Swal.fire({
+		title: 'ERROR!',
+		text: 'Data Gagal Dihapus',
+		icon: 'error',
+		confirmButtonText: 'OK'
+	}).then(() => {
+		window.location.href = '?page=pegawai';
+	});
+</script>
+";
+}
  
  ?>

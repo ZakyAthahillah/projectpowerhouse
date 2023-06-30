@@ -8,8 +8,8 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Tanggal</th>         
-                        <th>Haul Truck</th>       
+                        <th>Tanggal</th>
+                        <th>Haul Truck</th>
                         <th>Transfer From (ICF)</th>
                         <th>Transfer To (JETTY)</th>
                         <th>Jumlah</th>
@@ -21,22 +21,36 @@
                     <?php
 
                     $no = 1;
-                    $sql = mysqli_query($koneksi, "select * from transfer
-                    inner join scicf on transfer.id_rcicf = scicf.id_rcicf
-                    inner join scjty on transfer.id_rcjty = scjty.id_rcjty
-                    inner join haultruck on transfer.id_haultruck = haultruck.id_haultruck order by tanggal
-                    ");
-                    while ($data = mysqli_fetch_assoc($sql)) {
+                    $sql = mysqli_query($koneksi, "SELECT transfer.id_transfer, tanggal, 
+            GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
+            GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
+            GROUP_CONCAT(nama_rcicf SEPARATOR ', ') AS nama_rcicf_gabung,
+            GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung,
+            GROUP_CONCAT(nama_haultruck SEPARATOR ', ') AS nama_haultruck_gabung,
+            GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
+            GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung
+            FROM transfer
+            INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
+            INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
+            INNER JOIN haultruck ON transfer.id_haultruck = haultruck.id_haultruck
+            GROUP BY transfer.tanggal
+            ORDER BY tanggal DESC");
 
+                    while ($data = mysqli_fetch_assoc($sql)) {
+                        $tanggal = $data['tanggal'];
+                        $nama_rcicf_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_rcicf_gabung']) . '</li>';
+                        $nama_rcjty_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_rcjty_gabung']) . '</li>';
+                        $nama_haultruck_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_haultruck_gabung']) . '</li>';
+                        $jumlah_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_gabung']) . '</li>';
                     ?>
 
                         <tr>
                             <td><?php echo $no++; ?></td>
-                            <td><?php echo $data['tanggal'] ?></td>
-                            <td><?php echo $data['nama_haultruck'] ?></td>
-                            <td><?php echo $data['nama_rcicf'] ?></td>
-                            <td><?php echo $data['nama_rcjty'] ?></td>
-                            <td><?php echo $data['jumlah'] ?></td>
+                            <td><?php echo $tanggal; ?></td>
+                            <td><?php echo $nama_haultruck_gabung; ?></td>
+                            <td><?php echo $nama_rcicf_gabung; ?></td>
+                            <td><?php echo $nama_rcjty_gabung; ?></td>
+                            <td><?php echo $jumlah_gabung; ?></td>
                         </tr>
                     <?php } ?>
 

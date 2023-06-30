@@ -4,91 +4,199 @@ require '../../../fpdf/fpdf.php';
 
 // Memeriksa apakah form telah disubmit
 if (isset($_POST['submit'])) {
-    // Mengambil nilai dari form
 
     $bulan = $_POST['bulan'];
     $tahun = $_POST['tahun'];
 
-    // Membuat objek PDF
     $pdf = new FPDF('L', 'mm', 'A4');
+    $pdf->SetTitle('Laporan Data Jalan HT Transfer Coal ICF To Jetty Bulan '.$bulan. ' Tahun '.$tahun);
     $pdf->AddPage();
 
-    // Menambahkan judul laporan
-    $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'LAPORAN DATA JALAN HAUL TRUCK TRANSFER COAL ICF TO JETTY ', 0, 1, 'C');
-
-    // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
-    $this->SetFont('Arial', 'B', 12);
-    $this->Cell(0, 10, 'Bulan ' . $bulan . ' Tahun ' . $tahun, 0, 1, 'C');
-
-    // Menambahkan header tabel
+    $pdf->SetFont('Arial', 'B', 15);
+    $pdf->Cell(138, 6, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(106, 6, 'Satui & Kintap, Kalimantan Selatan', 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(35, 10, 'Tanggal', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Haul Truck', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Crushing From (ICF)', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Crushing To (JETTY)', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Jumlah', 1, 1, 'C');;
-
-    // Menampilkan data dalam tabel
+    $pdf->Ln(10);
+    $pdf->SetFillColor(0, 0, 255);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(282, 7, 'LAPORAN DATA JALAN HAUL TRUCK TRANSFER COAL ICF TO JETTY', 1, 1, 'C', true);
+    $pdf->Ln(2);
+    $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $tampil = mysqli_query($koneksi, "select * from transfer
-    inner join scicf on transfer.id_rcicf = scicf.id_rcicf
-    inner join scjty on transfer.id_rcjty = scjty.id_rcjty
-    inner join haultruck on transfer.id_haultruck = haultruck.id_haultruck where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
-    while ($hasil = mysqli_fetch_assoc($tampil)) {
-        $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['nama_haultruck'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['nama_rcicf'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['nama_rcjty'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['jumlah'], 1, 1);
+    $pdf->Cell(0, 10, 'Bulan / Tahun : '.'Bulan ' . $bulan . ' Tahun ' . $tahun, 0, 1, 'L');
+
+    $imagePath = '../../../img/BYAN.JK.png'; // Ganti dengan path gambar Anda
+    $x = 10; // Koordinat X untuk posisi gambar
+    $y = 3; // Koordinat Y untuk posisi gambar
+    $width = 20; // Lebar gambar
+    $height = 25; // Tinggi gambar akan disesuaikan secara proporsional
+    $pdf->Image($imagePath, $x, $y, $width, $height);
+
+    $pdf->Ln(2);
+
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(60, 7, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(40, 7, 'Haultruck', 1, 0, 'C');
+    $pdf->Cell(60, 7, 'Transfer From (ICF)', 1, 0, 'C');
+    $pdf->Cell(60, 7, 'Transfer To (Jetty)', 1, 0, 'C');
+    $pdf->Cell(60, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Ln();
+
+    $pdf->SetFont('Arial', '', 12);
+
+    // Mengambil data dari database berdasarkan kode_po yang dipilih
+    $no = 1;
+    $sql = $koneksi->query("SELECT transfer.id_transfer, tanggal, 
+          GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
+          GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
+          GROUP_CONCAT(nama_rcicf SEPARATOR ', ') AS nama_rcicf_gabung,
+          GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung,
+          GROUP_CONCAT(nama_haultruck SEPARATOR ', ') AS nama_haultruck_gabung,
+          GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
+          GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
+          GROUP_CONCAT(id_transfer SEPARATOR ', ') AS id_transfer_gabung
+          FROM transfer
+          INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
+          INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
+          INNER JOIN haultruck ON transfer.id_haultruck = haultruck.id_haultruck
+          WHERE MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'
+          GROUP BY transfer.tanggal");
+
+    while ($data = $sql->fetch_assoc()) {
+        $nama_rcicf_gabung = explode(", ", $data['nama_rcicf_gabung']);
+        $nama_rcjty_gabung = explode(", ", $data['nama_rcjty_gabung']);
+        $nama_haultruck_gabung = explode(", ", $data['nama_haultruck_gabung']);
+        $jumlah_gabung = explode(", ", $data['jumlah_gabung']);
+        // Mencari jumlah baris terbanyak dari grup concat
+        $maxRows = max(count($nama_rcicf_gabung), count($nama_rcjty_gabung), count($nama_haultruck_gabung), count($jumlah_gabung));
+
+        // Menyusun ulang data agar memiliki jumlah baris yang sama
+
+        $nama_rcicf_gabung = array_pad($nama_rcicf_gabung, $maxRows, '');
+        $nama_rcjty_gabung = array_pad($nama_rcjty_gabung, $maxRows, '');
+        $nama_haultruck_gabung = array_pad($nama_haultruck_gabung, $maxRows, '');
+        $jumlah_gabung = array_pad($jumlah_gabung, $maxRows, '');
+
+
+        for ($i = 0; $i < $maxRows; $i++) {
+            if ($i == 0) {
+                $pdf->Cell(60, 7, $data['tanggal'], 1, 0, 'C');
+            } else {
+                $pdf->Cell(60, 7, '', 1, 0, 'C');
+            }
+
+            $pdf->Cell(40, 7, $nama_haultruck_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(60, 7, $nama_rcicf_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(60, 7, $nama_rcjty_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(60, 7, $jumlah_gabung[$i], 1, 0, 'C');
+
+            $pdf->Ln();
+        }
     }
-    // Mengakhiri dokumen PDF
+    // Menambahkan tanda tangan
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
+
     $pdf->Output();
+
 }
 
 if (isset($_POST['submits'])) {
-    // Mengambil nilai dari form
 
-    $bulan = $_POST['bulan'];
-    $tahun = $_POST['tahun'];
-
-    // Membuat objek PDF
     $pdf = new FPDF('L', 'mm', 'A4');
+    $pdf->SetTitle('Laporan Data Jalan HT Transfer Coal ICF To Jetty');
     $pdf->AddPage();
 
-    // Menambahkan judul laporan
-    $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'LAPORAN DATA JALAN HAUL TRUCK TRANSFER COAL ICF TO JETTY', 0, 1, 'C');
-
-    // Menambahkan informasi tanggal atau bulan dan tahun yang dipilih
-
-
-    // Menambahkan header tabel
+    $pdf->SetFont('Arial', 'B', 15);
+    $pdf->Cell(138, 6, 'PT. WAHANA BARATAMA MINING', 0, 1, 'C');
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(106, 6, 'Satui & Kintap, Kalimantan Selatan', 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(35, 10, 'Tanggal', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Haul Truck', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Crushing From (ICF)', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Crushing To (JETTY)', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Jumlah', 1, 1, 'C');
+    $pdf->Ln(10);
+    $pdf->SetFillColor(0, 0, 255);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(282, 7, 'LAPORAN DATA JALAN HAUL TRUCK TRANSFER COAL ICF TO JETTY', 1, 1, 'C', true);
+    $pdf->Ln(2);
+    $pdf->SetTextColor(0, 0, 0);
 
+    $imagePath = '../../../img/BYAN.JK.png'; // Ganti dengan path gambar Anda
+    $x = 10; // Koordinat X untuk posisi gambar
+    $y = 3; // Koordinat Y untuk posisi gambar
+    $width = 20; // Lebar gambar
+    $height = 25; // Tinggi gambar akan disesuaikan secara proporsional
+    $pdf->Image($imagePath, $x, $y, $width, $height);
 
-    // Menampilkan data dalam tabel
+    $pdf->Ln(2);
+
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(60, 7, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(40, 7, 'Haultruck', 1, 0, 'C');
+    $pdf->Cell(60, 7, 'Transfer From (ICF)', 1, 0, 'C');
+    $pdf->Cell(60, 7, 'Transfer To (Jetty)', 1, 0, 'C');
+    $pdf->Cell(60, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Ln();
+
     $pdf->SetFont('Arial', '', 12);
-    $tampil = mysqli_query($koneksi, "select * from transfer
-    inner join scicf on transfer.id_rcicf = scicf.id_rcicf
-    inner join scjty on transfer.id_rcjty = scjty.id_rcjty
-    inner join haultruck on transfer.id_haultruck = haultruck.id_haultruck");
-    while ($hasil = mysqli_fetch_assoc($tampil)) {
-        $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['nama_haultruck'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['nama_rcicf'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['nama_rcjty'], 1, 0);
-        $pdf->Cell(35, 6, $hasil['jumlah'], 1, 1);
+
+    // Mengambil data dari database berdasarkan kode_po yang dipilih
+    $no = 1;
+    $sql = $koneksi->query("SELECT transfer.id_transfer, tanggal, 
+          GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
+          GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
+          GROUP_CONCAT(nama_rcicf SEPARATOR ', ') AS nama_rcicf_gabung,
+          GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung,
+          GROUP_CONCAT(nama_haultruck SEPARATOR ', ') AS nama_haultruck_gabung,
+          GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
+          GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
+          GROUP_CONCAT(id_transfer SEPARATOR ', ') AS id_transfer_gabung
+          FROM transfer
+          INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
+          INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
+          INNER JOIN haultruck ON transfer.id_haultruck = haultruck.id_haultruck
+          GROUP BY transfer.tanggal");
+
+    while ($data = $sql->fetch_assoc()) {
+        $nama_rcicf_gabung = explode(", ", $data['nama_rcicf_gabung']);
+        $nama_rcjty_gabung = explode(", ", $data['nama_rcjty_gabung']);
+        $nama_haultruck_gabung = explode(", ", $data['nama_haultruck_gabung']);
+        $jumlah_gabung = explode(", ", $data['jumlah_gabung']);
+        // Mencari jumlah baris terbanyak dari grup concat
+        $maxRows = max(count($nama_rcicf_gabung), count($nama_rcjty_gabung), count($nama_haultruck_gabung), count($jumlah_gabung));
+
+        // Menyusun ulang data agar memiliki jumlah baris yang sama
+
+        $nama_rcicf_gabung = array_pad($nama_rcicf_gabung, $maxRows, '');
+        $nama_rcjty_gabung = array_pad($nama_rcjty_gabung, $maxRows, '');
+        $nama_haultruck_gabung = array_pad($nama_haultruck_gabung, $maxRows, '');
+        $jumlah_gabung = array_pad($jumlah_gabung, $maxRows, '');
+
+
+        for ($i = 0; $i < $maxRows; $i++) {
+            if ($i == 0) {
+                $pdf->Cell(60, 7, $data['tanggal'], 1, 0, 'C');
+            } else {
+                $pdf->Cell(60, 7, '', 1, 0, 'C');
+            }
+
+            $pdf->Cell(40, 7, $nama_haultruck_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(60, 7, $nama_rcicf_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(60, 7, $nama_rcjty_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(60, 7, $jumlah_gabung[$i], 1, 0, 'C');
+
+            $pdf->Ln();
+        }
     }
-    // Mengakhiri dokumen PDF
+    // Menambahkan tanda tangan
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
+
     $pdf->Output();
 }
-
 ?>
 
 <!DOCTYPE html>

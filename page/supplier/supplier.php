@@ -19,7 +19,6 @@
               <th>Alamat</th>
               <th>Telepon</th>
               <th>Pengaturan</th>
-
             </tr>
           </thead>
 
@@ -43,7 +42,7 @@
 
                 <td>
                   <a href="?page=supplier&aksi=ubahsupplier&id_supplier=<?php echo $data['id_supplier'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=supplier&aksi=hapussupplier&id_supplier=<?php echo $data['id_supplier'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                  <button onclick="confirmDelete('<?php echo $data['id_supplier'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>
             <?php } ?>
@@ -56,4 +55,20 @@
     </div>
   </div>
 
-</div>
+</div><script>
+  function confirmDelete(idSupplier) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Konfirmasi',
+      text: 'Apakah anda yakin akan menghapus data ini?',
+      showCancelButton: true,
+      confirmButtonText: 'Hapus',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "?page=supplier&aksi=hapussupplier&id_supplier=" + idSupplier;
+      }
+    });
+  }
+</script>

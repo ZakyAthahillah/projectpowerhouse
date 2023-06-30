@@ -215,11 +215,8 @@
               if ($aksi == "viewscjty") {
                 include "../page/stokcoaljty/viewscjty.php";
               }
-              if ($aksi == "scjtyin") {
-                include "../page/stokcoaljty/scjtyin.php";
-              }
-              if ($aksi == "scjtyout") {
-                include "../page/stokcoaljty/scjtyout.php";
+              if ($aksi == "ubahscjty") {
+                include "../page/stokcoaljty/ubahscjty.php";
               }
             }
 
@@ -233,11 +230,8 @@
               if ($aksi == "viewscicf") {
                 include "../page/stokcoalicf/viewscicf.php";
               }
-              if ($aksi == "scicfin") {
-                include "../page/stokcoalicf/scicfin.php";
-              }
-              if ($aksi == "scicfout") {
-                include "../page/stokcoalicf/scicfout.php";
+              if ($aksi == "ubahscicf") {
+                include "../page/stokcoalicf/ubahscicf.php";
               }
             }
     
