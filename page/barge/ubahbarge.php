@@ -36,7 +36,7 @@ $status = $tampil['status'];
                             <div class="form-line">
                                 <select name="status" id="select_status" class="form-control">
                                     < <option <?php if ($status == '<span class="badge badge-success">Baik</span>') echo 'selected'; ?> value='<span class="badge badge-success">Baik</span>'>Baik</option>
-                                    <option <?php if ($status == '<span class="badge badge-warning">Maintenance</span>') echo 'selected'; ?> value='<span class="badge badge-warning">Maintenance</span>'>Maintenance</option>
+                                        <option <?php if ($status == '<span class="badge badge-warning">Maintenance</span>') echo 'selected'; ?> value='<span class="badge badge-warning">Maintenance</span>'>Maintenance</option>
                                 </select>
                             </div>
                         </div>
@@ -61,14 +61,31 @@ $status = $tampil['status'];
                         $sql = $koneksi->query("update barge set nama_barge='$nama_barge', status='$status' where id_barge='$id'");
 
                         if ($sql) {
-                    ?>
-
-                            <script type="text/javascript">
-                                alert("Data Berhasil Diubah");
-                                window.location.href = "?page=barge";
-                            </script>
-
-                    <?php
+                            echo "
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Diubah',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=barge';
+								});
+							</script>
+							";
+                        } else {
+                            echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Diubah',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=barge';
+								});
+							</script>
+							";
                         }
                     }
 

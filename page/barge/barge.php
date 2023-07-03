@@ -17,7 +17,6 @@
               <th>Nama Barge</th>
               <th>Status</th>
               <th>Pengaturan</th>
-
             </tr>
           </thead>
 
@@ -40,7 +39,7 @@
 
                 <td>
                   <a href="?page=barge&aksi=ubahbarge&id_barge=<?php echo $data['id_barge'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=barge&aksi=hapusbarge&id_barge=<?php echo $data['id_barge'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                  <button onclick="confirmDelete('<?php echo $data['id_barge'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>
             <?php } ?>
@@ -55,3 +54,21 @@
   </div>
 
 </div>
+
+<script>
+  function confirmDelete(idBarge) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Konfirmasi',
+      text: 'Apakah anda yakin akan menghapus data ini?',
+      showCancelButton: true,
+      confirmButtonText: 'Hapus',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "?page=barge&aksi=hapusbarge&id_barge=" + idBarge;
+      }
+    });
+  }
+</script>
