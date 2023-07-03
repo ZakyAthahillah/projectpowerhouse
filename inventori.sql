@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jun 2023 pada 13.02
+-- Waktu pembuatan: 03 Jul 2023 pada 16.11
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -49,8 +49,7 @@ INSERT INTO `barang_keluar` (`id`, `id_transaksi`, `tanggal`, `kode_barang`, `na
 (97, 'WBM-BK-21022300002', '2023-02-21', 'CV-B-002', 'MOTOR INDUCTOR 350KW 4P 1500RPM FRAME', '1', 'UNIT', 'Untuk conveyor', '1', 41),
 (98, 'WBM-BK-21022300003', '2023-02-21', 'CV-B-005', 'MOTOR INDUCTOR 37KW 4P 1500RPM FRAME 225S', '1', 'UNIT', 'Untuk conveyor', '1', 54),
 (101, 'WBM-BK-21022300006', '2023-02-21', 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '1', 'UNIT', 'Untuk conveyor', '3', 44),
-(110, 'WBM-BK-13062300007', '2023-06-13', 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '2', 'UNIT', 'untuk conveyor', '5', 42),
-(111, 'WBM-BK-14062300007', '2023-06-14', 'CV-B-005', 'MOTOR INDUCTOR 37KW 4P 1500RPM FRAME 225S', '1', 'UNIT', 'untuk conveyor', '0', 42);
+(110, 'WBM-BK-13062300007', '2023-06-13', 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '2', 'UNIT', 'untuk conveyor', '5', 42);
 
 --
 -- Trigger `barang_keluar`
@@ -86,13 +85,11 @@ CREATE TABLE `barang_masuk` (
 --
 
 INSERT INTO `barang_masuk` (`id`, `id_transaksi`, `tanggal`, `kode_barang`, `nama_barang`, `jumlah`, `satuan`, `catatan`, `id_supplier`) VALUES
-(44, 'WBM-BM-21022300002', '2023-02-21', 'CV-B-006', 'MOTOR INDUCTOR 132KW 4P 1500RPM FRAME 315M', '5', 'UNIT', 'Untuk conveyor', 15),
 (47, 'WBM-BM-21022300005', '2023-02-21', 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '2', 'UNIT', 'Untuk conveyor', 11),
 (48, 'WBM-BM-21022300006', '2023-02-21', 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '1', 'UNIT', 'Untuk conveyor', 11),
-(49, 'WBM-BM-21022300007', '2023-02-21', 'CV-B-003', 'OTOR INDUCTOR 75KW 4P 1500RPM FRAME 280S', '1', 'UNIT', 'Untuk conveyor', 11),
+(49, 'WBM-BM-21022300007', '2023-02-21', 'CV-B-003', 'MOTOR INDUCTOR 75KW 4P 1500RPM FRAME 280S', '1', 'UNIT', 'Untuk conveyor', 11),
 (58, 'WBM-BM-01062300008', '2023-06-01', 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '2', 'UNIT', 'untuk conveyor', 11),
-(61, 'WBM-BM-07062300008', '2023-06-07', 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '2', 'UNIT', 'Untuk conveyor', 14),
-(62, 'WBM-BM-13062300008', '2023-06-13', 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '2', 'UNIT', 'untuk conveyor', 15);
+(61, 'WBM-BM-07062300008', '2023-06-07', 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '2', 'UNIT', 'Untuk conveyor', 14);
 
 --
 -- Trigger `barang_masuk`
@@ -123,7 +120,9 @@ CREATE TABLE `barge` (
 
 INSERT INTO `barge` (`id_barge`, `nama_barge`, `status`) VALUES
 (1, 'TERANG 3003', '<span class=\"badge badge-success\">Baik</span>'),
-(3, 'MBS273', '<span class=\"badge badge-warning\">Maintenance</span>');
+(3, 'MBS 273', '<span class=\"badge badge-success\">Baik</span>'),
+(4, 'DSR 39', '<span class=\"badge badge-success\">Baik</span>'),
+(5, 'DANNY 79', '<span class=\"badge badge-warning\">Maintenance</span>');
 
 -- --------------------------------------------------------
 
@@ -148,7 +147,9 @@ CREATE TABLE `blending` (
 
 INSERT INTO `blending` (`id_blending`, `tanggal`, `start`, `finish`, `plan`, `bcrush`, `ycrush`, `gcrush`) VALUES
 (1, '2023-06-08', '21:35:52', '21:35:52', '45646', '4464', '464', '464'),
-(2, '2023-06-15', '01:01:00', '01:02:00', '123', '123', '123', '444');
+(2, '2023-06-15', '01:01:00', '01:02:00', '123', '123', '123', '444'),
+(3, '2023-06-20', '23:52:00', '02:52:00', '131231', '1232', '1212', '2313'),
+(4, '2023-06-22', '20:56:00', '21:56:00', '1000', '0', '5000', '5000');
 
 -- --------------------------------------------------------
 
@@ -172,7 +173,9 @@ CREATE TABLE `crushingicf` (
 
 INSERT INTO `crushingicf` (`id_crushing`, `tanggal`, `start`, `finish`, `id_rcicf`, `jumlah`, `catatan`) VALUES
 (16, '2023-05-19', '20:40:00', '22:41:00', 6, '50', ''),
-(17, '2023-06-07', '21:20:27', '27:22:18', 6, '50', '');
+(18, '2023-06-15', '22:36:00', '23:36:00', 6, '50', ''),
+(21, '2023-06-15', '23:18:00', '00:18:00', 11, '313.5', 'Done'),
+(22, '2023-06-20', '23:44:00', '00:44:00', 12, '313.5', 'Done');
 
 -- --------------------------------------------------------
 
@@ -195,11 +198,11 @@ CREATE TABLE `crushingjty` (
 --
 
 INSERT INTO `crushingjty` (`id_crushing`, `tanggal`, `start`, `finish`, `id_rcjty`, `jumlah`, `catatan`) VALUES
-(14, '2023-06-01', '13:09:00', '24:28:14', 2, '450', ''),
-(16, '2023-06-01', '07:18:00', '09:09:12', 1, '940.55', ''),
+(14, '2023-06-01', '13:09:00', '23:28:14', 2, '450', ''),
 (17, '2023-06-02', '10:05:05', '13:05:06', 3, '313.5', ''),
-(18, '2023-06-03', '08:09:08', '10:04:09', 4, '313.5', ''),
-(21, '2023-06-13', '01:07:00', '01:08:00', 1, '313.5', '');
+(21, '2023-06-13', '01:07:00', '01:08:00', 1, '313.5', ''),
+(22, '2023-06-02', '22:28:00', '23:28:00', 1, '543', ''),
+(23, '2023-06-20', '23:43:00', '00:43:00', 9, '313.5', 'Done');
 
 -- --------------------------------------------------------
 
@@ -222,14 +225,14 @@ CREATE TABLE `gudang` (
 --
 
 INSERT INTO `gudang` (`id`, `kode_barang`, `nama_barang`, `jumlah`, `id_lokasi`, `id_satuan`, `id_jenis`) VALUES
-(201, 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '7', 6, 5, 14),
+(201, 'CV-B-001', 'MOTOR INDUCTOR 250KW 4P 1500RPM FRAME 355M', '5', 6, 5, 14),
 (202, 'CV-B-002', 'MOTOR INDUCTOR 350KW 4P 1500RPM FRAME', '1', 9, 5, 14),
 (203, 'CV-B-003', 'MOTOR INDUCTOR 75KW 4P 1500RPM FRAME 280S', '3', 8, 5, 14),
 (204, 'CV-B-004', 'MOTOR INDUCTOR 160KW 4P 1500RPM FRAME 315S', '2', 7, 5, 14),
 (205, 'CV-B-005', 'MOTOR INDUCTOR 37KW 4P 1500RPM FRAME 225S', '0', 9, 5, 14),
-(206, 'CV-B-006', 'MOTOR INDUCTOR 132KW 4P 1500RPM FRAME 315M', '6', 9, 5, 14),
+(206, 'CV-B-006', 'MOTOR INDUCTOR 132KW 4P 1500RPM FRAME 315M', '1', 9, 5, 14),
 (207, 'CV-B-007', 'MOTOR INDUCTOR 90KW 4P 1500RPM', '2', 9, 5, 14),
-(209, 'CV-C-001', 'INPUT COUPLING SH100S', '1', 7, 12, 13),
+(209, 'CV-C-001', 'INPUT COUPLING SH100S', '0', 7, 12, 13),
 (210, 'CV-C-003', 'INPUT COUPLING SH80S', '2', 8, 12, 13);
 
 -- --------------------------------------------------------
@@ -272,7 +275,8 @@ INSERT INTO `jenis_barang` (`id_jenis`, `jenis_barang`) VALUES
 (11, 'ROLLER'),
 (12, 'GEARBOX'),
 (13, 'INPUT COUPLING'),
-(14, 'MOTOR INDUCTOR');
+(14, 'MOTOR INDUCTOR'),
+(18, 'test');
 
 -- --------------------------------------------------------
 
@@ -288,15 +292,23 @@ CREATE TABLE `loading` (
   `id_barge` int(11) NOT NULL,
   `start` time NOT NULL,
   `finish` time NOT NULL,
-  `beltscale` varchar(100) NOT NULL
+  `beltscale` varchar(100) NOT NULL,
+  `catatan` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `loading`
 --
 
-INSERT INTO `loading` (`id_loading`, `kode_sbp`, `tanggal`, `id_rcjty`, `id_barge`, `start`, `finish`, `beltscale`) VALUES
-(16, '12345', '2023-06-02', 2, 1, '18:55:00', '21:55:00', '200');
+INSERT INTO `loading` (`id_loading`, `kode_sbp`, `tanggal`, `id_rcjty`, `id_barge`, `start`, `finish`, `beltscale`, `catatan`) VALUES
+(19, '12345', '2023-06-09', 2, 1, '20:59:00', '20:59:00', '4300', 'Done'),
+(22, '12345', '2023-06-13', 1, 4, '02:08:00', '03:08:00', '200', 'Done'),
+(23, '123456', '2023-06-20', 5, 4, '23:52:00', '01:52:00', '200', 'Done'),
+(24, '123456', '2023-07-16', 2, 3, '21:46:00', '22:46:00', '200.34', 'Done'),
+(25, '12345', '2024-01-30', 4, 1, '21:52:00', '21:52:00', '200', 'Done'),
+(26, '12345', '2023-01-30', 5, 3, '21:56:00', '22:56:00', '200', 'Done'),
+(27, '12345', '2024-02-24', 1, 4, '22:02:00', '23:03:00', '200', 'Done'),
+(36, '123456', '2025-01-30', 1, 1, '23:02:00', '00:01:00', '200', 'Done');
 
 -- --------------------------------------------------------
 
@@ -378,7 +390,8 @@ CREATE TABLE `pengaduan` (
 --
 
 INSERT INTO `pengaduan` (`id`, `tanggal`, `nama`, `posisi`, `laporan`) VALUES
-(9, '0000-00-00', '', '', '');
+(9, '0000-00-00', '', '', ''),
+(10, '2023-06-16', 'saya saya', 'manajer', 'tolong reset pw saya\r\n');
 
 -- --------------------------------------------------------
 
@@ -457,15 +470,17 @@ CREATE TABLE `sbp` (
   `tittle` varchar(250) CHARACTER SET latin1 NOT NULL,
   `size` int(11) NOT NULL,
   `ekstensi` varchar(25) CHARACTER SET latin1 NOT NULL,
-  `berkas` varchar(2000) CHARACTER SET latin1 NOT NULL
+  `berkas` varchar(2000) CHARACTER SET latin1 NOT NULL,
+  `status` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `sbp`
 --
 
-INSERT INTO `sbp` (`kode_sbp`, `nama_sbp`, `tittle`, `size`, `ekstensi`, `berkas`) VALUES
-('12345', 'SBP-06/05/2023', 'Shipment Blending Plan.pdf', 262292, 'pdf', 'file/Shipment Blending Plan.pdf');
+INSERT INTO `sbp` (`kode_sbp`, `nama_sbp`, `tittle`, `size`, `ekstensi`, `berkas`, `status`) VALUES
+('12345', 'SBP-06/05/2023', 'Shipment Blending Plan.pdf', 262292, 'pdf', 'file/Shipment Blending Plan.pdf', 'Selesai'),
+('123456', 'SBP/19090121', 'Shipment Blending Plan.pdf', 262292, 'pdf', 'file/Shipment Blending Plan.pdf', 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -485,9 +500,11 @@ CREATE TABLE `scicf` (
 --
 
 INSERT INTO `scicf` (`id_rcicf`, `nama_rcicf`, `warna`, `stok`) VALUES
-(6, 'RC1', 'HIJAU', '7000'),
+(6, 'RC 1', 'HIJAU', '6905'),
 (7, 'RC 2', 'BIRU', '5000'),
-(8, 'RC3', 'KUNING', '25000');
+(8, 'RC 3', 'KUNING', '25000'),
+(11, 'RC 4', 'BIRU', '1313.5'),
+(12, 'RC 5', 'BIRU', '11063.05');
 
 -- --------------------------------------------------------
 
@@ -507,11 +524,14 @@ CREATE TABLE `scjty` (
 --
 
 INSERT INTO `scjty` (`id_rcjty`, `nama_rcjty`, `warna`, `stok`) VALUES
-(1, 'RC 1', 'HIJAU', '501.44999999999993'),
-(2, 'RC 2', 'BIRU', '99600'),
-(3, 'RC 3', 'KUNING', '5000'),
-(4, 'RC 4', 'HIJAU', '45000'),
-(5, 'RC 5', 'KUNING', '358.5');
+(1, 'RC 1', 'HIJAU', '4400'),
+(2, 'RC 2', 'BIRU', '952.66'),
+(3, 'RC 3', 'BIRU', '5000'),
+(4, 'RC 4', 'BIRU', '246.5'),
+(5, 'RC 5', 'KUNING', '1353.95'),
+(9, 'RC 7', 'KUNING', '1313.5'),
+(10, 'RC 8', 'BIRU', '1000'),
+(11, 'RC 9', 'BIRU', '1000');
 
 -- --------------------------------------------------------
 
@@ -561,9 +581,11 @@ CREATE TABLE `transfer` (
 --
 
 INSERT INTO `transfer` (`id_transfer`, `tanggal`, `start`, `finish`, `id_rcjty`, `id_rcicf`, `jumlah`, `id_haultruck`, `catatan`) VALUES
-(1, '2023-05-03', '00:00:00', '00:00:00', 1, 6, '2222222', 1, ''),
-(7, '2023-05-19', '05:34:00', '04:34:00', 1, 6, '200', 1, ''),
-(9, '2023-06-12', '00:00:00', '00:00:00', 5, 6, '45', 1, '');
+(7, '2023-05-19', '05:34:00', '04:34:00', 1, 6, '200', 1, 'Done'),
+(11, '2023-05-19', '21:31:00', '22:31:00', 5, 6, '95', 1, 'Done'),
+(12, '2023-05-19', '05:34:00', '04:34:00', 5, 6, '95', 1, 'Done'),
+(13, '2023-06-09', '21:49:00', '22:49:00', 1, 6, '100', 3, 'Done'),
+(14, '2023-06-20', '23:44:00', '00:44:00', 5, 12, '1250.45', 3, 'Done');
 
 -- --------------------------------------------------------
 
@@ -586,7 +608,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nama`, `username`, `password`, `level`, `foto`) VALUES
 (27, 'ADMIN', 'admin', '7cedf449b316781d5c02aa4436d12a1c', 'admin', 'bayan.png'),
-(29, 'USER', 'user', 'b2fc59d25f303338be7a07ff8351a36b', 'warehouse', 'bayan.png');
+(29, 'PEGAWAI', 'pegawai', '8d2445a6ba14a40b0c0efe40b226ae60', 'pegawai', 'bayan.png'),
+(38, 'WAREHOUSE', 'warehouse', '628760d25b659e6f42047f65ac327d01', 'warehouse', 'bayan.png');
 
 --
 -- Indexes for dumped tables
@@ -744,121 +767,121 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT untuk tabel `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT untuk tabel `barge`
 --
 ALTER TABLE `barge`
-  MODIFY `id_barge` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_barge` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `blending`
 --
 ALTER TABLE `blending`
-  MODIFY `id_blending` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_blending` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `crushingicf`
 --
 ALTER TABLE `crushingicf`
-  MODIFY `id_crushing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_crushing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT untuk tabel `crushingjty`
 --
 ALTER TABLE `crushingjty`
-  MODIFY `id_crushing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_crushing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=259;
 
 --
 -- AUTO_INCREMENT untuk tabel `haultruck`
 --
 ALTER TABLE `haultruck`
-  MODIFY `id_haultruck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_haultruck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_barang`
 --
 ALTER TABLE `jenis_barang`
-  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `loading`
 --
 ALTER TABLE `loading`
-  MODIFY `id_loading` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_loading` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `lokasi`
 --
 ALTER TABLE `lokasi`
-  MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `po`
 --
 ALTER TABLE `po`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT untuk tabel `satuan`
 --
 ALTER TABLE `satuan`
-  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `scicf`
 --
 ALTER TABLE `scicf`
-  MODIFY `id_rcicf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_rcicf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `scjty`
 --
 ALTER TABLE `scjty`
-  MODIFY `id_rcjty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_rcjty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_supplier`
 --
 ALTER TABLE `tb_supplier`
-  MODIFY `id_supplier` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_supplier` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `transfer`
 --
 ALTER TABLE `transfer`
-  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -903,7 +926,8 @@ ALTER TABLE `gudang`
 --
 ALTER TABLE `loading`
   ADD CONSTRAINT `loading_ibfk_1` FOREIGN KEY (`id_barge`) REFERENCES `barge` (`id_barge`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `loading_ibfk_2` FOREIGN KEY (`kode_sbp`) REFERENCES `sbp` (`kode_sbp`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `loading_ibfk_2` FOREIGN KEY (`kode_sbp`) REFERENCES `sbp` (`kode_sbp`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `loading_ibfk_3` FOREIGN KEY (`id_rcjty`) REFERENCES `scjty` (`id_rcjty`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `po`
