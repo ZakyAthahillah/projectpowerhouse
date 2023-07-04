@@ -102,6 +102,22 @@
               }
             }
 
+            if ($page == "optht") {
+              if ($aksi == "") {
+                include "../page/optht/optht.php";
+              }
+              if ($aksi == "tambahoptht") {
+                include "../page/optht/tambahoptht.php";
+              }
+              if ($aksi == "ubahoptht") {
+                include "../page/optht/ubahoptht.php";
+              }
+
+              if ($aksi == "hapusoptht") {
+                include "../page/optht/hapusoptht.php";
+              }
+            }
+
             if ($page == "haultruck") {
               if ($aksi == "") {
                 include "../page/haultruck/haultruck.php";
@@ -276,6 +292,12 @@
               }
               if ($aksi == "bataltransfer") {
                 include "../page/transfer/bataltransfer.php";
+              }
+              if ($aksi == "konfirmtransfer") {
+                include "../page/transfer/konfirmtransfer.php";
+              }
+              if ($aksi == "ubahtransfer") {
+                include "../page/transfer/ubahtransfer.php";
               }
             }
 

@@ -60,7 +60,7 @@
                   <?php
                   $id_crushing_array = explode(", ", $id_crushing_gabung);
                   foreach ($id_crushing_array as $id_crushing) {
-                    echo '<li><a href="?page=crushingjty&aksi=batalcrushingjty&id_crushing=' . $id_crushing . '" class="btn btn-sm btn-danger btn-circle"><i class="fas fa-ban"></i></a></li>';
+                    echo '<li><a href="?page=crushingjty&aksi=batalcrushingjty&id_crushing=' . $id_crushing . '"><i class="fas fa-trash text-danger"></i></a></li>';
                   }
                   ?>
                 </ul>

@@ -9,7 +9,6 @@ $tampil = $sql2->fetch_assoc();
 $rcicf = $tampil['nama_rcicf'];
 $rcjty = $tampil['nama_rcjty'];
 $start = $tampil['start'];
-$finish = $tampil['finish'];
 $warna = $tampil['warna'];
 $tanggal = $tampil['tanggal'];
 $jumlah = $tampil['jumlah'];
@@ -28,8 +27,8 @@ $sql4 =  $koneksi->query("SELECT * FROM scjty where id_rcjty = '$id_rcjty'");
 $tampil3 = $sql4->fetch_assoc();
 $jumlah3 = $tampil3['stok'];
 
-$kurang = $jumlah3 - $jumlah;
-$tambah = $jumlah2 + $jumlah;
+$tambah = $jumlah3 + $jumlah;
+$kurang = $jumlah2 - $jumlah;
 
 
 ?>
@@ -39,7 +38,7 @@ $tambah = $jumlah2 + $jumlah;
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Rincian Pembatalan Data Transfer<a href="?page=transfer" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+            <h6 class="m-0 font-weight-bold text-primary">Rincian Konfirmasi Data Transfer<a href="?page=transfer" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -66,7 +65,7 @@ $tambah = $jumlah2 + $jumlah;
                         <label for="">Finish</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="time" name="finish" class="form-control" id="finish" value="<?php echo $finish; ?>" readonly/>
+                                <input type="time" name="finish" class="form-control" id="finish" required/>
                             </div>
                         </div>
 
@@ -93,7 +92,7 @@ $tambah = $jumlah2 + $jumlah;
                         </div>
 
 
-                        <input type="submit" name="simpan" value="Batalkan" class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan membatalkan riwayat ini? (jumlah stok jetty akan berkurang dan stok icf akan bertambah)')">
+                        <input type="submit" name="simpan" value="Konfirmasi" class="btn btn-success" onclick="return confirm('Apakah anda yakin mengkonfirmasi riwayat ini? (jumlah stok jetty akan bertambah dan stok icf akan berkurang)')">
 
                     </form>
 
@@ -103,18 +102,18 @@ $tambah = $jumlah2 + $jumlah;
 
                         if (isset($_POST['simpan'])) {
 
-                            $sql = $koneksi->query("UPDATE scicf SET stok='$tambah' WHERE id_rcicf='$id_rcicf'");
+                            $sql = $koneksi->query("UPDATE scicf SET stok='$kurang' WHERE id_rcicf='$id_rcicf'");
 
-                            $sql2 = $koneksi->query("UPDATE scjty SET stok='$kurang' WHERE id_rcjty='$id_rcjty'");
+                            $sql2 = $koneksi->query("UPDATE scjty SET stok='$tambah' WHERE id_rcjty='$id_rcjty'");
 
-                            $sql3 = $koneksi->query("DELETE FROM transfer where id_transfer = '$id_transfer'");
+                            $sql3 = $koneksi->query("UPDATE transfer SET catatan='Selesai' where id_transfer = '$id_transfer'");
 
                             if ($sql) {
                                 echo "
 								<script>
 									Swal.fire({
 										title: 'SUKSES!',
-										text: 'Data Berhasil Dibatalkan dan Dihapus',
+										text: 'Data Berhasil Dikonfirmasi',
 										icon: 'success',
 										confirmButtonText: 'OK'
 									}).then(() => {

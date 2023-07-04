@@ -11,29 +11,20 @@
 
   <?php
 
-	$koneksi = new mysqli("localhost", "root", "", "inventori");
-	$no = mysqli_query($koneksi, "select id_transaksi from barang_keluar order by id_transaksi desc");
-	$idtran = mysqli_fetch_array($no);
-	$kode = $idtran['id_transaksi'];
+	// Menghasilkan ID transaksi baru
+	function generateTransactionID()
+	{
+		$timestamp = time(); // Mendapatkan timestamp saat ini
+		$random = mt_rand(1000, 9999); // Mendapatkan angka acak antara 1000 dan 9999
+		$transactionID = "WBM-BK-" . $timestamp . "-" . $random; // Menggabungkan timestamp dan angka acak
 
-
-	$urut = substr($kode, 13, 5);
-	$tambah = (int) $urut + 1;
-	$hari = date("d");
-	$bulan = date("m");
-	$tahun = date("y");
-
-	if (strlen($tambah) == 1) {
-		$format = "WBM-BK-" . $hari . $bulan . $tahun . "0000" . $tambah;
-	} else if (strlen($tambah) == 2) {
-		$format = "WBM-BK-" . $hari . $bulan . $tahun . "000" . $tambah;
-	} else if (strlen($tambah) == 3) {
-		$format = "WBM-BK-" . $hari . $bulan . $tahun . "00" . $tambah;
-	} else if (strlen($tambah) == 4) {
-		$format = "WBM-BK-" . $hari . $bulan . $tahun . "0" . $tambah;
-	} else {
-		$format = "WBM-BK-" . $bulan . $tahun . $tambah;
+		return $transactionID;
 	}
+
+	// Contoh penggunaan
+	$format = generateTransactionID();
+
+
 
 
 	$tanggal_keluar = date("Y-m-d");

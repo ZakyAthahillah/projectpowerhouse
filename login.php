@@ -137,6 +137,7 @@ if (isset($_POST['login'])) {
 	$salt = "xgsuahkgfbioqy789p12640y98uio190836";
 	$passwordsalt = $_POST['password'] . $salt;
 	$password = md5(mysqli_real_escape_string($koneksi, $passwordsalt));
+	// $password = $_POST['password'];
 	$level = $_POST['level'];
 	$sql = mysqli_query($koneksi, "SELECT * FROM users WHERE username='{$username}' AND password='{$password}'");
 	$ketemu = $sql->num_rows;
@@ -146,21 +147,21 @@ if (isset($_POST['login'])) {
 		session_start();
 
 		if ($data['level'] == 'superadmin' && $level == 'superadmin') {
-			$_SESSION['superadmin'] = $data['id'];
+			$_SESSION['superadmin'] = $data['id_users'];
 
 
 			header("location:index/index_superadmin.php");
 		} else if ($data['level'] == 'admin' && $level == 'admin') {
-			$_SESSION['admin'] = $data['id'];
+			$_SESSION['admin'] = $data['id_users'];
 
 			header("location:index/index_admin.php");
 		} else if ($data['level'] == 'pegawai' && $level == 'pegawai') {
-			$_SESSION['pegawai'] = $data['id'];
+			$_SESSION['pegawai'] = $data['id_users'];
 
 			header("location:index/index_pegawai.php");
 		}
 	} else {
-		echo '<div class="container"> <center><div class="alert alert-warning alert-dismissible">
+		echo $username . $password . '<div class="container"> <center><div class="alert alert-warning alert-dismissible">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<strong>Login Gagal !!! , Harap Periksa Kembali Username, Password, dan Level atau <a href="pengaduan.php">Beritahu Admin Disini</a>
 	  </div><center></div>';

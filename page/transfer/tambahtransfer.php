@@ -48,14 +48,7 @@
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" />
-							</div>
-						</div>
-
-						<label for="">Finish</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" />
+								<input type="time" name="start" class="form-control" id="start" required />
 							</div>
 						</div>
 
@@ -118,14 +111,14 @@
 						<label for="totalkeluar">Total Stock RC ICF</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input readonly="readonly" name="totalkeluar" id="totalkeluar" type="number" class="form-control">
+								<input readonly="readonly" name="totalkeluar" id="totalkeluar" type="text" class="form-control">
 							</div>
 						</div>
 
 						<label for="totalmasuk">Total Stock RC Jetty</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input readonly="readonly" name="totalmasuk" id="totalmasuk" type="number" class="form-control">
+								<input readonly="readonly" name="totalmasuk" id="totalmasuk" type="text" class="form-control">
 							</div>
 						</div>
 
@@ -149,11 +142,20 @@
 							</div>
 						</div>
 
-
-						<label for="">Catatan</label>
+						<label for="">Operator</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" name="catatan" class="form-control" />
+								<select name="optht" id="select_optht" class="form-control" required>
+									<option value="">----------SILAHKAN PILIH----------</option>
+									<?php
+
+									$sql = $koneksi->query("select * from operatorht order by id_optht");
+									while ($data = $sql->fetch_assoc()) {
+										echo "<option value='$data[id_optht]'>$data[nama_optht]</option>";
+									}
+									?>
+
+								</select>
 							</div>
 						</div>
 
@@ -161,17 +163,25 @@
 
 					</form>
 
+					<script>
+						const ogInput = document.getElementById("og")
+						const mirrorInput = document.getElementById("mirror")
 
+						ogInput.addEventListener("input", () => {
+							mirrorInput.value = ogInput.value
+						})
+					</script>
 
 					<?php
 
 					if (isset($_POST['simpan'])) {
 						$tanggal = $_POST['tanggal'];
+
 						$id_rcjty = $_POST['transferto'];
 						$pecah_rcjty = explode(".", $id_rcjty);
 						$id_rcjty = $pecah_rcjty[0];
 						$nama_rcjty = $pecah_rcjty[1];
-
+						
 						$id_rcicf = $_POST['transferfrom'];
 						$pecah_rcicf = explode(".", $id_rcicf);
 						$id_rcicf = $pecah_rcicf[0];
@@ -185,16 +195,11 @@
 
 						$start = $_POST['start'];
 
-						$finish = $_POST['finish'];
 						$id_haultruck = $_POST['haultruck'];
-						$catatan = $_POST['catatan'];
+						$id_optht = $_POST['optht'];
+						$catatan = "Dalam Proses";
 
-						$sql = $koneksi->query("insert into transfer(tanggal, start, finish, id_rcjty, id_rcicf, jumlah, id_haultruck, catatan) values('$tanggal','$start','$finish','$id_rcjty', '$id_rcicf','$jumlahkeluar', '$id_haultruck', '$catatan')");
-						$sql2 = $koneksi->query("update scjty set stok='$totalmasuk' where id_rcjty='$id_rcjty'");
-						$sql3 = $koneksi->query("update scicf set stok='$totalkeluar' where id_rcicf='$id_rcicf'");
-
-
-
+						$sql = $koneksi->query("insert into transfer(tanggal, start, id_rcjty, id_rcicf, jumlah, id_haultruck, id_optht, id_users, catatan) values('$tanggal','$start', '$id_rcjty', '$id_rcicf','$jumlahkeluar', '$id_haultruck', '$id_optht', '$id_users', '$catatan')");
 
 
 						if ($sql) {

@@ -3,10 +3,6 @@ $id = $_GET['id_barge'];
 $sql2 = $koneksi->query("select * from barge where id_barge = '$id'");
 $tampil = $sql2->fetch_assoc();
 $status = $tampil['status'];
-
-
-
-
 ?>
 
 <div class="container-fluid">

@@ -75,8 +75,9 @@ if (!isset($_SESSION['pegawai'])) {
       if ($_SESSION['pegawai']) {
         $user = $_SESSION['pegawai'];
       }
-      $sql = $koneksi->query("select * from users where id='$user'");
+      $sql = $koneksi->query("select * from users where id_users='$user'");
       $data = $sql->fetch_assoc();
+      $penginput = $data['nama'];
       ?>
 
       <!--sidebar start-->

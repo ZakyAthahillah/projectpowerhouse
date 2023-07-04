@@ -43,8 +43,8 @@
                 <td><img src="../img/<?php echo $data['foto'] ?>" width="50" height="50" alt=""> </td>
 
                 <td>
-                  <a href="?page=pengguna&aksi=ubahpengguna&id=<?php echo $data['id'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=pengguna&aksi=hapuspengguna&id=<?php echo $data['id'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                  <a href="?page=pengguna&aksi=ubahpengguna&id_users=<?php echo $data['id_users'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
+                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=pengguna&aksi=hapuspengguna&id_users=<?php echo $data['id_users'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
                 </td>
               </tr>
             <?php } ?>

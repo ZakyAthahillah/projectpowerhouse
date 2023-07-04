@@ -1,6 +1,6 @@
 <?php
-$id = $_GET['id'];
-$sql2 = $koneksi->query("select * from users where id = '$id'");
+$id_users = $_GET['id_users'];
+$sql2 = $koneksi->query("select * from users where id_users = '$id_users'");
 $tampil = $sql2->fetch_assoc();
 $level = $tampil['level'];
 
@@ -55,7 +55,7 @@ $level = $tampil['level'];
 							<div class="form-line">
 								<select name="level" class="form-control show-tick" required>
 									<option disabled>- pilih kategori -</option>
-									<option <?php if ($level == "admin") echo 'selected'; ?> value="Admin">Admin</option>
+									<option <?php if ($level == "admin") echo 'selected'; ?> value="admin">Admin</option>
 									<option <?php if ($level == "pegawai") echo 'selected'; ?> value="pegawai">Pegawai</option>
 									<option <?php if ($level == "warehouse") echo 'selected'; ?> value="warehouse">Warehouse</option>
 								</select>
@@ -110,7 +110,7 @@ $level = $tampil['level'];
 
 
 
-							$sql = $koneksi->query("update users set nama='$nama', username='$username', password='$password', level='$level', foto='$foto' where id='$id'");
+							$sql = $koneksi->query("update users set nama='$nama', username='$username', password='$password', level='$level', foto='$foto' where id_users='$id_users'");
 
 							if ($sql) {
 					?>
@@ -124,7 +124,7 @@ $level = $tampil['level'];
 							}
 						} else {
 
-							$sql = $koneksi->query("update users set username='$username', password='$password', nama='$nama', level='$level' where id='$id'");
+							$sql = $koneksi->query("update users set username='$username', password='$password', nama='$nama', level='$level' where id_users='$id_users'");
 
 							if ($sql) {
 							?>
