@@ -38,6 +38,7 @@
                 <td>
                   <a href="?page=optht&aksi=ubahoptht&id_optht=<?php echo $data['id_optht'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
                   <button onclick="confirmDelete('<?php echo $data['id_optht'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
+                  <a href="?page=optht&aksi=viewoptht&id_optht=<?php echo $data['id_optht'] ?>" class="btn btn-primary btn-circle"><i class="fas fa-info"></i></a>
                 </td>
               </tr>
             <?php } ?>

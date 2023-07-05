@@ -112,9 +112,11 @@
               if ($aksi == "ubahoptht") {
                 include "../page/optht/ubahoptht.php";
               }
-
               if ($aksi == "hapusoptht") {
                 include "../page/optht/hapusoptht.php";
+              }
+              if ($aksi == "viewoptht") {
+                include "../page/optht/viewoptht.php";
               }
             }
 

@@ -90,18 +90,13 @@ include 'koneksi.php';
 											</select>
 										</div>
 										<input type="submit" name="login" class="btn btn-primary btn-user btn-block" value="Masuk" />
-										</a>
-										<hr>
 									</form>
-									<hr>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
-
 		</div>
 
 	</div>
