@@ -19,6 +19,7 @@
             <th>Loading To</th>
             <th>Beltscale</th>
             <th>Catatan</th>
+            <th>Penginput</th>
             <th>Pengaturan</th>
           </tr>
         </thead>
@@ -34,8 +35,10 @@
         GROUP_CONCAT(beltscale SEPARATOR ', ') AS beltscale_gabung,
         GROUP_CONCAT(warna SEPARATOR ', ') AS warna_gabung,
         GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
+        GROUP_CONCAT(nama SEPARATOR ', ') AS nama_gabung,
         GROUP_CONCAT(id_loading SEPARATOR ', ') AS id_loading_gabung
         FROM loading
+        INNER JOIN users ON loading.id_users = users.id_users
         INNER JOIN barge ON loading.id_barge = barge.id_barge
         INNER JOIN scjty ON loading.id_rcjty = scjty.id_rcjty
         GROUP BY kode_sbp ORDER BY tanggal DESC");
@@ -48,6 +51,7 @@
             $beltscale_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['beltscale_gabung']) . '</li></ul>';
             $warna_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['warna_gabung']) . '</li></ul>';
             $catatan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['catatan_gabung']) . '</li></ul>';
+            $nama_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_gabung']) . '</li></ul>';
             $id_loading_gabung = $data['id_loading_gabung'];
           ?>
 
@@ -62,6 +66,7 @@
               <td><?php echo $barge_gabung ?></td>
               <td><?php echo $beltscale_gabung ?></td>
               <td><?php echo $catatan_gabung ?></td>
+              <td><?php echo $nama_gabung ?></td>
               <td>
                 <ul style="list-style-type: none; padding: 0; margin: 0;">
                   <?php

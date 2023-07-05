@@ -66,21 +66,21 @@ $tambah = $jumlah2 + $jumlah;
                         <label for="">Finish</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="time" name="finish" class="form-control" id="finish" value="<?php echo $finish; ?>" readonly/>
+                                <input type="time" name="finish" class="form-control" id="finish" value="<?php echo $finish; ?>" readonly />
                             </div>
                         </div>
 
                         <label for="">Transfer From</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="transferfrom" class="form-control" id="transferfrom" value="<?php echo $rcicf; ?>" readonly/>
+                                <input type="text" name="transferfrom" class="form-control" id="transferfrom" value="<?php echo $rcicf; ?>" readonly />
                             </div>
                         </div>
 
                         <label for="">Transfer To</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="transferto" class="form-control" id="transferto" value="<?php echo $rcjty; ?>" readonly/>
+                                <input type="text" name="transferto" class="form-control" id="transferto" value="<?php echo $rcjty; ?>" readonly />
                             </div>
                         </div>
 
@@ -88,7 +88,7 @@ $tambah = $jumlah2 + $jumlah;
                         <label for="">Jumlah</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="jumlahtransfer" id="jumlahtransfer"  class=" form-control" value="<?php echo $jumlah; ?>" readonly/>
+                                <input type="text" name="jumlahtransfer" id="jumlahtransfer" class=" form-control" value="<?php echo $jumlah; ?>" readonly />
                             </div>
                         </div>
 
@@ -100,31 +100,64 @@ $tambah = $jumlah2 + $jumlah;
 
 
                     <?php
+                    // Memulai transaksi
+                    $koneksi->begin_transaction();
 
+                    try {
                         if (isset($_POST['simpan'])) {
+                            $sql = "UPDATE scicf SET stok = ? WHERE id_rcicf = ?";
+                            $stmt1 = $koneksi->prepare($sql);
+                            $stmt1->bind_param("ss", $tambah, $id_rcicf);
+                            $stmt1->execute();
 
-                            $sql = $koneksi->query("UPDATE scicf SET stok='$tambah' WHERE id_rcicf='$id_rcicf'");
+                            $sql2 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
+                            $stmt2 = $koneksi->prepare($sql2);
+                            $stmt2->bind_param("ss", $kurang, $id_rcjty);
+                            $stmt2->execute();
 
-                            $sql2 = $koneksi->query("UPDATE scjty SET stok='$kurang' WHERE id_rcjty='$id_rcjty'");
+                            $sql3 = "DELETE FROM transfer WHERE id_transfer = ?";
+                            $stmt3 = $koneksi->prepare($sql3);
+                            $stmt3->bind_param("s", $id_transfer);
+                            $stmt3->execute();
 
-                            $sql3 = $koneksi->query("DELETE FROM transfer where id_transfer = '$id_transfer'");
+                            // Menyimpan perubahan
+                            $koneksi->commit();
 
-                            if ($sql) {
-                                echo "
-								<script>
-									Swal.fire({
-										title: 'SUKSES!',
-										text: 'Data Berhasil Dibatalkan dan Dihapus',
-										icon: 'success',
-										confirmButtonText: 'OK'
-									}).then(() => {
-										window.location.href = '?page=transfer';
-									});
-								</script>
-								";
-                            }
+                            echo "
+                            <script>
+                                Swal.fire({
+                                    title: 'SUKSES!',
+                                    text: 'Data Berhasil Dibatalkan dan Dihapus',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '?page=transfer';
+                                });
+                            </script>
+                        ";
                         }
+                    } catch (Exception $e) {
+                        // Membatalkan transaksi jika terjadi kesalahan
+                        $koneksi->rollback();
+
+                                        echo "
+                        <script>
+                            Swal.fire({
+                                title: 'ERROR!',
+                                text: 'Terjadi kesalahan saat membatalkan dan menghapus data',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.location.href = '?page=transfer';
+                            });
+                        </script>
+                    ";
+                    }
+
+                    // Menutup transaksi dan koneksi ke database
+                    $koneksi->close();
                     ?>
+
                 </div>
             </div>
         </div>

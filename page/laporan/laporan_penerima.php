@@ -31,7 +31,7 @@
 
               <tr>
                 <td><?php echo $no++; ?></td>
-                <td><?php echo $data['nama'] ?></td>
+                <td><?php echo $data['nama_pegawai'] ?></td>
                 <td><?php echo $data['bagian'] ?></td>
                 <td>
                   <a href="?page=laporan_penerima&aksi=riwayatp&id_pegawai=<?php echo $data['id_pegawai'] ?>" class="btn btn-success btn-circle"><i class="fas fa-search"></i></a>

@@ -30,7 +30,7 @@ $nama = $tampil['nama'];
                 <h6 class="mb-0">Nama</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <?php echo $tampil['nama']; ?>
+                <?php echo $tampil['nama_pegawai']; ?>
               </div>
             </div>
             <hr>

@@ -22,6 +22,7 @@
  							<th>Jumlah Masuk</th>
  							<th>Satuan Barang</th>
  							<th>Catatan</th>
+							<th>Penginput</th>
  							<th>Pengaturan</th>
  						</tr>
  					</thead>
@@ -32,6 +33,7 @@
 
 							$no = 1;
 							$sql = $koneksi->query("select * from barang_masuk 
+							INNER JOIN users ON barang_masuk.id_users = users.id_users
 							inner join tb_supplier on barang_masuk.id_supplier = tb_supplier.id_supplier");
 							while ($data = $sql->fetch_assoc()) {
 
@@ -43,13 +45,12 @@
  								<td><?php echo $data['tanggal'] ?></td>
  								<td><?php echo $data['kode_barang'] ?></td>
  								<td><?php echo $data['nama_barang'] ?></td>
-
  								<td><?php echo $data['nama_supplier'] ?></td>
-
-
  								<td><?php echo $data['jumlah'] ?></td>
  								<td><?php echo $data['satuan'] ?></td>
  								<td><?php echo $data['catatan'] ?></td>
+ 								<td><?php echo $data['nama'] ?></td>
+								
 
 
 

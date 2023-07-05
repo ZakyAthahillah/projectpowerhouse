@@ -111,7 +111,7 @@
 
 										$sql = $koneksi->query("select * from pegawai order by id_pegawai");
 										while ($data = $sql->fetch_assoc()) {
-											echo "<option value='$data[id_pegawai]'>$data[nama]</option>";
+											echo "<option value='$data[id_pegawai]'>$data[nama_pegawai]</option>";
 										}
 										?>
 
@@ -133,71 +133,72 @@
 
 
   					<?php
+						// Memulai transaksi
+						$koneksi->begin_transaction();
 
-						if (isset($_POST['simpan'])) {
-							$id_transaksi = $_POST['id_transaksi'];
-							$tanggal = $_POST['tanggal_keluar'];
+						try {
+							if (isset($_POST['simpan'])) {
+								$id_transaksi = $_POST['id_transaksi'];
+								$tanggal = $_POST['tanggal_keluar'];
+								$barang = $_POST['barang'];
+								$pecah_barang = explode(".", $barang);
+								$kode_barang = $pecah_barang[0];
+								$nama_barang = $pecah_barang[1];
+								$jumlah = $_POST['jumlahkeluar'];
+								$penerima = $_POST['penerima'];
+								$satuan = $_POST['satuan'];
+								$catatan = $_POST['catatan'];
+								$total = $_POST['total'];
 
-							$barang = $_POST['barang'];
-							$pecah_barang = explode(".", $barang);
-							$kode_barang = $pecah_barang[0];
-							$nama_barang = $pecah_barang[1];
-
-
-
-							$jumlah = $_POST['jumlahkeluar'];
-
-
-							$penerima = $_POST['penerima'];
-
-							$satuan = $_POST['satuan'];
-
-							$catatan = $_POST['catatan'];
-
-							$total = $_POST['total'];
-
-							$sisa2 = $total;
-							if ($sisa2 < 0) {
-						?>
-
-  							<script type="text/javascript">
-  								alert("Stok Barang Habis, Transaksi Tidak Dapat Dilakukan");
-  								window.location.href = "?page=barangkeluar&aksi=tambahbarangkeluar";
-  							</script>
-
-  					<?php
-							} else {
-
-								$sql = $koneksi->query("insert into barang_keluar (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, id_pegawai, catatan, total) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$penerima','$catatan','$total')");
-								// $sql2 = $koneksi-> query("update gudang set jumlah=(jumlah) where kode_barang='$kode_barang'");
-
-								if ($sql) {
+								$sisa2 = $total;
+								if ($sisa2 < 0) {
 									echo "
-							<script>
-								Swal.fire({
-									title: 'SUKSES!',
-									text: 'Data Berhasil Disimpan',
-									icon: 'success',
-									confirmButtonText: 'OK'
-								}).then(() => {
-									window.location.href = '?page=barangkeluar';
-								});
-							</script>
-							";
+									<script type='text/javascript'>
+										alert('Stok Barang Habis, Transaksi Tidak Dapat Dilakukan');
+										window.location.href = '?page=barangkeluar&aksi=tambahbarangkeluar';
+									</script>
+								";
 								} else {
+									$sql = "INSERT INTO barang_keluar (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, id_pegawai, catatan, total, id_users) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+									$stmt = $koneksi->prepare($sql);
+									$stmt->bind_param("ssssssssss", $id_transaksi, $tanggal, $kode_barang, $nama_barang, $jumlah, $satuan, $penerima, $catatan, $total, $id_users);
+									$stmt->execute();
+
+									// Menyimpan perubahan
+									$koneksi->commit();
+
 									echo "
+									<script>
+										Swal.fire({
+											title: 'SUKSES!',
+											text: 'Data Berhasil Disimpan',
+											icon: 'success',
+											confirmButtonText: 'OK'
+										}).then(() => {
+											window.location.href = '?page=barangkeluar';
+										});
+									</script>
+								";
+								}
+							}
+						} catch (Exception $e) {
+							// Membatalkan transaksi jika terjadi kesalahan
+							$koneksi->rollback();
+
+							echo "
 							<script>
 								Swal.fire({
 									title: 'ERROR!',
-									text: 'Data Gagal Disimpan',
+									text: 'Terjadi kesalahan saat menyimpan data',
 									icon: 'error',
 									confirmButtonText: 'OK'
 								}).then(() => {
 									window.location.href = '?page=barangkeluar';
 								});
 							</script>
-							";
-								}
-							}
+						";
 						}
+
+						// Menutup transaksi dan koneksi ke database
+						$koneksi->close();
 						?>

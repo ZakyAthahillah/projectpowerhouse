@@ -136,56 +136,66 @@
   					</form>
 
 
-
   					<?php
+						// Memulai transaksi
+						$koneksi->begin_transaction();
 
-						if (isset($_POST['simpan'])) {
-							$id_transaksi = $_POST['id_transaksi'];
-							$tanggal = $_POST['tanggal_masuk'];
+						try {
+							if (isset($_POST['simpan'])) {
+								$id_transaksi = $_POST['id_transaksi'];
+								$tanggal = $_POST['tanggal_masuk'];
 
-							$barang = $_POST['barang'];
-							$pecah_barang = explode(".", $barang);
-							$kode_barang = $pecah_barang[0];
-							$nama_barang = $pecah_barang[1];
+								$barang = $_POST['barang'];
+								$pecah_barang = explode(".", $barang);
+								$kode_barang = $pecah_barang[0];
+								$nama_barang = $pecah_barang[1];
 
-							$jumlah = $_POST['jumlahmasuk'];
+								$jumlah = $_POST['jumlahmasuk'];
 
-							$pengirim = $_POST['pengirim'];
+								$pengirim = $_POST['pengirim'];
 
-							$satuan = $_POST['satuan'];
-							$catatan = $_POST['catatan'];
+								$satuan = $_POST['satuan'];
+								$catatan = $_POST['catatan'];
 
-							$sql = $koneksi->query("insert into barang_masuk (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, id_supplier, catatan) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$pengirim', '$catatan')");
+								$sql = "INSERT INTO barang_masuk (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, id_supplier, catatan, id_users) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+								$stmt = $koneksi->prepare($sql);
+								$stmt->bind_param("sssssssss", $id_transaksi, $tanggal, $kode_barang, $nama_barang, $jumlah, $satuan, $pengirim, $catatan, $id_users);
+								$stmt->execute();
 
+								// Menyimpan perubahan
+								$koneksi->commit();
 
-							if ($sql) {
 								echo "
-							<script>
-								Swal.fire({
-									title: 'SUKSES!',
-									text: 'Data Berhasil Disimpan',
-									icon: 'success',
-									confirmButtonText: 'OK'
-								}).then(() => {
-									window.location.href = '?page=barangmasuk';
-								});
-							</script>
+								<script>
+									Swal.fire({
+										title: 'SUKSES!',
+										text: 'Data Berhasil Disimpan',
+										icon: 'success',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=barangmasuk';
+									});
+								</script>
 							";
-							} else {
-								echo "
+							}
+						} catch (Exception $e) {
+							// Membatalkan transaksi jika terjadi kesalahan
+							$koneksi->rollback();
+
+							echo "
 							<script>
 								Swal.fire({
 									title: 'ERROR!',
-									text: 'Data Gagal Disimpan',
+									text: 'Terjadi kesalahan saat menyimpan data',
 									icon: 'error',
 									confirmButtonText: 'OK'
 								}).then(() => {
 									window.location.href = '?page=barangmasuk';
 								});
 							</script>
-							";
-							}
+						";
 						}
 
-
+						// Menutup transaksi dan koneksi ke database
+						$koneksi->close();
 						?>

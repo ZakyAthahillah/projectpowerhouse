@@ -173,50 +173,65 @@
 					</script>
 
 					<?php
+					// Memulai transaksi
+					$koneksi->begin_transaction();
 
-					if (isset($_POST['simpan'])) {
-						$tanggal = $_POST['tanggal'];
+					try {
+						if (isset($_POST['simpan'])) {
+							$tanggal = $_POST['tanggal'];
 
-						$id_rcjty = $_POST['transferto'];
-						$pecah_rcjty = explode(".", $id_rcjty);
-						$id_rcjty = $pecah_rcjty[0];
-						$nama_rcjty = $pecah_rcjty[1];
-						
-						$id_rcicf = $_POST['transferfrom'];
-						$pecah_rcicf = explode(".", $id_rcicf);
-						$id_rcicf = $pecah_rcicf[0];
-						$nama_rcicf = $pecah_rcicf[1];
+							$id_rcjty = $_POST['transferto'];
+							$pecah_rcjty = explode(".", $id_rcjty);
+							$id_rcjty = $pecah_rcjty[0];
+							$nama_rcjty = $pecah_rcjty[1];
 
-						$jumlahmasuk = $_POST['jumlahmasuk'];
-						$jumlahkeluar = $_POST['jumlahkeluar'];
+							$id_rcicf = $_POST['transferfrom'];
+							$pecah_rcicf = explode(".", $id_rcicf);
+							$id_rcicf = $pecah_rcicf[0];
+							$nama_rcicf = $pecah_rcicf[1];
 
-						$totalmasuk = $_POST['totalmasuk'];
-						$totalkeluar = $_POST['totalkeluar'];
+							$jumlahmasuk = $_POST['jumlahmasuk'];
+							$jumlahkeluar = $_POST['jumlahkeluar'];
 
-						$start = $_POST['start'];
+							$totalmasuk = $_POST['totalmasuk'];
+							$totalkeluar = $_POST['totalkeluar'];
 
-						$id_haultruck = $_POST['haultruck'];
-						$id_optht = $_POST['optht'];
-						$catatan = "Dalam Proses";
+							$start = $_POST['start'];
 
-						$sql = $koneksi->query("insert into transfer(tanggal, start, id_rcjty, id_rcicf, jumlah, id_haultruck, id_optht, id_users, catatan) values('$tanggal','$start', '$id_rcjty', '$id_rcicf','$jumlahkeluar', '$id_haultruck', '$id_optht', '$id_users', '$catatan')");
+							$id_haultruck = $_POST['haultruck'];
+							$id_optht = $_POST['optht'];
+							$catatan = "Dalam Proses";
 
+							// Mengubah perintah INSERT menjadi objek prepared statement
+							$stmt = $koneksi->prepare("INSERT INTO transfer(tanggal, start, id_rcjty, id_rcicf, jumlah, id_haultruck, id_optht, id_users, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-						if ($sql) {
+							// Mengikat parameter ke pernyataan persiapan
+							$stmt->bind_param("sssssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $jumlahkeluar, $id_haultruck, $id_optht, $id_users, $catatan);
+
+							// Menjalankan pernyataan persiapan
+							$stmt->execute();
+
+							// Menyimpan perubahan
+							$koneksi->commit();
+
 							echo "
-							<script>
-								Swal.fire({
-									title: 'SUKSES!',
-									text: 'Data Berhasil Disimpan',
-									icon: 'success',
-									confirmButtonText: 'OK'
-								}).then(() => {
-									window.location.href = '?page=transfer';
-								});
-							</script>
+								<script>
+									Swal.fire({
+										title: 'SUKSES!',
+										text: 'Data Berhasil Disimpan',
+										icon: 'success',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=transfer';
+									});
+								</script>
 							";
-						} else {
-							echo "
+											}
+										} catch (Exception $e) {
+											// Membatalkan transaksi jika terjadi kesalahan
+											$koneksi->rollback();
+
+											echo "
 							<script>
 								Swal.fire({
 									title: 'ERROR!',
@@ -227,9 +242,9 @@
 									window.location.href = '?page=transfer';
 								});
 							</script>
-							";
-						}
-					}
+						";
+										}
 
-
-					?>
+							// Menutup transaksi dan koneksi ke database
+							$koneksi->close();
+							?>

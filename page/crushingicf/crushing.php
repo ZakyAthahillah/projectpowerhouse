@@ -17,6 +17,7 @@
             <th>Warna</th>
             <th>Jumlah</th>
             <th>Catatan</th>
+            <th>Penginput</th>
             <th>Pengaturan</th>
           </tr>
         </thead>
@@ -30,8 +31,10 @@
             GROUP_CONCAT(warna SEPARATOR ', ') AS warna_concat, 
             GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_concat, 
             GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_concat,
+            GROUP_CONCAT(nama SEPARATOR ', ') AS nama_concat,
             GROUP_CONCAT(id_crushing SEPARATOR ', ') AS id_crushing_concat
             FROM crushingicf
+            INNER JOIN users ON crushingicf.id_users = users.id_users
             INNER JOIN scicf ON crushingicf.id_rcicf = scicf.id_rcicf 
             GROUP BY tanggal
             ORDER BY tanggal DESC");
@@ -43,6 +46,7 @@
             $jumlah_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_concat']) . '</li></ul>';
             $warna_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['warna_concat']) . '</li></ul>';
             $catatan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['catatan_concat']) . '</li></ul>';
+            $nama_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_concat']) . '</li></ul>';
             $id_crushing_gabung = $data['id_crushing_concat'];
           ?>
             <tr>
@@ -54,6 +58,7 @@
               <td><?php echo $warna_gabung?></td>
               <td><?php echo $jumlah_gabung ?></td>
               <td><?php echo $catatan_gabung ?></td>
+              <td><?php echo $nama_gabung ?></td>
 
               <td>
                 <ul style="list-style-type: none; padding: 0; margin: 0;">

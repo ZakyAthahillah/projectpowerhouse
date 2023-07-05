@@ -108,28 +108,59 @@ $tambah = $jumlah2 + $jumlah;
 
 
                     <?php
-                    if (isset($_POST['simpan'])) {
+                    // Memulai transaksi
+                    $koneksi->begin_transaction();
 
-                        $sql = $koneksi->query("UPDATE scjty SET stok='$tambah' WHERE id_rcjty='$id_rcjty'");
+                    try {
+                        if (isset($_POST['simpan'])) {
+                            $sql = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
+                            $stmt1 = $koneksi->prepare($sql);
+                            $stmt1->bind_param("ss", $tambah, $id_rcjty);
+                            $stmt1->execute();
 
-                        $sql2 = $koneksi->query("delete from loading where id_loading = '$id_loading'");
+                            $sql2 = "DELETE FROM loading WHERE id_loading = ?";
+                            $stmt2 = $koneksi->prepare($sql2);
+                            $stmt2->bind_param("s", $id_loading);
+                            $stmt2->execute();
 
-                        if ($sql) {
+                            // Menyimpan perubahan
+                            $koneksi->commit();
+
                             echo "
-								<script>
-									Swal.fire({
-										title: 'SUKSES!',
-										text: 'Data Berhasil Dibatalkan dan Dihapus',
-										icon: 'success',
-										confirmButtonText: 'OK'
-									}).then(() => {
-										window.location.href = '?page=loading';
-									});
-								</script>
-								";
+                            <script>
+                                Swal.fire({
+                                    title: 'SUKSES!',
+                                    text: 'Data Berhasil Dibatalkan dan Dihapus',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '?page=loading';
+                                });
+                            </script>
+                        ";
                         }
+                    } catch (Exception $e) {
+                        // Membatalkan transaksi jika terjadi kesalahan
+                        $koneksi->rollback();
+
+                        echo "
+                        <script>
+                            Swal.fire({
+                                title: 'ERROR!',
+                                text: 'Terjadi kesalahan saat membatalkan dan menghapus data',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.location.href = '?page=loading';
+                            });
+                        </script>
+                    ";
                     }
+
+                    // Menutup transaksi dan koneksi ke database
+                    $koneksi->close();
                     ?>
+
                 </div>
             </div>
         </div>

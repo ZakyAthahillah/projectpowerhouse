@@ -2,7 +2,7 @@
 $id = $_GET['id_pegawai'];
 $sql2 = $koneksi->query("select * from pegawai where id_pegawai = '$id'");
 $tampil = $sql2->fetch_assoc();
-$nama = $tampil['nama'];
+$nama = $tampil['nama_pegawai'];
 ?>
 
 <div class="container">
@@ -43,7 +43,7 @@ $nama = $tampil['nama'];
                                 <h6 class="mb-0">Nama :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <?php echo $tampil['nama']; ?>
+                                <?php echo $tampil['nama_pegawai']; ?>
                             </div>
                         </div>
                         <hr>

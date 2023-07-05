@@ -88,7 +88,7 @@
 
 							if ($upload) {
 
-								$sql = $koneksi->query("insert into pegawai (nik, nama, bagian, telepon, alamat, foto) values('$nik', '$nama', '$bagian', '$telepon', '$alamat', '$foto')");
+								$sql = $koneksi->query("insert into pegawai (nik, nama_pegawai, bagian, telepon, alamat, foto) values('$nik', '$nama', '$bagian', '$telepon', '$alamat', '$foto')");
 
 								if ($sql) {
 									echo "

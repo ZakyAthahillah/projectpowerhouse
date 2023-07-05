@@ -2,7 +2,7 @@
 $id = $_GET['id_pegawai'];
 $sql2 = $koneksi->query("select * from pegawai where id_pegawai = '$id'");
 $tampil = $sql2->fetch_assoc();
-$nama = $tampil['nama'];
+$nama = $tampil['nama_pegawai'];
 $bagian = $tampil['bagian'];
 ?>
 
@@ -31,7 +31,7 @@ $bagian = $tampil['bagian'];
 						<label for="">Nama</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" name="nama" value="<?php echo $tampil['nama']; ?>" class="form-control" />
+								<input type="text" name="nama" value="<?php echo $tampil['nama_pegawai']; ?>" class="form-control" />
 
 							</div>
 						</div>
@@ -109,7 +109,7 @@ $bagian = $tampil['bagian'];
 
 
 
-							$sql = $koneksi->query("update pegawai set nik='$nik', nama='$nama', bagian='$bagian', telepon='$telepon', alamat='$alamat', foto='$foto' where id_pegawai='$id'");
+							$sql = $koneksi->query("update pegawai set nik='$nik', nama_pegawai='$nama', bagian='$bagian', telepon='$telepon', alamat='$alamat', foto='$foto' where id_pegawai='$id'");
 
 							if ($sql) {
 								echo "
@@ -140,7 +140,7 @@ $bagian = $tampil['bagian'];
 							}
 						} else {
 
-							$sql = $koneksi->query("update pegawai set nik='$nik', nama='$nama', bagian='$bagian', telepon='$telepon', alamat='$alamat' where id_pegawai='$id'");
+							$sql = $koneksi->query("update pegawai set nik='$nik', nama_pegawai='$nama', bagian='$bagian', telepon='$telepon', alamat='$alamat' where id_pegawai='$id'");
 
 							if ($sql) {
 								echo "

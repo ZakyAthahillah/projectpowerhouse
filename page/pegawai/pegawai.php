@@ -33,7 +33,7 @@
 
               <tr>
                 <td><?php echo $no++; ?></td>
-                <td><?php echo $data['nama'] ?></td>
+                <td><?php echo $data['nama_pegawai'] ?></td>
                 <td><?php echo $data['bagian'] ?></td>
                 <td><img src="../img/<?php echo $data['foto'] ?>" width="50" height="50" alt=""> </td>
 

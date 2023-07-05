@@ -112,7 +112,7 @@ $level = $tampil['level'];
                         <div class="form-group">
                             <div class="form-line">
                                 <select name="optht" id="select_optht" class="form-control" required>
-                                <?php
+                                    <?php
                                     echo "<option value='$tampil[id_optht]'>$tampil[nama_optht]</option>";
 
                                     $sql = $koneksi->query("SELECT * FROM operatorht ORDER BY id_optht");
@@ -136,7 +136,6 @@ $level = $tampil['level'];
                     <?php
 
                     if (isset($_POST['simpan'])) {
-
                         $tanggal = $_POST['tanggal'];
                         $start = $_POST['start'];
 
@@ -155,26 +154,55 @@ $level = $tampil['level'];
                         $id_optht = $_POST['optht'];
                         $id_haultruck = $_POST['haultruck'];
 
+                        $koneksi->autocommit(false); // Mematikan autocommit
 
+                        try {
+                            // Memulai transaksi
+                            $koneksi->begin_transaction();
 
-                        $sql = $koneksi->query("UPDATE transfer SET tanggal='$tanggal', start='$start', id_rcjty='$id_rcjty', id_rcicf='$id_rcicf', jumlah='$jumlah', id_haultruck='$id_haultruck', id_optht='$id_optht' where id_transfer = '$id_transfer'");
+                            // Lakukan perubahan pada database
+                            $sql = "UPDATE transfer SET tanggal=?, start=?, id_rcjty=?, id_rcicf=?, jumlah=?, id_haultruck=?, id_optht=? WHERE id_transfer=?";
+                            $stmt = $koneksi->prepare($sql);
+                            $stmt->bind_param("ssssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $jumlah, $id_haultruck, $id_optht, $id_transfer);
+                            $stmt->execute();
 
-                        if ($sql) {
+                            if ($stmt->affected_rows > 0) {
+                                $koneksi->commit(); // Commit transaksi jika sukses
+                                echo "
+                                <script>
+                                    Swal.fire({
+                                        title: 'SUKSES!',
+                                        text: 'Data Berhasil Diubah',
+                                        icon: 'success',
+                                        confirmButtonText: 'OK'
+                                    }).then(() => {
+                                        window.location.href = '?page=transfer';
+                                    });
+                                </script>
+                            ";
+                            } else {
+                                throw new Exception("Gagal mengubah data transfer"); // Lempar exception jika gagal
+                            }
+                        } catch (Exception $e) {
+                            $koneksi->rollback(); // Rollback transaksi jika terjadi kesalahan
                             echo "
-								<script>
-									Swal.fire({
-										title: 'SUKSES!',
-										text: 'Data Berhasil Diubah',
-										icon: 'success',
-										confirmButtonText: 'OK'
-									}).then(() => {
-										window.location.href = '?page=transfer';
-									});
-								</script>
-								";
+                            <script>
+                                Swal.fire({
+                                    title: 'ERROR!',
+                                    text: 'Gagal mengubah data transfer',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '?page=transfer';
+                                });
+                            </script>
+                        ";
                         }
+
+                        $koneksi->autocommit(true); // Menghidupkan autocommit kembali setelah transaksi selesai
                     }
                     ?>
+
                 </div>
             </div>
         </div>

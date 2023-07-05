@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
         $pdf->Cell(25, 6, $hasil['tanggal'], 1, 0);
         $pdf->Cell(27, 6, $hasil['kode_barang'], 1, 0);
         $pdf->Cell(115, 6, $hasil['nama_barang'], 1, 0);
-        $pdf->Cell(50, 6, $hasil['nama'], 1, 0);
+        $pdf->Cell(50, 6, $hasil['nama_pegawai'], 1, 0);
         $pdf->Cell(15, 6, $hasil['jumlah'], 1, 1, 'C');
     }
 
@@ -121,7 +121,7 @@ if (isset($_POST['submits'])) {
         $pdf->Cell(25, 6, $hasil['tanggal'], 1, 0);
         $pdf->Cell(27, 6, $hasil['kode_barang'], 1, 0);
         $pdf->Cell(115, 6, $hasil['nama_barang'], 1, 0);
-        $pdf->Cell(50, 6, $hasil['nama'], 1, 0);
+        $pdf->Cell(50, 6, $hasil['nama_pegawai'], 1, 0);
         $pdf->Cell(15, 6, $hasil['jumlah'], 1, 1, 'C');
     }
 

@@ -56,7 +56,7 @@ $kurang = $jumlah2 - $jumlah;
                         <label for="">Finish</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="time" name="finish" class="form-control" id="finish" value="<?php echo $finish; ?>" readonly/>
+                                <input type="time" name="finish" class="form-control" id="finish" value="<?php echo $finish; ?>" readonly />
                             </div>
                         </div>
 
@@ -64,7 +64,7 @@ $kurang = $jumlah2 - $jumlah;
                         <label for="">Crushing To</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="crushingto" class="form-control" id="crushingto" value="<?php echo $rcjty; ?>" readonly/>
+                                <input type="text" name="crushingto" class="form-control" id="crushingto" value="<?php echo $rcjty; ?>" readonly />
                             </div>
                         </div>
 
@@ -72,14 +72,14 @@ $kurang = $jumlah2 - $jumlah;
                         <label for="">Jumlah</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="jumlahmasuk" id="jumlahmasuk"  class=" form-control" value="<?php echo $jumlah; ?>" readonly/>
+                                <input type="text" name="jumlahmasuk" id="jumlahmasuk" class=" form-control" value="<?php echo $jumlah; ?>" readonly />
                             </div>
                         </div>
 
                         <label for="">Catatan</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="catatan" class="form-control" value="<?php echo $catatan; ?>" readonly/>
+                                <input type="text" name="catatan" class="form-control" value="<?php echo $catatan; ?>" readonly />
                             </div>
                         </div>
 
@@ -91,29 +91,59 @@ $kurang = $jumlah2 - $jumlah;
 
 
                     <?php
+                    // Memulai transaksi
+                    $koneksi->begin_transaction();
 
+                    try {
                         if (isset($_POST['simpan'])) {
+                            $sql = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
+                            $stmt1 = $koneksi->prepare($sql);
+                            $stmt1->bind_param("ss", $kurang, $id_rcjty);
+                            $stmt1->execute();
 
-                            $sql = $koneksi->query("UPDATE scjty SET stok='$kurang' WHERE id_rcjty='$id_rcjty'");
+                            $sql2 = "DELETE FROM crushingjty WHERE id_crushing = ?";
+                            $stmt2 = $koneksi->prepare($sql2);
+                            $stmt2->bind_param("s", $id_crushing);
+                            $stmt2->execute();
 
-                            $sql2 = $koneksi->query("delete from crushingjty where id_crushing = '$id_crushing'");
+                            // Menyimpan perubahan
+                            $koneksi->commit();
 
-                            if ($sql) {
-                                echo "
-								<script>
-									Swal.fire({
-										title: 'SUKSES!',
-										text: 'Data Berhasil Dibatalkan dan Dihapus',
-										icon: 'success',
-										confirmButtonText: 'OK'
-									}).then(() => {
-										window.location.href = '?page=crushingjty';
-									});
-								</script>
-								";
-                            }
+                            echo "
+                            <script>
+                                Swal.fire({
+                                    title: 'SUKSES!',
+                                    text: 'Data Berhasil Dibatalkan dan Dihapus',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '?page=crushingjty';
+                                });
+                            </script>
+                        ";
                         }
+                    } catch (Exception $e) {
+                        // Membatalkan transaksi jika terjadi kesalahan
+                        $koneksi->rollback();
+
+                        echo "
+                        <script>
+                            Swal.fire({
+                                title: 'ERROR!',
+                                text: 'Terjadi kesalahan saat membatalkan dan menghapus data',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.location.href = '?page=crushingjty';
+                            });
+                        </script>
+                    ";
+                    }
+
+                    // Menutup transaksi dan koneksi ke database
+                    $koneksi->close();
                     ?>
+
                 </div>
             </div>
         </div>

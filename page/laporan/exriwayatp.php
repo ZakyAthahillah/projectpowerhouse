@@ -34,7 +34,7 @@ $pdf->Ln(2);
 
 $sql2 = $koneksi->query("select * from pegawai where id_pegawai = '$id'");
 $tampil = $sql2->fetch_assoc();
-$nama = $tampil['nama'];
+$nama = $tampil['nama_pegawai'];
 $bagian = $tampil['bagian'];
 
 $pdf->SetFont('Arial', 'B', 12);

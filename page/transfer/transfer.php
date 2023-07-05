@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Data Transfer Coal ICF To Jetty <span class="text-danger">(DALAM PROSES)</span></h6>
+    <h6 class="m-0 font-weight-bold text-primary">Data Transfer Coal ICF To Jetty <span class="badge badge-danger badge-xl font-weight-bolder">DALAM PROSES</span></h6>
     <br>
     <a href="?page=transfer&aksi=tambahtransfer" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
   </div>
@@ -17,8 +17,8 @@
             <th>Jumlah</th>
             <th>Haul Truck</th>
             <th>Operator</th>
-            <th>Penginput</th>
             <th>Status</th>
+            <th>Penginput</th>
             <th>Pengaturan</th>
 
           </tr>
@@ -72,8 +72,8 @@
               <td><?php echo $jumlah_gabung; ?></td>
               <td><?php echo $nama_haultruck_gabung; ?></td>
               <td><?php echo $nama_optht_gabung; ?></td>
-              <td><?php echo $nama_gabung; ?></td>
               <td><?php echo $catatan_gabung; ?></td>
+              <td><?php echo $nama_gabung; ?></td>
               <td>
                 <div style="display: flex;">
                   <ul style="list-style-type: none; padding: 0; margin: 0 10px 0 0;">
@@ -114,7 +114,7 @@
 
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Data Transfer Coal ICF To Jetty <span class="text-success">(SELESAI)</span></h6>
+    <h6 class="m-0 font-weight-bold text-primary">Data Transfer Coal ICF To Jetty <span class="badge badge-xl badge-success font-weight-bolder">SELESAI</span></h6>
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -130,8 +130,8 @@
             <th>Jumlah</th>
             <th>Haul Truck</th>
             <th>Operator</th>
-            <th>Penginput</th>
             <th>Status</th>
+            <th>Penginput</th>
             <th>Pengaturan</th>
 
           </tr>
@@ -188,8 +188,8 @@
               <td><?php echo $jumlah_gabung; ?></td>
               <td><?php echo $nama_haultruck_gabung; ?></td>
               <td><?php echo $nama_optht_gabung; ?></td>
-              <td><?php echo $nama_gabung; ?></td>
               <td><?php echo $catatan_gabung; ?></td>
+              <td><?php echo $nama_gabung; ?></td>
               <td>
                 <ul style="list-style-type: none; padding: 0; margin: 0;">
                   <?php

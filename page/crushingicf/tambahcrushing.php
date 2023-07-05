@@ -99,30 +99,38 @@
 
 
 
-					<?php
+					<?php	
+					// Memulai transaksi
+					$koneksi->begin_transaction();
 
-					if (isset($_POST['simpan'])) {
-						$tanggal = $_POST['tanggal'];
-						$id_rcicf = $_POST['crushingto'];
-						$pecah_rc = explode(".", $id_rcicf);
-						$id_rcicf = $pecah_rc[0];
-						$nama_rc = $pecah_rc[1];
-						$jumlahmasuk = $_POST['jumlahmasuk'];
-						$jumlah = $_POST['jumlah'];
+					try {
+						if (isset($_POST['simpan'])) {
+							$tanggal = $_POST['tanggal'];
+							$id_rcicf = $_POST['crushingto'];
+							$pecah_rc = explode(".", $id_rcicf);
+							$id_rcicf = $pecah_rc[0];
+							$nama_rc = $pecah_rc[1];
+							$jumlahmasuk = $_POST['jumlahmasuk'];
+							$jumlah = $_POST['jumlah'];
 
-						$start = $_POST['start'];
+							$start = $_POST['start'];
 
-						$finish = $_POST['finish'];
-						$catatan = $_POST['catatan'];
+							$finish = $_POST['finish'];
+							$catatan = $_POST['catatan'];
 
-						$sql = $koneksi->query("insert into crushingicf(tanggal, start, finish, id_rcicf, jumlah, catatan) values('$tanggal','$start','$finish','$id_rcicf','$jumlahmasuk', '$catatan')");
-						$sql2 = $koneksi->query("update scicf set stok='$jumlah' where id_rcicf='$id_rcicf'");
+							$sql = "INSERT INTO crushingicf(tanggal, start, finish, id_rcicf, jumlah, catatan, id_users) VALUES (?, ?, ?, ?, ?, ?, ?)";
+							$stmt1 = $koneksi->prepare($sql);
+							$stmt1->bind_param("sssssss", $tanggal, $start, $finish, $id_rcicf, $jumlahmasuk, $catatan, $id_users);
+							$stmt1->execute();
 
+							$sql2 = "UPDATE scicf SET stok = ? WHERE id_rcicf = ?";
+							$stmt2 = $koneksi->prepare($sql2);
+							$stmt2->bind_param("ss", $jumlah, $id_rcicf);
+							$stmt2->execute();
 
+							// Menyimpan perubahan
+							$koneksi->commit();
 
-
-
-						if ($sql) {
 							echo "
 							<script>
 								Swal.fire({
@@ -134,22 +142,26 @@
 									window.location.href = '?page=crushingicf';
 								});
 							</script>
-							";
-						} else {
-							echo "
-							<script>
-								Swal.fire({
-									title: 'ERROR!',
-									text: 'Data Gagal Disimpan',
-									icon: 'error',
-									confirmButtonText: 'OK'
-								}).then(() => {
-									window.location.href = '?page=crushingicf';
-								});
-							</script>
-							";
+						";
 						}
+					} catch (Exception $e) {
+						// Membatalkan transaksi jika terjadi kesalahan
+						$koneksi->rollback();
+
+						echo "
+						<script>
+							Swal.fire({
+								title: 'ERROR!',
+								text: 'Terjadi kesalahan saat menyimpan data',
+								icon: 'error',
+								confirmButtonText: 'OK'
+							}).then(() => {
+								window.location.href = '?page=crushingicf';
+							});
+						</script>
+					";
 					}
 
-
+					// Menutup transaksi dan koneksi ke database
+					$koneksi->close();
 					?>

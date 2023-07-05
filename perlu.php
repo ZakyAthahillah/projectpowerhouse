@@ -800,3 +800,64 @@ if (isset($_POST['submits'])) {
 
 
 					?>
+
+<?
+if (isset($_POST['simpan'])) {
+						$tanggal = $_POST['tanggal'];
+
+						$id_rcjty = $_POST['transferto'];
+						$pecah_rcjty = explode(".", $id_rcjty);
+						$id_rcjty = $pecah_rcjty[0];
+						$nama_rcjty = $pecah_rcjty[1];
+						
+						$id_rcicf = $_POST['transferfrom'];
+						$pecah_rcicf = explode(".", $id_rcicf);
+						$id_rcicf = $pecah_rcicf[0];
+						$nama_rcicf = $pecah_rcicf[1];
+
+						$jumlahmasuk = $_POST['jumlahmasuk'];
+						$jumlahkeluar = $_POST['jumlahkeluar'];
+
+						$totalmasuk = $_POST['totalmasuk'];
+						$totalkeluar = $_POST['totalkeluar'];
+
+						$start = $_POST['start'];
+
+						$id_haultruck = $_POST['haultruck'];
+						$id_optht = $_POST['optht'];
+						$catatan = "Dalam Proses";
+
+						$sql = $koneksi->query("insert into transfer(tanggal, start, id_rcjty, id_rcicf, jumlah, id_haultruck, id_optht, id_users, catatan) values('$tanggal','$start', '$id_rcjty', '$id_rcicf','$jumlahkeluar', '$id_haultruck', '$id_optht', '$id_users', '$catatan')");
+
+
+						if ($sql) {
+							echo "
+							<script>
+								Swal.fire({
+									title: 'SUKSES!',
+									text: 'Data Berhasil Disimpan',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=transfer';
+								});
+							</script>
+							";
+						} else {
+							echo "
+							<script>
+								Swal.fire({
+									title: 'ERROR!',
+									text: 'Data Gagal Disimpan',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								}).then(() => {
+									window.location.href = '?page=transfer';
+								});
+							</script>
+							";
+						}
+					}
+
+
+					?>

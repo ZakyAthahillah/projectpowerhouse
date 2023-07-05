@@ -132,35 +132,43 @@
 
 
 					<?php
+					// Memulai transaksi
+					$koneksi->begin_transaction();
 
-					if (isset($_POST['simpan'])) {
-						$tanggal = $_POST['tanggal'];
-						$id_rcjty = $_POST['loadingfrom'];
-						$pecah_rc = explode(".", $id_rcjty);
-						$id_rcjty = $pecah_rc[0];
-						$nama_rc = $pecah_rc[1];
-						$kode_sbp = $_POST['kode_sbp'];
-						$id_barge = $_POST['loadingto'];
-						$pecah_barge = explode(".", $id_barge);
-						$id_barge = $pecah_barge[0];
-						$nama_barge = $pecah_barge[1];
+					try {
+						if (isset($_POST['simpan'])) {
+							$tanggal = $_POST['tanggal'];
+							$id_rcjty = $_POST['loadingfrom'];
+							$pecah_rc = explode(".", $id_rcjty);
+							$id_rcjty = $pecah_rc[0];
+							$nama_rc = $pecah_rc[1];
+							$kode_sbp = $_POST['kode_sbp'];
+							$id_barge = $_POST['loadingto'];
+							$pecah_barge = explode(".", $id_barge);
+							$id_barge = $pecah_barge[0];
+							$nama_barge = $pecah_barge[1];
 
-						$jumlahkeluar = $_POST['jumlahkeluar'];
-						$jumlah = $_POST['jumlah'];
+							$jumlahkeluar = $_POST['jumlahkeluar'];
+							$jumlah = $_POST['jumlah'];
 
-						$start = $_POST['start'];
+							$start = $_POST['start'];
 
-						$finish = $_POST['finish'];
-						$catatan = $_POST['catatan'];
+							$finish = $_POST['finish'];
+							$catatan = $_POST['catatan'];
 
-						$sql = $koneksi->query("insert into loading(kode_sbp, tanggal, start, finish, id_rcjty, id_barge, beltscale, catatan) values('$kode_sbp','$tanggal','$start','$finish','$id_rcjty', '$id_barge','$jumlahkeluar', '$catatan')");
-						$sql2 = $koneksi->query("update scjty set stok='$jumlah' where id_rcjty='$id_rcjty'");
+							$sql = "INSERT INTO loading(kode_sbp, tanggal, start, finish, id_rcjty, id_barge, beltscale, catatan, id_users) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+							$stmt1 = $koneksi->prepare($sql);
+							$stmt1->bind_param("sssssssss", $kode_sbp, $tanggal, $start, $finish, $id_rcjty, $id_barge, $jumlahkeluar, $catatan, $id_users);
+							$stmt1->execute();
 
+							$sql2 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
+							$stmt2 = $koneksi->prepare($sql2);
+							$stmt2->bind_param("ss", $jumlah, $id_rcjty);
+							$stmt2->execute();
 
+							// Menyimpan perubahan
+							$koneksi->commit();
 
-
-
-						if ($sql) {
 							echo "
 							<script>
 								Swal.fire({
@@ -172,22 +180,26 @@
 									window.location.href = '?page=loading';
 								});
 							</script>
-							";
-						} else {
-							echo "
-							<script>
-								Swal.fire({
-									title: 'ERROR!',
-									text: 'Data Gagal Disimpan',
-									icon: 'error',
-									confirmButtonText: 'OK'
-								}).then(() => {
-									window.location.href = '?page=loading';
-								});
-							</script>
-							";
+						";
 						}
+					} catch (Exception $e) {
+						// Membatalkan transaksi jika terjadi kesalahan
+						$koneksi->rollback();
+
+						echo "
+						<script>
+							Swal.fire({
+								title: 'ERROR!',
+								text: 'Terjadi kesalahan saat menyimpan data',
+								icon: 'error',
+								confirmButtonText: 'OK'
+							}).then(() => {
+								window.location.href = '?page=loading';
+							});
+						</script>
+					";
 					}
 
-
+					// Menutup transaksi dan koneksi ke database
+					$koneksi->close();
 					?>
