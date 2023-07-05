@@ -49,6 +49,10 @@ if (!isset($_SESSION['pegawai'])) {
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
   <!-- SWEET ALERT 2 -->
   <script src="../vendor/sweetalert2/sweetalert2.min.js"></script>
+
+  <!-- LEAFLET JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  
   <link rel="stylesheet" href="../vendor/sweetalert2/sweetalert2.min.css" id="theme-styles">
 </head>
 
@@ -77,7 +81,7 @@ if (!isset($_SESSION['pegawai'])) {
       }
       $sql = $koneksi->query("select * from users where id_users='$user'");
       $data = $sql->fetch_assoc();
-      $penginput = $data['nama'];
+      $id_users = $data['id_users'];
       ?>
 
       <!--sidebar start-->
@@ -153,6 +157,9 @@ if (!isset($_SESSION['pegawai'])) {
         </a>
       </li>
 
+      <!-- Heading -->
+
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
       <div class="sidebar-heading text-light">
@@ -169,6 +176,7 @@ if (!isset($_SESSION['pegawai'])) {
             <h6 class="collapse-header text-dark">Menu:</h6>
             <a class="collapse-item" href="?page=haultruck">Data Hauling Truck</a>
             <a class="collapse-item" href="?page=barge">Data Barge</a>
+            <a class="collapse-item" href="?page=optht">Data Operator Haul Truck</a>
           </div>
         </div>
       </li>
@@ -274,7 +282,7 @@ if (!isset($_SESSION['pegawai'])) {
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
@@ -521,7 +529,7 @@ if (!isset($_SESSION['pegawai'])) {
   <script src="../select2/js/select2.min.js"></script>
 
   <script>
-    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item,#select_kodesbp,#select_haultruck").select2({
+    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item,#select_kodesbp,#select_haultruck,#select_optht").select2({
       theme: 'bootstrap4',
       placeholder: "- Pilih -"
     });
@@ -533,14 +541,6 @@ if (!isset($_SESSION['pegawai'])) {
     });
   </script>
 
-  <script>
-    const ogInput = document.getElementById("og")
-    const mirrorInput = document.getElementById("mirror")
-
-    ogInput.addEventListener("input", () => {
-      mirrorInput.value = ogInput.value
-    })
-  </script>
 
 </body>
 

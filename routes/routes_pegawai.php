@@ -45,16 +45,16 @@
                 include "../page/blending/file";
               }
               if ($aksi == "tambahsbp") {
-                include "../page//blending/tambahsbp.php";
+                include "../page/blending/tambahsbp.php";
+              }
+              if ($aksi == "ubahsbp") {
+                include "../page/blending/ubahsbp.php";
               }
               if ($aksi == "uploadsbp") {
                 include "../page/blending/uploadsbp.php";
               }
               if ($aksi == "downloadsbp") {
                 include "../page/blending/downloadsbp.php";
-              }
-              if ($aksi == "ubahsbp") {
-                include "../page/blending/ubahsbp.php";
               }
               if ($aksi == "hapussbp") {
                 include "../page/blending/hapussbp.php";
@@ -99,6 +99,24 @@
 
               if ($aksi == "hapusbarge") {
                 include "../page/barge/hapusbarge.php";
+              }
+            }
+
+            if ($page == "optht") {
+              if ($aksi == "") {
+                include "../page/optht/optht.php";
+              }
+              if ($aksi == "tambahoptht") {
+                include "../page/optht/tambahoptht.php";
+              }
+              if ($aksi == "ubahoptht") {
+                include "../page/optht/ubahoptht.php";
+              }
+              if ($aksi == "hapusoptht") {
+                include "../page/optht/hapusoptht.php";
+              }
+              if ($aksi == "viewoptht") {
+                include "../page/optht/viewoptht.php";
               }
             }
 
@@ -215,11 +233,8 @@
               if ($aksi == "viewscjty") {
                 include "../page/stokcoaljty/viewscjty.php";
               }
-              if ($aksi == "scjtyin") {
-                include "../page/stokcoaljty/scjtyin.php";
-              }
-              if ($aksi == "scjtyout") {
-                include "../page/stokcoaljty/scjtyout.php";
+              if ($aksi == "ubahscjty") {
+                include "../page/stokcoaljty/ubahscjty.php";
               }
             }
 
@@ -233,11 +248,8 @@
               if ($aksi == "viewscicf") {
                 include "../page/stokcoalicf/viewscicf.php";
               }
-              if ($aksi == "scicfin") {
-                include "../page/stokcoalicf/scicfin.php";
-              }
-              if ($aksi == "scicfout") {
-                include "../page/stokcoalicf/scicfout.php";
+              if ($aksi == "ubahscicf") {
+                include "../page/stokcoalicf/ubahscicf.php";
               }
             }
     
@@ -282,6 +294,12 @@
               }
               if ($aksi == "bataltransfer") {
                 include "../page/transfer/bataltransfer.php";
+              }
+              if ($aksi == "konfirmtransfer") {
+                include "../page/transfer/konfirmtransfer.php";
+              }
+              if ($aksi == "ubahtransfer") {
+                include "../page/transfer/ubahtransfer.php";
               }
             }
 
@@ -410,6 +428,13 @@
             }
             if ($page == "home_admin") {
               include "../home_admin.php";
+            }
+
+            if ($page == "") {
+              include "../home_pegawai.php";
+            }
+            if ($page == "home_pegawai") {
+              include "../home_pegawai.php";
             }
 
             if ($page == "laporan_stockcoaljty") {

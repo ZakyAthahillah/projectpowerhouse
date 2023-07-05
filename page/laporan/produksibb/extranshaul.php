@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     $tahun = $_POST['tahun'];
 
     $pdf = new FPDF('L', 'mm', 'A4');
-    $pdf->SetTitle('Laporan Data Jalan HT Transfer Coal ICF To Jetty Bulan '.$bulan. ' Tahun '.$tahun);
+    $pdf->SetTitle('Laporan Data Jalan HT Transfer Coal ICF To Jetty Bulan ' . $bulan . ' Tahun ' . $tahun);
     $pdf->AddPage();
 
     $pdf->SetFont('Arial', 'B', 15);
@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
     $pdf->Ln(2);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, 'Bulan / Tahun : '.'Bulan ' . $bulan . ' Tahun ' . $tahun, 0, 1, 'L');
+    $pdf->Cell(0, 10, 'Bulan / Tahun : ' . 'Bulan ' . $bulan . ' Tahun ' . $tahun, 0, 1, 'L');
 
     $imagePath = '../../../img/BYAN.JK.png'; // Ganti dengan path gambar Anda
     $x = 10; // Koordinat X untuk posisi gambar
@@ -36,11 +36,12 @@ if (isset($_POST['submit'])) {
     $pdf->Ln(2);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(60, 7, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(40, 7, 'Tanggal', 1, 0, 'C');
     $pdf->Cell(40, 7, 'Haultruck', 1, 0, 'C');
     $pdf->Cell(60, 7, 'Transfer From (ICF)', 1, 0, 'C');
     $pdf->Cell(60, 7, 'Transfer To (Jetty)', 1, 0, 'C');
-    $pdf->Cell(60, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Cell(40, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Cell(40, 7, 'Operator', 1, 0, 'C');
     $pdf->Ln();
 
     $pdf->SetFont('Arial', '', 12);
@@ -55,8 +56,10 @@ if (isset($_POST['submit'])) {
           GROUP_CONCAT(nama_haultruck SEPARATOR ', ') AS nama_haultruck_gabung,
           GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
           GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
+          GROUP_CONCAT(nama_optht SEPARATOR ', ') AS nama_optht_gabung,
           GROUP_CONCAT(id_transfer SEPARATOR ', ') AS id_transfer_gabung
           FROM transfer
+          INNER JOIN operatorht ON transfer.id_optht = operatorht.id_optht
           INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
           INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
           INNER JOIN haultruck ON transfer.id_haultruck = haultruck.id_haultruck
@@ -68,8 +71,9 @@ if (isset($_POST['submit'])) {
         $nama_rcjty_gabung = explode(", ", $data['nama_rcjty_gabung']);
         $nama_haultruck_gabung = explode(", ", $data['nama_haultruck_gabung']);
         $jumlah_gabung = explode(", ", $data['jumlah_gabung']);
+        $nama_optht_gabung = explode(", ", $data['nama_optht_gabung']);
         // Mencari jumlah baris terbanyak dari grup concat
-        $maxRows = max(count($nama_rcicf_gabung), count($nama_rcjty_gabung), count($nama_haultruck_gabung), count($jumlah_gabung));
+        $maxRows = max(count($nama_rcicf_gabung), count($nama_rcjty_gabung), count($nama_haultruck_gabung), count($jumlah_gabung), count($nama_optht_gabung));
 
         // Menyusun ulang data agar memiliki jumlah baris yang sama
 
@@ -77,19 +81,21 @@ if (isset($_POST['submit'])) {
         $nama_rcjty_gabung = array_pad($nama_rcjty_gabung, $maxRows, '');
         $nama_haultruck_gabung = array_pad($nama_haultruck_gabung, $maxRows, '');
         $jumlah_gabung = array_pad($jumlah_gabung, $maxRows, '');
+        $nama_optht_gabung = array_pad($nama_optht_gabung, $maxRows, '');
 
 
         for ($i = 0; $i < $maxRows; $i++) {
             if ($i == 0) {
-                $pdf->Cell(60, 7, $data['tanggal'], 1, 0, 'C');
+                $pdf->Cell(40, 7, $data['tanggal'], 1, 0, 'C');
             } else {
-                $pdf->Cell(60, 7, '', 1, 0, 'C');
+                $pdf->Cell(40, 7, '', 1, 0, 'C');
             }
 
             $pdf->Cell(40, 7, $nama_haultruck_gabung[$i], 1, 0, 'C');
             $pdf->Cell(60, 7, $nama_rcicf_gabung[$i], 1, 0, 'C');
             $pdf->Cell(60, 7, $nama_rcjty_gabung[$i], 1, 0, 'C');
-            $pdf->Cell(60, 7, $jumlah_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(40, 7, $jumlah_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(40, 7, $nama_optht_gabung[$i], 1, 0, 'C');
 
             $pdf->Ln();
         }
@@ -101,7 +107,6 @@ if (isset($_POST['submit'])) {
     $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
 
     $pdf->Output();
-
 }
 
 if (isset($_POST['submits'])) {
@@ -132,11 +137,12 @@ if (isset($_POST['submits'])) {
     $pdf->Ln(2);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(60, 7, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(40, 7, 'Tanggal', 1, 0, 'C');
     $pdf->Cell(40, 7, 'Haultruck', 1, 0, 'C');
     $pdf->Cell(60, 7, 'Transfer From (ICF)', 1, 0, 'C');
     $pdf->Cell(60, 7, 'Transfer To (Jetty)', 1, 0, 'C');
-    $pdf->Cell(60, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Cell(40, 7, 'Jumlah', 1, 0, 'C');
+    $pdf->Cell(40, 7, 'Operator', 1, 0, 'C');
     $pdf->Ln();
 
     $pdf->SetFont('Arial', '', 12);
@@ -151,8 +157,10 @@ if (isset($_POST['submits'])) {
           GROUP_CONCAT(nama_haultruck SEPARATOR ', ') AS nama_haultruck_gabung,
           GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
           GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
+          GROUP_CONCAT(nama_optht SEPARATOR ', ') AS nama_optht_gabung,
           GROUP_CONCAT(id_transfer SEPARATOR ', ') AS id_transfer_gabung
           FROM transfer
+          INNER JOIN operatorht ON transfer.id_optht = operatorht.id_optht
           INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
           INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
           INNER JOIN haultruck ON transfer.id_haultruck = haultruck.id_haultruck
@@ -163,8 +171,9 @@ if (isset($_POST['submits'])) {
         $nama_rcjty_gabung = explode(", ", $data['nama_rcjty_gabung']);
         $nama_haultruck_gabung = explode(", ", $data['nama_haultruck_gabung']);
         $jumlah_gabung = explode(", ", $data['jumlah_gabung']);
+        $nama_optht_gabung = explode(", ", $data['nama_optht_gabung']);
         // Mencari jumlah baris terbanyak dari grup concat
-        $maxRows = max(count($nama_rcicf_gabung), count($nama_rcjty_gabung), count($nama_haultruck_gabung), count($jumlah_gabung));
+        $maxRows = max(count($nama_rcicf_gabung), count($nama_rcjty_gabung), count($nama_haultruck_gabung), count($jumlah_gabung), count($nama_optht_gabung));
 
         // Menyusun ulang data agar memiliki jumlah baris yang sama
 
@@ -172,19 +181,21 @@ if (isset($_POST['submits'])) {
         $nama_rcjty_gabung = array_pad($nama_rcjty_gabung, $maxRows, '');
         $nama_haultruck_gabung = array_pad($nama_haultruck_gabung, $maxRows, '');
         $jumlah_gabung = array_pad($jumlah_gabung, $maxRows, '');
+        $nama_optht_gabung = array_pad($nama_optht_gabung, $maxRows, '');
 
 
         for ($i = 0; $i < $maxRows; $i++) {
             if ($i == 0) {
-                $pdf->Cell(60, 7, $data['tanggal'], 1, 0, 'C');
+                $pdf->Cell(40, 7, $data['tanggal'], 1, 0, 'C');
             } else {
-                $pdf->Cell(60, 7, '', 1, 0, 'C');
+                $pdf->Cell(40, 7, '', 1, 0, 'C');
             }
 
             $pdf->Cell(40, 7, $nama_haultruck_gabung[$i], 1, 0, 'C');
             $pdf->Cell(60, 7, $nama_rcicf_gabung[$i], 1, 0, 'C');
             $pdf->Cell(60, 7, $nama_rcjty_gabung[$i], 1, 0, 'C');
-            $pdf->Cell(60, 7, $jumlah_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(40, 7, $jumlah_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(40, 7, $nama_optht_gabung[$i], 1, 0, 'C');
 
             $pdf->Ln();
         }

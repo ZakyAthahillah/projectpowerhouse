@@ -13,6 +13,7 @@
                         <th>Transfer From (ICF)</th>
                         <th>Transfer To (JETTY)</th>
                         <th>Jumlah</th>
+                        <th>Operator</th>
                     </tr>
                 </thead>
 
@@ -28,8 +29,10 @@
             GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung,
             GROUP_CONCAT(nama_haultruck SEPARATOR ', ') AS nama_haultruck_gabung,
             GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
+            GROUP_CONCAT(nama_optht SEPARATOR ', ') AS nama_optht_gabung,
             GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung
             FROM transfer
+            INNER JOIN operatorht ON transfer.id_optht = operatorht.id_optht
             INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
             INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
             INNER JOIN haultruck ON transfer.id_haultruck = haultruck.id_haultruck
@@ -42,6 +45,7 @@
                         $nama_rcjty_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_rcjty_gabung']) . '</li>';
                         $nama_haultruck_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_haultruck_gabung']) . '</li>';
                         $jumlah_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_gabung']) . '</li>';
+                        $nama_optht_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_optht_gabung']) . '</li>';
                     ?>
 
                         <tr>
@@ -51,6 +55,7 @@
                             <td><?php echo $nama_rcicf_gabung; ?></td>
                             <td><?php echo $nama_rcjty_gabung; ?></td>
                             <td><?php echo $jumlah_gabung; ?></td>
+                            <td><?php echo $nama_optht_gabung; ?></td>
                         </tr>
                     <?php } ?>
 
