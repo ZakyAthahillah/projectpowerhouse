@@ -156,7 +156,7 @@ if (isset($_POST['login'])) {
 			header("location:index/index_pegawai.php");
 		}
 	} else {
-		echo $username . $password . '<div class="container"> <center><div class="alert alert-warning alert-dismissible">
+		echo '<div class="container"> <center><div class="alert alert-warning alert-dismissible">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<strong>Login Gagal !!! , Harap Periksa Kembali Username, Password, dan Level atau <a href="pengaduan.php">Beritahu Admin Disini</a>
 	  </div><center></div>';

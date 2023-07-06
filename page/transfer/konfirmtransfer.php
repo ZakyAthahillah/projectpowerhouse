@@ -119,6 +119,11 @@ $kurang = $jumlah2 - $jumlah;
                             $stmt3->bind_param("s", $id_transfer);
                             $stmt3->execute();
 
+                            $sql4 = "UPDATE transfer SET id_users = ? WHERE id_transfer = ?";
+                            $stmt4 = $koneksi->prepare($sql4);
+                            $stmt4->bind_param("ss", $id_users, $id_transfer);
+                            $stmt4->execute();
+
                             // Menyimpan perubahan
                             $koneksi->commit();
 

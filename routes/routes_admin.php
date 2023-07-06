@@ -301,6 +301,9 @@
               if ($aksi == "ubahtransfer") {
                 include "../page/transfer/ubahtransfer.php";
               }
+              if ($aksi == "hapustransfer") {
+                include "../page/transfer/hapustransfer.php";
+              }
             }
 
             if ($page == "loading") {

@@ -44,27 +44,28 @@ $level = $tampil['level'];
 						<label for="">Jenis Barang</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="jenis_barang" value="" class="form-control" />
+								<select name="jenis_barang" class="form-control" id="select_jenis">
 
-								<?php
+									<?php
 									$jenisselect = mysqli_query($koneksi, "select * from jenis_barang where id_jenis = $idjenis");
+									$selectedOption = "";
+
 									while ($tampiljenis = mysqli_fetch_assoc($jenisselect)) {
-										echo "<option value='$idjenis' selected>$tampiljenis[jenis_barang]</option>";
+										$selectedOption = $tampiljenis['id_jenis'];
+										echo "<option value='$tampiljenis[id_jenis]' selected>$tampiljenis[jenis_barang]</option>";
 									}
-								?>
 
-								<?php
+									$sql = $koneksi->query("select * from jenis_barang where id_jenis != $selectedOption order by id_jenis");
 
-								$sql = $koneksi->query("select * from jenis_barang order by id_jenis");
-								while ($data = $sql->fetch_assoc()) {
-									echo "<option value='$data[id_jenis]'>$data[jenis_barang]</option>";
-								}
-								?>
+									while ($data = $sql->fetch_assoc()) {
+										echo "<option value='$data[id_jenis]'>$data[jenis_barang]</option>";
+									}
+									?>
+
 								</select>
-
-
 							</div>
 						</div>
+
 
 
 
@@ -73,23 +74,23 @@ $level = $tampil['level'];
 						<label for="">Satuan Barang</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="satuan" value="" class="form-control">
-								<?php
-									$satuanselect = mysqli_query($koneksi, "select * from satuan where id_satuan = $idsatuan");
-									while ($tampilsatuan = mysqli_fetch_assoc($satuanselect)) {
-										echo "<option value='$idsatuan' selected>$tampilsatuan[satuan]</option>";
-									}
-								?>
+								<select name="satuan" class="form-control" id="select_satuan">
 									<?php
+									$satuanselect = mysqli_query($koneksi, "select * from satuan where id_satuan = $idsatuan");
+									$selectedSatuan = "";
 
-									$sql = $koneksi->query("select * from satuan order by id_satuan");
+									while ($tampilsatuan = mysqli_fetch_assoc($satuanselect)) {
+										$selectedSatuan = $tampilsatuan['id_satuan'];
+										echo "<option value='$tampilsatuan[id_satuan]' selected>$tampilsatuan[satuan]</option>";
+									}
+
+									$sql = $koneksi->query("select * from satuan where id_satuan != $selectedSatuan order by id_satuan");
+
 									while ($data = $sql->fetch_assoc()) {
 										echo "<option value='$data[id_satuan]'>$data[satuan]</option>";
 									}
 									?>
 								</select>
-
-
 							</div>
 						</div>
 
@@ -99,20 +100,20 @@ $level = $tampil['level'];
 								<select name="lokasi" id="select_lokasi" class="form-control" value="">
 									<?php
 									$lokasiselect = mysqli_query($koneksi, "select * from lokasi where id_lokasi = $idlokasi");
-									while ($tampillokasi = mysqli_fetch_assoc($lokasiselect)) {
-										echo "<option value='$idlokasi' selected>$tampillokasi[lokasi]</option>";
-									}
-									?>
-									<?php
+									$selectedLokasi = "";
 
-									$sql = $koneksi->query("select * from lokasi order by id_lokasi");
+									while ($tampillokasi = mysqli_fetch_assoc($lokasiselect)) {
+										$selectedLokasi = $tampillokasi['id_lokasi'];
+										echo "<option value='$tampillokasi[id_lokasi]' selected>$tampillokasi[lokasi]</option>";
+									}
+
+									$sql = $koneksi->query("select * from lokasi where id_lokasi != $selectedLokasi order by id_lokasi");
+
 									while ($data = $sql->fetch_assoc()) {
 										echo "<option value='$data[id_lokasi]'>$data[lokasi]</option>";
 									}
 									?>
 								</select>
-
-
 							</div>
 						</div>
 
@@ -146,7 +147,7 @@ $level = $tampil['level'];
 						$sql = $koneksi->query("update gudang set kode_barang='$kode_barang', nama_barang='$nama_barang', id_jenis='$jenis_barang', id_satuan='$satuan', id_lokasi='$lokasi' where kode_barang='$kode_barang'");
 
 						if ($sql) {
-						echo "
+							echo "
 						<script>
 							Swal.fire({
 								title: 'SUKSES!',

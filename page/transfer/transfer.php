@@ -96,7 +96,7 @@
                     <?php
                     $id_transfer_array = explode(", ", $id_transfer_gabung);
                     foreach ($id_transfer_array as $id_transfer) {
-                      echo '<li><a href="?page=transfer&aksi=bataltransfer&id_transfer=' . $id_transfer . '"><i class="fas fa-trash text-danger"></i></a></li>';
+                      echo '<li><a onclick="confirmDelete(\'' . $data['id_transfer'] . '\')"><i class="fas fa-trash text-danger"></i></a></li>';
                     }
                     ?>
                   </ul>
@@ -131,7 +131,7 @@
             <th>Haul Truck</th>
             <th>Operator</th>
             <th>Status</th>
-            <th>Penginput</th>
+            <th>Konfirmator</th>
             <th>Pengaturan</th>
 
           </tr>
@@ -208,3 +208,21 @@
     </div>
   </div>
 </div>
+
+<script>
+  function confirmDelete(idTransfer) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Konfirmasi',
+      text: 'Apakah anda yakin akan menghapus data ini?',
+      showCancelButton: true,
+      confirmButtonText: 'Hapus',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "?page=transfer&aksi=hapustransfer&id_transfer=" + idTransfer;
+      }
+    });
+  }
+</script>

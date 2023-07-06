@@ -579,198 +579,198 @@ if (isset($_POST['submits'])) {
 </div>
 
 <script>
-	function sum1() {
-		var stok = document.getElementById('stokin').value;
-		var jumlahmasuk = document.getElementById('mirror').value;
-		var result = parseFloat(stok) + parseFloat(jumlahmasuk);
-		if (!isNaN(result)) {
-			document.getElementById('totalmasuk').value = result;
-		}
-	}
+  function sum1() {
+    var stok = document.getElementById('stokin').value;
+    var jumlahmasuk = document.getElementById('mirror').value;
+    var result = parseFloat(stok) + parseFloat(jumlahmasuk);
+    if (!isNaN(result)) {
+      document.getElementById('totalmasuk').value = result;
+    }
+  }
 
 
-	function sum2() {
-		var stok = document.getElementById('stokout').value;
-		var jumlahkeluar = document.getElementById('og').value;
-		var result = parseFloat(stok) - parseFloat(jumlahkeluar);
-		if (!isNaN(result)) {
-			document.getElementById('totalkeluar').value = result;
-		}
-	}
+  function sum2() {
+    var stok = document.getElementById('stokout').value;
+    var jumlahkeluar = document.getElementById('og').value;
+    var result = parseFloat(stok) - parseFloat(jumlahkeluar);
+    if (!isNaN(result)) {
+      document.getElementById('totalkeluar').value = result;
+    }
+  }
 </script>
 
 
 
 <div class="container-fluid">
 
-	<!-- DataTales Example -->
-	<div class="card shadow mb-4">
-		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Tambah Data Transfer<a href="?page=transfer" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
-		</div>
-		<div class="card-body">
-			<div class="table-responsive">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Tambah Data Transfer<a href="?page=transfer" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
 
 
-				<div class="body">
+        <div class="body">
 
-					<form method="POST" enctype="multipart/form-data">
-
-
-
-						<label for="">Tanggal</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal" />
-							</div>
-						</div>
-
-						<label for="">Start</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" />
-							</div>
-						</div>
-
-						<label for="">Finish</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" />
-							</div>
-						</div>
-
-						<label for="">Transfer From (ROM ICF)</label>
-						<div class="form-group">
-							<div class="form-line">
-								<select name="transferfrom" id="select_transfericf" class="form-control" required>
-									<option value="">--------------- Pilih Barang ---------------</option>
-									<?php
-
-									$sql = $koneksi->query("select * from scicf order by id_rcicf");
-									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[nama_rcicf]</option>";
-									}
-									?>
-
-								</select>
-							</div>
-						</div>
-
-						<div class="tampung12"></div>
-
-
-						<label for="">Transfer To (ROM Jetty)</label>
-						<div class="form-group">
-							<div class="form-line">
-								<select name="transferto" id="select_transferjty" class="form-control" required>
-									<option value="">--------------- Pilih Barang ---------------</option>
-									<?php
-
-									$sql = $koneksi->query("select * from scjty order by id_rcjty");
-									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty]</option>";
-									}
-									?>
-
-								</select>
-							</div>
-						</div>
-						<div class="tampung11"></div>
-
-						<label for="">Jumlah Keluar RC ICF</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="text" name="jumlahkeluar" id="og" onkeyup="sum2()" class="form-control" />
-
-							</div>
-						</div>
-
-
-						<label for="">Jumlah Masuk RC Jetty</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="text" name="jumlahmasuk" id="mirror" onmousemove="sum1()" class="form-control" />
-
-							</div>
-						</div>
-
-
-						<label for="totalkeluar">Total Stock RC ICF</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input readonly="readonly" name="totalkeluar" id="totalkeluar" type="number" class="form-control">
-							</div>
-						</div>
-
-						<label for="totalmasuk">Total Stock RC Jetty</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input readonly="readonly" name="totalmasuk" id="totalmasuk" type="number" class="form-control">
-							</div>
-						</div>
-
-						<div class="tampung1"></div>
-
-
-						<label for="">Haul Truck</label>
-						<div class="form-group">
-							<div class="form-line">
-								<select name="haultruck" id="select_haultruck" class="form-control" required>
-									<option value="">----------SILAHKAN PILIH----------</option>
-									<?php
-
-									$sql = $koneksi->query("select * from haultruck order by id_haultruck");
-									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_haultruck]'>$data[nama_haultruck]</option>";
-									}
-									?>
-
-								</select>
-							</div>
-						</div>
-
-						<input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
-
-					</form>
+          <form method="POST" enctype="multipart/form-data">
 
 
 
-					<?php
+            <label for="">Tanggal</label>
+            <div class="form-group">
+              <div class="form-line">
+                <input type="date" name="tanggal" class="form-control" id="tanggal" />
+              </div>
+            </div>
 
-					if (isset($_POST['simpan'])) {
-						$tanggal = $_POST['tanggal'];
-						$id_rcjty = $_POST['transferto'];
-						$pecah_rcjty = explode(".", $id_rcjty);
-						$id_rcjty = $pecah_rcjty[0];
-						$nama_rcjty = $pecah_rcjty[1];
+            <label for="">Start</label>
+            <div class="form-group">
+              <div class="form-line">
+                <input type="time" name="start" class="form-control" id="start" />
+              </div>
+            </div>
 
-						$id_rcicf = $_POST['transferfrom'];
-						$pecah_rcicf = explode(".", $id_rcicf);
-						$id_rcicf = $pecah_rcicf[0];
-						$nama_rcicf = $pecah_rcicf[1];
+            <label for="">Finish</label>
+            <div class="form-group">
+              <div class="form-line">
+                <input type="time" name="finish" class="form-control" id="finish" />
+              </div>
+            </div>
 
-						$jumlahmasuk = $_POST['jumlahmasuk'];
-						$jumlahkeluar = $_POST['jumlahkeluar'];
+            <label for="">Transfer From (ROM ICF)</label>
+            <div class="form-group">
+              <div class="form-line">
+                <select name="transferfrom" id="select_transfericf" class="form-control" required>
+                  <option value="">--------------- Pilih Barang ---------------</option>
+                  <?php
 
-						$totalmasuk = $_POST['totalmasuk'];
-						$totalkeluar = $_POST['totalkeluar'];
+                  $sql = $koneksi->query("select * from scicf order by id_rcicf");
+                  while ($data = $sql->fetch_assoc()) {
+                    echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[nama_rcicf]</option>";
+                  }
+                  ?>
 
-						$start = $_POST['start'];
+                </select>
+              </div>
+            </div>
 
-						$finish = $_POST['finish'];
-						$id_haultruck = $_POST['haultruck'];
-						$catatan = "Dalam Proses";
-
-						$sql = $koneksi->query("insert into transfer(tanggal, start, finish, id_rcjty, id_rcicf, jumlah, id_haultruck, id_users, catatan) values('$tanggal','$start','$finish','$id_rcjty', '$id_rcicf','$jumlahkeluar', '$id_haultruck', '$id_users', '$catatan')");
-						$sql2 = $koneksi->query("update scjty set stok='$totalmasuk' where id_rcjty='$id_rcjty'");
-						$sql3 = $koneksi->query("update scicf set stok='$totalkeluar' where id_rcicf='$id_rcicf'");
-
+            <div class="tampung12"></div>
 
 
+            <label for="">Transfer To (ROM Jetty)</label>
+            <div class="form-group">
+              <div class="form-line">
+                <select name="transferto" id="select_transferjty" class="form-control" required>
+                  <option value="">--------------- Pilih Barang ---------------</option>
+                  <?php
+
+                  $sql = $koneksi->query("select * from scjty order by id_rcjty");
+                  while ($data = $sql->fetch_assoc()) {
+                    echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty]</option>";
+                  }
+                  ?>
+
+                </select>
+              </div>
+            </div>
+            <div class="tampung11"></div>
+
+            <label for="">Jumlah Keluar RC ICF</label>
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="jumlahkeluar" id="og" onkeyup="sum2()" class="form-control" />
+
+              </div>
+            </div>
 
 
-						if ($sql) {
-							echo "
+            <label for="">Jumlah Masuk RC Jetty</label>
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="jumlahmasuk" id="mirror" onmousemove="sum1()" class="form-control" />
+
+              </div>
+            </div>
+
+
+            <label for="totalkeluar">Total Stock RC ICF</label>
+            <div class="form-group">
+              <div class="form-line">
+                <input readonly="readonly" name="totalkeluar" id="totalkeluar" type="number" class="form-control">
+              </div>
+            </div>
+
+            <label for="totalmasuk">Total Stock RC Jetty</label>
+            <div class="form-group">
+              <div class="form-line">
+                <input readonly="readonly" name="totalmasuk" id="totalmasuk" type="number" class="form-control">
+              </div>
+            </div>
+
+            <div class="tampung1"></div>
+
+
+            <label for="">Haul Truck</label>
+            <div class="form-group">
+              <div class="form-line">
+                <select name="haultruck" id="select_haultruck" class="form-control" required>
+                  <option value="">----------SILAHKAN PILIH----------</option>
+                  <?php
+
+                  $sql = $koneksi->query("select * from haultruck order by id_haultruck");
+                  while ($data = $sql->fetch_assoc()) {
+                    echo "<option value='$data[id_haultruck]'>$data[nama_haultruck]</option>";
+                  }
+                  ?>
+
+                </select>
+              </div>
+            </div>
+
+            <input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
+
+          </form>
+
+
+
+          <?php
+
+          if (isset($_POST['simpan'])) {
+            $tanggal = $_POST['tanggal'];
+            $id_rcjty = $_POST['transferto'];
+            $pecah_rcjty = explode(".", $id_rcjty);
+            $id_rcjty = $pecah_rcjty[0];
+            $nama_rcjty = $pecah_rcjty[1];
+
+            $id_rcicf = $_POST['transferfrom'];
+            $pecah_rcicf = explode(".", $id_rcicf);
+            $id_rcicf = $pecah_rcicf[0];
+            $nama_rcicf = $pecah_rcicf[1];
+
+            $jumlahmasuk = $_POST['jumlahmasuk'];
+            $jumlahkeluar = $_POST['jumlahkeluar'];
+
+            $totalmasuk = $_POST['totalmasuk'];
+            $totalkeluar = $_POST['totalkeluar'];
+
+            $start = $_POST['start'];
+
+            $finish = $_POST['finish'];
+            $id_haultruck = $_POST['haultruck'];
+            $catatan = "Dalam Proses";
+
+            $sql = $koneksi->query("insert into transfer(tanggal, start, finish, id_rcjty, id_rcicf, jumlah, id_haultruck, id_users, catatan) values('$tanggal','$start','$finish','$id_rcjty', '$id_rcicf','$jumlahkeluar', '$id_haultruck', '$id_users', '$catatan')");
+            $sql2 = $koneksi->query("update scjty set stok='$totalmasuk' where id_rcjty='$id_rcjty'");
+            $sql3 = $koneksi->query("update scicf set stok='$totalkeluar' where id_rcicf='$id_rcicf'");
+
+
+
+
+
+            if ($sql) {
+              echo "
 							<script>
 								Swal.fire({
 									title: 'SUKSES!',
@@ -782,8 +782,8 @@ if (isset($_POST['submits'])) {
 								});
 							</script>
 							";
-						} else {
-							echo "
+            } else {
+              echo "
 							<script>
 								Swal.fire({
 									title: 'ERROR!',
@@ -795,43 +795,43 @@ if (isset($_POST['submits'])) {
 								});
 							</script>
 							";
-						}
-					}
+            }
+          }
 
 
-					?>
+          ?>
 
-<?
-if (isset($_POST['simpan'])) {
-						$tanggal = $_POST['tanggal'];
+          <?
+          if (isset($_POST['simpan'])) {
+            $tanggal = $_POST['tanggal'];
 
-						$id_rcjty = $_POST['transferto'];
-						$pecah_rcjty = explode(".", $id_rcjty);
-						$id_rcjty = $pecah_rcjty[0];
-						$nama_rcjty = $pecah_rcjty[1];
-						
-						$id_rcicf = $_POST['transferfrom'];
-						$pecah_rcicf = explode(".", $id_rcicf);
-						$id_rcicf = $pecah_rcicf[0];
-						$nama_rcicf = $pecah_rcicf[1];
+            $id_rcjty = $_POST['transferto'];
+            $pecah_rcjty = explode(".", $id_rcjty);
+            $id_rcjty = $pecah_rcjty[0];
+            $nama_rcjty = $pecah_rcjty[1];
 
-						$jumlahmasuk = $_POST['jumlahmasuk'];
-						$jumlahkeluar = $_POST['jumlahkeluar'];
+            $id_rcicf = $_POST['transferfrom'];
+            $pecah_rcicf = explode(".", $id_rcicf);
+            $id_rcicf = $pecah_rcicf[0];
+            $nama_rcicf = $pecah_rcicf[1];
 
-						$totalmasuk = $_POST['totalmasuk'];
-						$totalkeluar = $_POST['totalkeluar'];
+            $jumlahmasuk = $_POST['jumlahmasuk'];
+            $jumlahkeluar = $_POST['jumlahkeluar'];
 
-						$start = $_POST['start'];
+            $totalmasuk = $_POST['totalmasuk'];
+            $totalkeluar = $_POST['totalkeluar'];
 
-						$id_haultruck = $_POST['haultruck'];
-						$id_optht = $_POST['optht'];
-						$catatan = "Dalam Proses";
+            $start = $_POST['start'];
 
-						$sql = $koneksi->query("insert into transfer(tanggal, start, id_rcjty, id_rcicf, jumlah, id_haultruck, id_optht, id_users, catatan) values('$tanggal','$start', '$id_rcjty', '$id_rcicf','$jumlahkeluar', '$id_haultruck', '$id_optht', '$id_users', '$catatan')");
+            $id_haultruck = $_POST['haultruck'];
+            $id_optht = $_POST['optht'];
+            $catatan = "Dalam Proses";
+
+            $sql = $koneksi->query("insert into transfer(tanggal, start, id_rcjty, id_rcicf, jumlah, id_haultruck, id_optht, id_users, catatan) values('$tanggal','$start', '$id_rcjty', '$id_rcicf','$jumlahkeluar', '$id_haultruck', '$id_optht', '$id_users', '$catatan')");
 
 
-						if ($sql) {
-							echo "
+            if ($sql) {
+              echo "
 							<script>
 								Swal.fire({
 									title: 'SUKSES!',
@@ -843,8 +843,8 @@ if (isset($_POST['simpan'])) {
 								});
 							</script>
 							";
-						} else {
-							echo "
+            } else {
+              echo "
 							<script>
 								Swal.fire({
 									title: 'ERROR!',
@@ -856,8 +856,88 @@ if (isset($_POST['simpan'])) {
 								});
 							</script>
 							";
-						}
-					}
+            }
+          }
 
 
-					?>
+          ?>
+
+
+          <?php
+          // Mendapatkan tahun awal dan tahun akhir dari tabel loading
+          $sqlMinMaxYear = "SELECT MIN(YEAR(tanggal)) AS min_year, MAX(YEAR(tanggal)) AS max_year FROM loading AND transfer";
+          $resultMinMaxYear = $koneksi->query($sqlMinMaxYear);
+          if ($resultMinMaxYear->num_rows > 0) {
+            $rowMinMaxYear = $resultMinMaxYear->fetch_assoc();
+            $minYear = $rowMinMaxYear['min_year'];
+            $maxYear = $rowMinMaxYear['max_year'];
+          } else {
+            $minYear = date('Y'); // Tahun saat ini jika tidak ada data
+            $maxYear = date('Y');
+          }
+
+          // Menangani pengecekan dan pengolahan saat form select dikirimkan
+          if (isset($_POST['submit'])) {
+            $selectedMinYear = $_POST['min_year'];
+            $selectedMaxYear = $_POST['max_year'];
+          } else {
+            $selectedMinYear = $minYear;
+            $selectedMaxYear = $maxYear;
+          }
+
+          $data_loading = array();
+          $labels_loading = array();
+          $sql_loading = "SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, SUM(beltscale) AS total_jumlah FROM loading WHERE YEAR(tanggal) BETWEEN $selectedMinYear AND $selectedMaxYear GROUP BY bulan, tahun ORDER BY tahun, bulan";
+          $result = $koneksi->query($sql_loading);
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $bulan = date("M", mktime(0, 0, 0, $row['bulan'], 1));
+              $tahun = $row['tahun'];
+              $labels_loading[$tahun][] = $bulan; // Menyimpan bulan dalam array berdasarkan tahun
+              $data_loading[$tahun . ' ' . $bulan] = $row['total_jumlah'];
+            }
+          }
+
+          // Mengurutkan tahun secara descending
+          ksort($labels_loading);
+
+          // Menggabungkan tahun dan bulan untuk label
+          $sortedLabels = array();
+          foreach ($labels_loading as $tahun => $bulanArr) {
+            foreach ($bulanArr as $bulan) {
+              $sortedLabels[] = $bulan . ' ' . $tahun;
+            }
+          }
+
+          // Konversi data dan labels menjadi format yang sesuai untuk JavaScript
+          $data_js = "[" . implode(", ", $data_loading) . "]";
+          $labels_loading_js = '["' . implode('", "', $sortedLabels) . '"]';
+//-----------------------------------------------------------------------------------------
+          $data_transfer = array();
+          $labels_transfer = array();
+          $sql_transfer = "SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, SUM(beltscale) AS total_jumlah FROM loading WHERE YEAR(tanggal) BETWEEN $selectedMinYear AND $selectedMaxYear GROUP BY bulan, tahun ORDER BY tahun, bulan";
+          $result = $koneksi->query($sql_transfer);
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $bulan = date("M", mktime(0, 0, 0, $row['bulan'], 1));
+              $tahun = $row['tahun'];
+              $labels_transfer[$tahun][] = $bulan; // Menyimpan bulan dalam array berdasarkan tahun
+              $data_transfer[$tahun . ' ' . $bulan] = $row['total_jumlah'];
+            }
+          }
+
+          // Mengurutkan tahun secara descending
+          ksort($labels_transfer);
+
+          // Menggabungkan tahun dan bulan untuk label
+          $sortedLabels = array();
+          foreach ($labels_transfer as $tahun => $bulanArr) {
+            foreach ($bulanArr as $bulan) {
+              $sortedLabels[] = $bulan . ' ' . $tahun;
+            }
+          }
+
+          // Konversi data dan labels menjadi format yang sesuai untuk JavaScript
+          $data_transfer_js = "[" . implode(", ", $data_transfer) . "]";
+          $labels_transfer_js = '["' . implode('", "', $sortedLabels) . '"]';
+          ?>
