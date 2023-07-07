@@ -427,10 +427,10 @@
             }
 
             if ($page == "") {
-              include "../home_admin.php";
+              include "../home/home_admin.php";
             }
             if ($page == "home_admin") {
-              include "../home_admin.php";
+              include "../home/home_admin.php";
             }
 
             if ($page == "laporan_stockcoaljty") {

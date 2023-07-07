@@ -126,9 +126,9 @@
             }
 
             if ($page == "") {
-              include "../home_pegawai.php";
+              include "../home/home_pegawai.php";
             }
             if ($page == "home_pegawai") {
-              include "../home_pegawai.php";
+              include "../home/home_pegawai.php";
             }
 
