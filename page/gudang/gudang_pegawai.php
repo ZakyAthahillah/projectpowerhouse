@@ -17,8 +17,6 @@
             <th>Jumlah</th>
             <th>Satuan</th>
             <th>Lokasi</th>
-            <th>Pengaturan</th>
-
           </tr>
         </thead>
 
@@ -44,10 +42,6 @@
               <td><?php echo $data['jumlah'] ?></td>
               <td><?php echo $data['satuan'] ?></td>
               <td><?php echo $data['lokasi'] ?></td>
-              <td>
-                <a href="?page=gudang&aksi=ubahgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                <button onclick="confirmDelete('<?php echo $data['kode_barang'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
-              </td>
             </tr>
           <?php } ?>
 

@@ -10,10 +10,10 @@ $data = mysqli_fetch_assoc($sql2);
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <h4 class="m-0 font-weight-bold text-primary text-center">RANGKUMAN RIWAYAT TRANSFER <?= $data['nama_optht']; ?>
+                <h4 class="m-0 font-weight-bold text-primary text-center">Rangkuman Riwayat Transfer <?= $data['nama_optht']; ?>
             </h6>
             <br>
-            <a href="?page=optht" class="btn btn-success float-right"><i class="fas fa-arrow-left">Kembali</i></a>
+            <a href="?page=optht" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a>
         </div>
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -46,7 +46,7 @@ $data = mysqli_fetch_assoc($sql2);
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title font-weight-bold text-primary text-center">Total Transfer Hari Ini Tanggal <?= $tanggalhi ?> adalah <span class="badge badge-danger"><?= $totalhi ?> MT</span></h5>
+                <h5 class="card-title font-weight-bold text-primary text-center">Total Transfer Hari Ini Tanggal <?= $tanggalhi ?> adalah <span class="badge badge-danger"><?= $totalhi ?> Ton</span></h5>
             </div>
             <div class="card shadow mb-4">
                 <div class="card-body">
@@ -89,7 +89,7 @@ $data = mysqli_fetch_assoc($sql2);
                                 <th>Transfer To (JETTY)</th>
                                 <th>Jumlah</th>
                                 <th>Haul Truck</th>
-                                <th>Penginput</th>
+                                <th>Konfirmator</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -100,25 +100,25 @@ $data = mysqli_fetch_assoc($sql2);
 
                             $no = 1;
                             $sql = mysqli_query($koneksi, "SELECT transfer.id_transfer, tanggal, 
-            GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
-            GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
-            GROUP_CONCAT(nama_rcicf SEPARATOR ', ') AS nama_rcicf_gabung,
-            GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung,
-            GROUP_CONCAT(nama_haultruck SEPARATOR ', ') AS nama_haultruck_gabung,
-            GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
-            GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
-            GROUP_CONCAT(nama_optht SEPARATOR ', ') AS nama_optht_gabung,
-            GROUP_CONCAT(nama SEPARATOR ', ') AS nama_gabung,
-            GROUP_CONCAT(id_transfer SEPARATOR ', ') AS id_transfer_gabung
-            FROM transfer
-            INNER JOIN users ON transfer.id_users = users.id_users
-            INNER JOIN operatorht ON transfer.id_optht = operatorht.id_optht
-            INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
-            INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
-            INNER JOIN haultruck ON transfer.id_haultruck = haultruck.id_haultruck
-            WHERE catatan='Selesai' AND transfer.id_optht='$id'
-            GROUP BY transfer.tanggal
-            ORDER BY tanggal DESC");
+                            GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
+                            GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
+                            GROUP_CONCAT(nama_rcicf SEPARATOR ', ') AS nama_rcicf_gabung,
+                            GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung,
+                            GROUP_CONCAT(nama_haultruck SEPARATOR ', ') AS nama_haultruck_gabung,
+                            GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
+                            GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
+                            GROUP_CONCAT(nama_optht SEPARATOR ', ') AS nama_optht_gabung,
+                            GROUP_CONCAT(nama SEPARATOR ', ') AS nama_gabung,
+                            GROUP_CONCAT(id_transfer SEPARATOR ', ') AS id_transfer_gabung
+                            FROM transfer
+                            INNER JOIN users ON transfer.id_users = users.id_users
+                            INNER JOIN operatorht ON transfer.id_optht = operatorht.id_optht
+                            INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
+                            INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
+                            INNER JOIN haultruck ON transfer.id_haultruck = haultruck.id_haultruck
+                            WHERE catatan='Selesai' AND transfer.id_optht='$id'
+                            GROUP BY transfer.tanggal
+                            ORDER BY tanggal DESC");
 
 
                             while ($data = mysqli_fetch_assoc($sql)) {

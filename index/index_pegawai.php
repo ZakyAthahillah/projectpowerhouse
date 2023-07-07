@@ -97,11 +97,6 @@ if (!isset($_SESSION['pegawai'])) {
 
       <!-- Heading -->
 
-      <li class="nav-item active">
-        <a class="nav-link" href="?page=pengguna">
-          <i class="fas fa-fw fa-users"></i>
-          <span>DATA USER</span></a>
-      </li>
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -117,21 +112,10 @@ if (!isset($_SESSION['pegawai'])) {
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseData" aria-expanded="true" aria-controls="collapseData">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>DATA MASTER</span>
+        <a class="nav-link" href="?page=gudang">
+          <i class="fas fa-fw fa-box"></i>
+          <span>DATA BARANG</span>
         </a>
-        <div id="collapseData" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=gudang">Data Barang</a>
-            <a class="collapse-item" href="?page=jenisbarang">Jenis Barang</a>
-            <a class="collapse-item" href="?page=satuanbarang">Satuan Barang</a>
-            <a class="collapse-item" href="?page=lokasibarang">Lokasi Barang</a>
-            <a class="collapse-item" href="?page=pegawai">Data Pegawai</a>
-            <a class="collapse-item" href="?page=supplier">Data Supplier</a>
-          </div>
-        </div>
       </li>
 
 
@@ -156,8 +140,6 @@ if (!isset($_SESSION['pegawai'])) {
           <span>PRE - ORDER</span>
         </a>
       </li>
-
-      <!-- Heading -->
 
 
       <!-- Divider -->
@@ -196,20 +178,7 @@ if (!isset($_SESSION['pegawai'])) {
         </a>
       </li>
 
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCrushing" aria-expanded="true" aria-controls="collapseCrushing">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>CRUSHING</span>
-        </a>
-        <div id="collapseCrushing" class="collapse" aria-labelledby="headingCrushing" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=crushingjty">Data Crushing Jetty</a>
-            <a class="collapse-item" href="?page=crushingicf">Data Crushing ICF</a>
-          </div>
-        </div>
-      </li>
-
+   
       <li class="nav-item active">
         <a class="nav-link" href="?page=transfer">
           <i class="fas fa-fw fa-industry"></i>
@@ -217,27 +186,6 @@ if (!isset($_SESSION['pegawai'])) {
         </a>
       </li>
 
-
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBlending" aria-expanded="true" aria-controls="collapseBlending">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>BLENDING</span>
-        </a>
-        <div id="collapseBlending" class="collapse" aria-labelledby="headingBlending" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=blending">Data Blending</a>
-            <a class="collapse-item" href="?page=sbp">SBP</a>
-          </div>
-        </div>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link" href="?page=loading">
-          <i class="fas fa-fw fa-industry"></i>
-          <span>LOADING</span>
-        </a>
-      </li>
 
       <hr class="sidebar-divider">
 

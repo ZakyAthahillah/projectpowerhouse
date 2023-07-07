@@ -1,5 +1,4 @@
 <br>
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -10,7 +9,6 @@
           </div> -->
 
   <h1 class="text-primary text-center">POWERHOUSE APP</h1>
-
   <br></br>
 
   <!-- Content Row -->
@@ -19,32 +17,12 @@
   $hgetu = mysqli_num_rows($getu)
   ?>
   <div class="row">
-    <div class="col-xl-4 col-md-6 mb-4">
-      <div class="card border-bottom-primary shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <a href="?page=pengguna">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                  <h4>Data User</h4>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $hgetu; ?> USER</div>
-                </div>
-              </a>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-users fa-2x text-primary"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Earnings (Monthly) Card Example -->
     <?php
     $getb = mysqli_query($koneksi, "select * from gudang");
     $hgetb = mysqli_num_rows($getb)
     ?>
-    <div class="col-xl-4 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-bottom-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
@@ -63,40 +41,12 @@
         </div>
       </div>
     </div>
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-4 col-md-6 mb-4">
-      <div class="card border-bottom-primary shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <a href="?page=oos">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                  <h4>OUT OF STOCK</h4>
-                  <?php
-                  $get1 =  mysqli_query($koneksi, "select * from gudang where jumlah < 1");
-                  $count = mysqli_num_rows($get1);
-                  ?>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count; ?> BARANG</div>
-                </div>
-              </a>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-fw fa-window-close fa-2x text-primary"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row">
 
     <?php
     $getbk = mysqli_query($koneksi, "SELECT * FROM barang_masuk");
     $hbm = mysqli_num_rows($getbk);
     ?>
-    <div class="col-xl-6 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-bottom-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
@@ -120,7 +70,7 @@
     $getbk = mysqli_query($koneksi, "SELECT * FROM barang_keluar");
     $hbk = mysqli_num_rows($getbk);
     ?>
-    <div class="col-xl-6 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-bottom-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
@@ -139,6 +89,32 @@
         </div>
       </div>
     </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-bottom-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <a href="?page=oos">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                  <h4>OUT OF STOCK</h4>
+                  <?php
+                  $get1 =  mysqli_query($koneksi, "select * from gudang where jumlah < 1");
+                  $count = mysqli_num_rows($get1);
+                  ?>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count; ?> BARANG</div>
+                </div>
+              </a>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-fw fa-window-close fa-2x text-primary"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="row">
@@ -201,7 +177,7 @@
       <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary"><a href="?page=loading">Coal Loading</a> Chart Per Year</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Coal <a href="?page=transfer">Transfer</a> and <a href="?page=loading">Loading</a> Chart Per Year</h6>
         </div>
         <div class="card-body">
           <div>
@@ -227,37 +203,77 @@
               $selectedMaxYear = $maxYear;
             }
 
-            $data = array();
-            $labels = array();
-            $sql = "SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, SUM(beltscale) AS total_jumlah FROM loading WHERE YEAR(tanggal) BETWEEN $selectedMinYear AND $selectedMaxYear GROUP BY bulan, tahun ORDER BY tahun, bulan";
-            $result = $koneksi->query($sql);
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
+            $data_loading = array();
+            $labels_loading = array();
+            $sql_loading = "SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, SUM(beltscale) AS total_jumlah FROM loading WHERE YEAR(tanggal) BETWEEN $selectedMinYear AND $selectedMaxYear GROUP BY bulan, tahun ORDER BY tahun, bulan";
+            $result_loading = $koneksi->query($sql_loading);
+            if ($result_loading->num_rows > 0) {
+              while ($row = $result_loading->fetch_assoc()) {
                 $bulan = date("M", mktime(0, 0, 0, $row['bulan'], 1));
                 $tahun = $row['tahun'];
-                $labels[$tahun][] = $bulan; // Menyimpan bulan dalam array berdasarkan tahun
-                $data[$tahun . ' ' . $bulan] = $row['total_jumlah'];
+                $labels_loading[$tahun][] = $bulan; // Menyimpan bulan dalam array berdasarkan tahun
+                $data_loading[$tahun . ' ' . $bulan] = $row['total_jumlah'];
               }
             }
 
-            // Mengurutkan tahun secara descending
-            ksort($labels);
+            // Mendapatkan tahun awal dan tahun akhir dari tabel transfer
+            $sqlMinMaxYearTransfer = "SELECT MIN(YEAR(tanggal)) AS min_year, MAX(YEAR(tanggal)) AS max_year FROM transfer";
+            $resultMinMaxYearTransfer = $koneksi->query($sqlMinMaxYearTransfer);
+            if ($resultMinMaxYearTransfer->num_rows > 0) {
+              $rowMinMaxYearTransfer = $resultMinMaxYearTransfer->fetch_assoc();
+              $minYearTransfer = $rowMinMaxYearTransfer['min_year'];
+              $maxYearTransfer = $rowMinMaxYearTransfer['max_year'];
+            } else {
+              $minYearTransfer = date('Y'); // Tahun saat ini jika tidak ada data
+              $maxYearTransfer = date('Y');
+            }
 
-            // Menggabungkan tahun dan bulan untuk label
-            $sortedLabels = array();
-            foreach ($labels as $tahun => $bulanArr) {
+            $data_transfer = array();
+            $labels_transfer = array();
+            $sql_transfer = "SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, SUM(jumlah) AS total_jumlah FROM transfer WHERE YEAR(tanggal) BETWEEN $selectedMinYear AND $selectedMaxYear AND catatan = 'Selesai' GROUP BY bulan, tahun ORDER BY tahun, bulan";
+            $result_transfer = $koneksi->query($sql_transfer);
+            if ($result_transfer->num_rows > 0) {
+              while ($row = $result_transfer->fetch_assoc()) {
+                $bulan = date("M", mktime(0, 0, 0, $row['bulan'], 1));
+                $tahun = $row['tahun'];
+                $labels_transfer[$tahun][] = $bulan; // Menyimpan bulan dalam array berdasarkan tahun
+                $data_transfer[$tahun . ' ' . $bulan] = $row['total_jumlah'];
+              }
+            }
+
+            // Mengurutkan tahun secara descending untuk data loading
+            ksort($labels_loading);
+
+            // Menggabungkan tahun dan bulan untuk label loading
+            $sortedLabelsLoading = array();
+            foreach ($labels_loading as $tahun => $bulanArr) {
               foreach ($bulanArr as $bulan) {
-                $sortedLabels[] = $bulan . ' ' . $tahun;
+                $sortedLabelsLoading[] = $bulan . ' ' . $tahun;
               }
             }
 
-            // Konversi data dan labels menjadi format yang sesuai untuk JavaScript
-            $data_js = "[" . implode(", ", $data) . "]";
-            $labels_js = '["' . implode('", "', $sortedLabels) . '"]';
+            // Konversi data dan labels loading menjadi format yang sesuai untuk JavaScript
+            $data_loading_js = "[" . implode(", ", $data_loading) . "]";
+            $labels_loading_js = '["' . implode('", "', $sortedLabelsLoading) . '"]';
+
+            // Mengurutkan tahun secara descending untuk data transfer
+            ksort($labels_transfer);
+
+            // Menggabungkan tahun dan bulan untuk label transfer
+            $sortedLabelsTransfer = array();
+            foreach ($labels_transfer as $tahun => $bulanArr) {
+              foreach ($bulanArr as $bulan) {
+                $sortedLabelsTransfer[] = $bulan . ' ' . $tahun;
+              }
+            }
+
+            // Konversi data dan labels transfer menjadi format yang sesuai untuk JavaScript
+            $data_transfer_js = "[" . implode(", ", $data_transfer) . "]";
+            $labels_transfer_js = '["' . implode('", "', $sortedLabelsTransfer) . '"]';
             ?>
 
             <!-- Tempatkan script PHP di atas form HTML -->
-            <form method="POST" action="#loadingChart">
+            <form method="POST" action="#transferloadingChart">
               <div class="form-group row">
                 <label for="min_year" class="col-sm-2 col-form-label">Tahun Awal:</label>
                 <div class="col-sm-4">
@@ -293,7 +309,7 @@
           <!-- Card Body -->
           <div class="card-body">
             <div class="chart-area">
-              <canvas id="loadingChart"></canvas>
+              <canvas id="transferloadingChart"></canvas>
             </div>
           </div>
         </div>
@@ -435,7 +451,7 @@ $hkicf = isset($dataicf['KUNING']) ? $dataicf['KUNING'] : 0;
 
   function number_format(number, decimals, dec_point, thousands_sep) {
     // *     example: number_format(1234.56, 2, ',', ' ');
-    // *     return: '1 234,56'
+    // *     return:'1 234,56'
     number = (number + '').replace(',', '').replace(' ', '');
     var n = !isFinite(+number) ? 0 : +number,
       prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
@@ -459,26 +475,42 @@ $hkicf = isset($dataicf['KUNING']) ? $dataicf['KUNING'] : 0;
   }
 
   // Area Chart Example
-  var ctx = document.getElementById("loadingChart");
+  var ctx = document.getElementById("transferloadingChart");
   var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: <?php echo $labels_js; ?>, // Gunakan labels_js sebagai nilai labels
+      labels: <?php echo $labels_loading_js; ?>, // Gunakan labels_loading_js sebagai nilai labels untuk data loading
       datasets: [{
-        label: "Coal Loading",
-        lineTension: 0.3,
-        backgroundColor: "rgba(78, 115, 223, 0.05)",
-        borderColor: "rgba(78, 115, 223, 1)",
-        pointRadius: 3,
-        pointBackgroundColor: "rgba(78, 115, 223, 1)",
-        pointBorderColor: "rgba(78, 115, 223, 1)",
-        pointHoverRadius: 3,
-        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-        pointHitRadius: 10,
-        pointBorderWidth: 2,
-        data: <?php echo $data_js; ?>,
-      }],
+          label: "Coal Loading",
+          lineTension: 0.3,
+          backgroundColor: "rgba(78, 115, 223, 0.05)",
+          borderColor: "rgba(78, 115, 223, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointBorderColor: "rgba(78, 115, 223, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: <?php echo $data_loading_js; ?>,
+        },
+        {
+          label: "Coal Transfer ICF To Jetty",
+          lineTension: 0.3,
+          backgroundColor: "rgba(255, 99, 132, 0.05)", // Warna latar belakang
+          borderColor: "rgba(255, 99, 132, 1)", // Warna garis
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(255, 99, 132, 1)", // Warna titik
+          pointBorderColor: "rgba(255, 99, 132, 1)", // Warna tepi titik
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(255, 99, 132, 1)", // Warna latar belakang titik saat dihover
+          pointHoverBorderColor: "rgba(255, 99, 132, 1)", // Warna tepi titik saat dihover
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: <?php echo $data_transfer_js; ?>, // Gunakan data_transfer_js untuk data transfer
+        }
+      ],
     },
     options: {
       maintainAspectRatio: false,
@@ -522,7 +554,7 @@ $hkicf = isset($dataicf['KUNING']) ? $dataicf['KUNING'] : 0;
         }],
       },
       legend: {
-        display: false
+        display: true
       },
       tooltips: {
         backgroundColor: "rgb(255,255,255)",
@@ -534,7 +566,7 @@ $hkicf = isset($dataicf['KUNING']) ? $dataicf['KUNING'] : 0;
         borderWidth: 1,
         xPadding: 15,
         yPadding: 15,
-        displayColors: false,
+        displayColors: true,
         intersect: false,
         mode: 'index',
         caretPadding: 10,

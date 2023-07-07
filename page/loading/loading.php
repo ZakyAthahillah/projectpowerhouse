@@ -41,7 +41,8 @@
         INNER JOIN users ON loading.id_users = users.id_users
         INNER JOIN barge ON loading.id_barge = barge.id_barge
         INNER JOIN scjty ON loading.id_rcjty = scjty.id_rcjty
-        GROUP BY kode_sbp ORDER BY tanggal DESC");
+        GROUP BY kode_sbp 
+        ORDER BY loading.tanggal DESC");
           while ($data = mysqli_fetch_assoc($sql)) {
             $tanggal_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['tanggal_gabung']) . '</li>';
             $start_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['start_gabung']) . '</li></ul>';

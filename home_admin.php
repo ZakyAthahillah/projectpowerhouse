@@ -520,7 +520,7 @@ $hkicf = isset($dataicf['KUNING']) ? $dataicf['KUNING'] : 0;
           data: <?php echo $data_loading_js; ?>,
         },
         {
-          label: "Coal Transfer",
+          label: "Coal Transfer ICF To Jetty",
           lineTension: 0.3,
           backgroundColor: "rgba(255, 99, 132, 0.05)", // Warna latar belakang
           borderColor: "rgba(255, 99, 132, 1)", // Warna garis
