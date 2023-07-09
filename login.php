@@ -87,6 +87,7 @@ include 'koneksi.php';
 												<!-- <option value="superadmin">Super Admin</option> -->
 												<option value="admin">Admin</option>
 												<option value="pegawai">Pegawai</option>
+												<option value="warehouse">Warehouse</option>
 											</select>
 										</div>
 										<input type="submit" name="login" class="btn btn-primary btn-user btn-block" value="Masuk" />
@@ -125,7 +126,6 @@ include 'koneksi.php';
 
 <?php
 
-
 session_start();
 if (isset($_POST['login'])) {
 	$username = mysqli_real_escape_string($koneksi, $_POST['username']);
@@ -141,16 +141,17 @@ if (isset($_POST['login'])) {
 	if ($ketemu >= 1) {
 		session_start();
 
-		if ($data['level'] == 'superadmin' && $level == 'superadmin') {
-			$_SESSION['superadmin'] = $data['id_users'];
-
-
-			header("location:index/index_superadmin.php");
-		} else if ($data['level'] == 'admin' && $level == 'admin') {
+		if ($data['level'] == 'admin' && $level == 'admin') {
 			$_SESSION['admin'] = $data['id_users'];
 
 			header("location:index/index_admin.php");
-		} else if ($data['level'] == 'pegawai' && $level == 'pegawai') {
+
+		} elseif ($data['level'] == 'warehouse' && $level == 'warehouse') {
+			$_SESSION['warehouse'] = $data['id_users'];
+
+			header("location:index/index_warehouse.php");
+
+		} elseif ($data['level'] == 'pegawai' && $level == 'pegawai') {
 			$_SESSION['pegawai'] = $data['id_users'];
 
 			header("location:index/index_pegawai.php");

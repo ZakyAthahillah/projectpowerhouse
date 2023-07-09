@@ -32,6 +32,7 @@ $status = $tampil['status'];
                                 <select name="status" id="select_status" class="form-control">
                                     <option <?php if ($status == 'P-O akan diproses oleh warehouse') echo 'selected'; ?> value='P-O akan diproses oleh warehouse>'>P-O akan diproses oleh warehouse</option>
                                     <option <?php if ($status == 'P-O telah di proses oleh warehouse') echo 'selected'; ?> value='P-O telah di proses oleh warehouse'>P-O telah di proses oleh warehouse</option>
+                                    <option <?php if ($status == 'Barang telah sampai, silahkan hubungi warehouse') echo 'selected'; ?> value='Barang telah sampai, silahkan hubungi warehouse'>Barang telah sampai, silahkan hubungi warehouse</option>
                                 </select>
                             </div>
                         </div>

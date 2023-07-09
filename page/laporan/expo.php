@@ -188,7 +188,7 @@ if (isset($_POST['submits'])) {
     <div class="container">
         <div class="form-group">
             <div class="form-line">
-                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN PRE - ORDER BERDASARKAN BULAN DAN TAHUN<a href="../../index/index_admin.php?page=laporan_po" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN PRE - ORDER BERDASARKAN BULAN DAN TAHUN</h6>
                 </h6>
             </div>
         </div>
