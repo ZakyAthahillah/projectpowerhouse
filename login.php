@@ -88,6 +88,7 @@ include 'koneksi.php';
 												<option value="admin">Admin</option>
 												<option value="pegawai">Pegawai</option>
 												<option value="warehouse">Warehouse</option>
+												<option value="qc">Quality Control</option>
 											</select>
 										</div>
 										<input type="submit" name="login" class="btn btn-primary btn-user btn-block" value="Masuk" />
@@ -155,6 +156,10 @@ if (isset($_POST['login'])) {
 			$_SESSION['pegawai'] = $data['id_users'];
 
 			header("location:index/index_pegawai.php");
+		} elseif ($data['level'] == 'qc' && $level == 'qc') {
+			$_SESSION['qc'] = $data['id_users'];
+
+			header("location:index/index_qc.php");
 		}
 	} else {
 		echo '<div class="container"> <center><div class="alert alert-warning alert-dismissible">

@@ -68,6 +68,12 @@
               if ($aksi == "tambahblending") {
                 include "../page/blending/tambahblending.php";
               }
+              if ($aksi == "ubahblending") {
+                include "../page/blending/ubahblending.php";
+              }
+              if ($aksi == "hapusblending") {
+                include "../page/blending/hapusblending.php";
+              }
             }
 
             if ($page == "jenisbarang") {

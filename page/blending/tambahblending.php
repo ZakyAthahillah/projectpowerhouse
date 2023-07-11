@@ -67,14 +67,19 @@
                             </div>
                         </div>
 
+                        <label for="">Catatan</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" name="catatan" class="form-control" />
+                            </div>
+                        </div>
+
                         <input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
 
                     </form>
 
 
-
                     <?php
-
                     if (isset($_POST['simpan'])) {
                         $tanggal = $_POST['tanggal'];
                         $start = $_POST['start'];
@@ -83,37 +88,50 @@
                         $blue = $_POST['blue'];
                         $yellow = $_POST['yellow'];
                         $green = $_POST['green'];
+                        $catatan = $_POST['catatan'];
 
-                        $sql = $koneksi->query("insert into blending (tanggal, start, finish, plan, bcrush, ycrush, gcrush) values('$tanggal','$start','$finish', '$plan','$blue','$yellow', '$green')");
+                        // Mengatur autocommit ke false
+                        $koneksi->autocommit(FALSE);
 
-                        if ($sql) {
+                        try {
+                            $sql = $koneksi->prepare("INSERT INTO blending (tanggal, start, finish, plan, bcrush, ycrush, gcrush, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                            $sql->bind_param("ssssssss", $tanggal, $start, $finish, $plan, $blue, $yellow, $green, $catatan);
+                            $sql->execute();
+
+                            // Commit transaksi jika semua query berhasil
+                            $koneksi->commit();
+
                             echo "
-							<script>
-								Swal.fire({
-									title: 'SUKSES!',
-									text: 'Data Berhasil Disimpan',
-									icon: 'success',
-									confirmButtonText: 'OK'
-								}).then(() => {
-									window.location.href = '?page=blending';
-								});
-							</script>
-							";
-                        } else {
+                            <script>
+                                Swal.fire({
+                                    title: 'SUKSES!',
+                                    text: 'Data Berhasil Disimpan',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '?page=blending';
+                                });
+                            </script>
+                            ";
+                        } catch (Exception $e) {
+                            // Rollback transaksi jika terjadi kesalahan
+                            $koneksi->rollback();
+
                             echo "
-							<script>
-								Swal.fire({
-									title: 'ERROR!',
-									text: 'Data Gagal Disimpan',
-									icon: 'error',
-									confirmButtonText: 'OK'
-								}).then(() => {
-									window.location.href = '?page=blending';
-								});
-							</script>
-							";
+                            <script>
+                                Swal.fire({
+                                    title: 'ERROR!',
+                                    text: 'Data Gagal Disimpan',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '?page=blending';
+                                });
+                            </script>
+                            ";
                         }
+
+                        // Mengembalikan autocommit ke true setelah transaksi selesai
+                        $koneksi->autocommit(TRUE);
                     }
-
-
                     ?>

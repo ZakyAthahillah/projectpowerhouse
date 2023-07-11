@@ -47,6 +47,7 @@
                                         <option value="admin">Admin</option>
                                         <option value="pegawai">Pegawai</option>
 										<option value="warehouse">Warehouse</option>
+										<option value="qc">Quality Control</option>
                      
                                     </select>
                             </div>

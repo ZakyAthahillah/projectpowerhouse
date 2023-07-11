@@ -28,8 +28,7 @@
             <?php
 
             $no = 1;
-            $sql = mysqli_query($koneksi,"select * from blending
-           ");
+            $sql = mysqli_query($koneksi,"select * from blending order by tanggal desc");
             while ($data = mysqli_fetch_assoc($sql)) {
 
             ?>
@@ -48,7 +47,7 @@
 
                 <td>
                   <a href="?page=blending&aksi=ubahblending&id_blending=<?php echo $data['id_blending'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=blending&aksi=hapusblending&id_blending=<?php echo $data['id_blending'] ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                  <button onclick="confirmDelete('<?php echo $data['id_blending'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>
             <?php } ?>
@@ -63,3 +62,21 @@
   </div>
 
 </div>
+
+<script>
+  function confirmDelete(idBlending) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Konfirmasi',
+      text: 'Apakah anda yakin akan menghapus data ini?',
+      showCancelButton: true,
+      confirmButtonText: 'Hapus',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "?page=blending&aksi=hapusblending&id_blending=" + idBlending;
+      }
+    });
+  }
+</script>
