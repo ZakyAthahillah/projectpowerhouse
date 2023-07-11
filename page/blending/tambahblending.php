@@ -3,7 +3,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tambah Data Crushing<a href="?page=crushing" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tambah Data Blending<a href="?page=blending" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -13,7 +13,22 @@
 
                     <form method="POST" enctype="multipart/form-data">
 
+                        <label for="">Kode SBP | Nama SBP</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <select name="kode_sbp" id="select_kodesbp" class="form-control" required>
+                                    <option value="">--------------- Pilih Barang ---------------</option>
+                                    <?php
 
+                                    $sql = $koneksi->query("select * from sbp");
+                                    while ($data = $sql->fetch_assoc()) {
+                                        echo "<option value='$data[kode_sbp]'>$data[kode_sbp] | $data[nama_sbp]</option>";
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
 
                         <label for="">Tanggal</label>
                         <div class="form-group">
@@ -81,6 +96,7 @@
 
                     <?php
                     if (isset($_POST['simpan'])) {
+                        $kode_sbp = $_POST['kode_sbp'];
                         $tanggal = $_POST['tanggal'];
                         $start = $_POST['start'];
                         $finish = $_POST['finish'];
@@ -94,8 +110,8 @@
                         $koneksi->autocommit(FALSE);
 
                         try {
-                            $sql = $koneksi->prepare("INSERT INTO blending (tanggal, start, finish, plan, bcrush, ycrush, gcrush, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                            $sql->bind_param("ssssssss", $tanggal, $start, $finish, $plan, $blue, $yellow, $green, $catatan);
+                            $sql = $koneksi->prepare("INSERT INTO blending (kode_sbp, tanggal, start, finish, plan, bcrush, ycrush, gcrush, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            $sql->bind_param("sssssssss", $kode_sbp, $tanggal, $start, $finish, $plan, $blue, $yellow, $green, $catatan);
                             $sql->execute();
 
                             // Commit transaksi jika semua query berhasil

@@ -11,7 +11,7 @@
                 include "../page/blending/file";
               }
               if ($aksi == "tambahsbp") {
-                include "../page/blending/tambahsbp.php";
+                include "../page/blending/tambahsbp_qc.php";
               }
               if ($aksi == "ubahsbp") {
                 include "../page/blending/ubahsbp.php";
@@ -45,32 +45,14 @@
 
             if ($page == "stokcoaljty") {
               if ($aksi == "") {
-                include "../page/stokcoaljty/stokcoal.php";
-              }
-              if ($aksi == "tambahsc") {
-                include "../page/stokcoaljty/tambahsc.php";
-              }
-              if ($aksi == "viewscjty") {
-                include "../page/stokcoaljty/viewscjty.php";
-              }
-              if ($aksi == "ubahscjty") {
-                include "../page/stokcoaljty/ubahscjty.php";
-              }
+                include "../page/stokcoaljty/stokcoal_qc.php";
+              }         
             }
 
             if ($page == "stokcoalicf") {
               if ($aksi == "") {
-                include "../page/stokcoalicf/stokcoal.php";
-              }
-              if ($aksi == "tambahsc") {
-                include "../page/stokcoalicf/tambahsc.php";
-              }
-              if ($aksi == "viewscicf") {
-                include "../page/stokcoalicf/viewscicf.php";
-              }
-              if ($aksi == "ubahscicf") {
-                include "../page/stokcoalicf/ubahscicf.php";
-              }
+                include "../page/stokcoalicf/stokcoal_qc.php";
+              }    
             }
     
 

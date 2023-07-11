@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jul 2023 pada 16.03
+-- Waktu pembuatan: 11 Jul 2023 pada 18.06
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -135,24 +135,26 @@ INSERT INTO `barge` (`id_barge`, `nama_barge`, `status`) VALUES
 
 CREATE TABLE `blending` (
   `id_blending` int(11) NOT NULL,
+  `kode_sbp` varchar(25) CHARACTER SET latin1 NOT NULL,
   `tanggal` date NOT NULL,
   `start` time NOT NULL,
   `finish` time NOT NULL,
   `plan` varchar(100) NOT NULL,
   `bcrush` varchar(100) NOT NULL,
   `ycrush` varchar(100) NOT NULL,
-  `gcrush` varchar(100) NOT NULL
+  `gcrush` varchar(100) NOT NULL,
+  `catatan` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `blending`
 --
 
-INSERT INTO `blending` (`id_blending`, `tanggal`, `start`, `finish`, `plan`, `bcrush`, `ycrush`, `gcrush`) VALUES
-(1, '2023-06-08', '21:35:52', '21:35:52', '45646', '4464', '464', '464'),
-(2, '2023-06-15', '01:01:00', '01:02:00', '123', '123', '123', '444'),
-(3, '2023-06-20', '23:52:00', '02:52:00', '131231', '1232', '1212', '2313'),
-(4, '2023-06-22', '20:56:00', '21:56:00', '1000', '0', '5000', '5000');
+INSERT INTO `blending` (`id_blending`, `kode_sbp`, `tanggal`, `start`, `finish`, `plan`, `bcrush`, `ycrush`, `gcrush`, `catatan`) VALUES
+(2, '12345', '2023-06-15', '01:01:00', '01:02:00', '123', '123', '123', '444', ''),
+(3, '12345', '2023-06-23', '00:52:00', '00:57:00', '131231', '1232', '1212', '2313', 'Done'),
+(4, '12345', '2023-06-22', '20:56:00', '21:56:00', '2000', '1000', '500', '500', ''),
+(5, '12345', '2023-07-11', '19:31:00', '20:31:00', '2000', '1500', '500', '1000', 'Done');
 
 -- --------------------------------------------------------
 
@@ -240,7 +242,7 @@ INSERT INTO `gudang` (`id`, `kode_barang`, `nama_barang`, `jumlah`, `id_lokasi`,
 (206, 'CV-B-006', 'MOTOR INDUCTOR 132KW 4P 1500RPM FRAME 315M', '1', 9, 5, 14),
 (207, 'CV-B-007', 'MOTOR INDUCTOR 90KW 4P 1500RPM', '2', 9, 5, 14),
 (209, 'CV-C-001', 'INPUT COUPLING SH100S', '0', 7, 12, 13),
-(210, 'CV-C-003', 'INPUT COUPLING SH80S', '2', 8, 12, 13);
+(210, 'CV-C-003', 'INPUT COUPLING SH80S', '2', 8, 5, 13);
 
 -- --------------------------------------------------------
 
@@ -312,7 +314,8 @@ INSERT INTO `loading` (`id_loading`, `kode_sbp`, `tanggal`, `id_rcjty`, `id_barg
 (22, '12345', '2023-06-13', 1, 4, '02:08:00', '03:08:00', '200', 39, 'Done'),
 (23, '123456', '2023-06-20', 5, 4, '23:52:00', '01:52:00', '200', 39, 'Done'),
 (24, '123456', '2023-07-16', 2, 3, '21:46:00', '22:46:00', '200.34', 29, 'Done'),
-(25, '12345', '2024-01-30', 4, 1, '21:52:00', '21:52:00', '200', 29, 'Done');
+(38, '123456', '2024-01-30', 1, 3, '23:14:00', '00:14:00', '2000', 27, 'Done'),
+(39, '123456', '2023-07-11', 1, 3, '19:39:00', '19:40:00', '200', 41, 'Done');
 
 -- --------------------------------------------------------
 
@@ -436,11 +439,11 @@ CREATE TABLE `po` (
 --
 
 INSERT INTO `po` (`id`, `kode_po`, `tanggal`, `kode_barang`, `jumlah_po`, `status`) VALUES
-(52, 'PRO-12345', '2023-06-08', 'CV-B-001', '2', 'P-O akan diproses oleh warehouse'),
-(53, 'PRO-12345', '2023-06-08', 'CV-B-002', '2', 'P-O akan diproses oleh warehouse'),
-(54, 'PRO-12345', '2023-06-08', 'CV-B-003', '2', 'P-O akan diproses oleh warehouse'),
-(55, 'PRO-12345', '2023-06-08', 'CV-B-004', '2', 'P-O akan diproses oleh warehouse'),
-(56, 'PRO-12345', '2023-06-08', 'CV-B-005', '2', 'P-O akan diproses oleh warehouse'),
+(52, 'PRO-12345', '2023-06-08', 'CV-B-001', '2', 'P-O telah di proses oleh warehouse'),
+(53, 'PRO-12345', '2023-06-08', 'CV-B-002', '2', 'P-O telah di proses oleh warehouse'),
+(54, 'PRO-12345', '2023-06-08', 'CV-B-003', '2', 'P-O telah di proses oleh warehouse'),
+(55, 'PRO-12345', '2023-06-08', 'CV-B-004', '2', 'P-O telah di proses oleh warehouse'),
+(56, 'PRO-12345', '2023-06-08', 'CV-B-005', '2', 'P-O telah di proses oleh warehouse'),
 (57, 'PRO-12346', '2023-06-02', 'CV-B-001', '2', 'P-O akan diproses oleh warehouse'),
 (58, 'PRO-12346', '2023-06-02', 'CV-B-004', '2', 'P-O akan diproses oleh warehouse'),
 (59, 'PRO-12346', '2023-06-02', 'CV-B-007', '2', 'P-O akan diproses oleh warehouse'),
@@ -503,7 +506,8 @@ CREATE TABLE `sbp` (
 
 INSERT INTO `sbp` (`kode_sbp`, `nama_sbp`, `tittle`, `size`, `ekstensi`, `berkas`, `status`) VALUES
 ('12345', 'SBP-06/05/2023', 'Shipment Blending Plan.pdf', 262292, 'pdf', 'file/Shipment Blending Plan.pdf', 'Selesai'),
-('123456', 'SBP/19090121', 'Shipment Blending Plan.pdf', 262292, 'pdf', 'file/Shipment Blending Plan.pdf', 'Selesai');
+('123456', 'SBP/19090121', 'Shipment Blending Plan.pdf', 262292, 'pdf', 'file/Shipment Blending Plan.pdf', 'Selesai'),
+('1771', 'SBP-HARIINI', 'Shipment Blending Plan.pdf', 262292, 'pdf', 'file/Shipment Blending Plan.pdf', 'Upload Baru');
 
 -- --------------------------------------------------------
 
@@ -523,8 +527,8 @@ CREATE TABLE `scicf` (
 --
 
 INSERT INTO `scicf` (`id_rcicf`, `nama_rcicf`, `warna`, `stok`) VALUES
-(6, 'RC 1', 'HIJAU', '5905'),
-(7, 'RC 2', 'BIRU', '5000'),
+(6, 'RC 1', 'HIJAU', '6495'),
+(7, 'RC 2', 'BIRU', '500'),
 (8, 'RC 3', 'KUNING', '25000'),
 (11, 'RC 4', 'BIRU', '1313.5'),
 (12, 'RC 5', 'BIRU', '10000');
@@ -547,11 +551,11 @@ CREATE TABLE `scjty` (
 --
 
 INSERT INTO `scjty` (`id_rcjty`, `nama_rcjty`, `warna`, `stok`) VALUES
-(1, 'RC 1', 'HIJAU', '5200'),
-(2, 'RC 2', 'BIRU', '1352.66'),
-(3, 'RC 3', 'BIRU', '5000'),
-(4, 'RC 4', 'BIRU', '1309.55'),
-(5, 'RC 5', 'KUNING', '1353.95'),
+(1, 'RC 1', 'HIJAU', '2600'),
+(2, 'RC 2', 'BIRU', '1552.66'),
+(3, 'RC 3', 'BIRU', '9300'),
+(4, 'RC 4', 'BIRU', '1509.55'),
+(5, 'RC 5', 'KUNING', '1163.95'),
 (9, 'RC 7', 'KUNING', '1313.5'),
 (10, 'RC 8', 'BIRU', '1200'),
 (11, 'RC 9', 'BIRU', '1000');
@@ -606,23 +610,17 @@ CREATE TABLE `transfer` (
 --
 
 INSERT INTO `transfer` (`id_transfer`, `tanggal`, `start`, `finish`, `id_rcjty`, `id_rcicf`, `jumlah`, `id_haultruck`, `id_optht`, `id_users`, `catatan`) VALUES
-(7, '2023-05-19', '05:34:00', '04:34:00', 1, 6, '200', 1, 1, 27, 'Selesai'),
-(11, '2023-05-19', '21:31:00', '22:31:00', 5, 6, '95', 1, 1, 27, 'Selesai'),
-(12, '2023-05-19', '05:34:00', '04:34:00', 5, 6, '95', 1, 1, 29, 'Selesai'),
 (13, '2023-06-09', '21:49:00', '22:49:00', 1, 6, '100', 3, 2, 29, 'Selesai'),
 (14, '2023-06-20', '23:44:00', '00:44:00', 5, 12, '1250.45', 3, 2, 27, 'Selesai'),
-(17, '0000-00-00', '00:00:00', '00:00:00', 1, 6, '200', 3, 2, 27, 'Selesai'),
-(19, '0000-00-00', '00:00:00', '00:00:00', 1, 6, '200', 1, 1, 29, 'Selesai'),
-(20, '2023-07-31', '01:01:00', '00:00:00', 1, 6, '200', 1, 1, 27, 'Dalam Proses'),
 (22, '2023-07-04', '21:05:00', '00:00:00', 4, 12, '1063.05', 1, 2, 27, 'Selesai'),
-(23, '0000-00-00', '21:53:00', '00:00:00', 1, 6, '200', 1, 1, 27, 'Dalam Proses'),
 (24, '2023-07-03', '22:55:00', '00:00:00', 2, 7, '300', 1, 1, 39, 'Dalam Proses'),
-(25, '2023-07-07', '22:09:00', '00:00:00', 1, 7, '200', 3, 2, 39, 'Dalam Proses'),
+(25, '2023-07-07', '22:09:00', '00:00:00', 1, 7, '200', 3, 2, 27, 'Selesai'),
 (26, '2023-07-04', '22:09:00', '00:00:00', 9, 8, '200', 3, 2, 39, 'Dalam Proses'),
 (27, '2023-07-03', '22:41:00', '00:00:00', 2, 7, '200', 3, 2, 27, 'Dalam Proses'),
 (28, '2023-07-05', '12:52:00', '00:00:00', 2, 6, '200', 3, 1, 27, 'Selesai'),
-(29, '2023-07-05', '13:53:00', '00:00:00', 2, 6, '200', 1, 2, 27, 'Dalam Proses'),
-(31, '2023-07-31', '13:56:00', '00:00:00', 10, 6, '200', 3, 2, 27, 'Selesai');
+(29, '2023-07-05', '13:53:00', '00:00:00', 2, 6, '200', 1, 2, 39, 'Selesai'),
+(31, '2023-07-31', '13:56:00', '00:00:00', 10, 6, '200', 3, 2, 27, 'Selesai'),
+(32, '2024-01-06', '21:51:00', '00:00:00', 3, 7, '4300', 3, 2, 27, 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -644,10 +642,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_users`, `nama`, `username`, `password`, `level`, `foto`) VALUES
-(27, 'ADMIN', 'admin', '7cedf449b316781d5c02aa4436d12a1c', 'admin', 'bayan.png'),
+(27, 'Admin', 'admin', '7cedf449b316781d5c02aa4436d12a1c', 'admin', 'bayan.png'),
 (29, 'PEGAWAI', 'pegawai', '8d2445a6ba14a40b0c0efe40b226ae60', 'pegawai', 'bayan.png'),
 (38, 'WAREHOUSE', 'warehouse', '628760d25b659e6f42047f65ac327d01', 'warehouse', 'bayan.png'),
-(39, 'M. Ilham', 'ilham', '016cc282dbcd56b5e5638cb1bf8ecb1f', 'admin', 'bayan.png');
+(39, 'M. Ilham', 'ilham', '016cc282dbcd56b5e5638cb1bf8ecb1f', 'admin', 'bayan.png'),
+(40, 'Mahyuddin', 'mahyuddin', '643aed3a9c38fc42b907d7b17efbfc15', 'pegawai', 'bayan.png'),
+(41, 'Quality Control', 'qc', 'aa1ff5aca73c0819e285e22c9b921691', 'qc', 'bayan.png');
 
 --
 -- Indexes for dumped tables
@@ -681,7 +681,8 @@ ALTER TABLE `barge`
 -- Indeks untuk tabel `blending`
 --
 ALTER TABLE `blending`
-  ADD PRIMARY KEY (`id_blending`);
+  ADD PRIMARY KEY (`id_blending`),
+  ADD KEY `kode_sbp` (`kode_sbp`);
 
 --
 -- Indeks untuk tabel `crushingicf`
@@ -836,7 +837,7 @@ ALTER TABLE `barge`
 -- AUTO_INCREMENT untuk tabel `blending`
 --
 ALTER TABLE `blending`
-  MODIFY `id_blending` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_blending` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `crushingicf`
@@ -872,7 +873,7 @@ ALTER TABLE `jenis_barang`
 -- AUTO_INCREMENT untuk tabel `loading`
 --
 ALTER TABLE `loading`
-  MODIFY `id_loading` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_loading` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT untuk tabel `lokasi`
@@ -932,13 +933,13 @@ ALTER TABLE `tb_supplier`
 -- AUTO_INCREMENT untuk tabel `transfer`
 --
 ALTER TABLE `transfer`
-  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -959,6 +960,12 @@ ALTER TABLE `barang_masuk`
   ADD CONSTRAINT `barang_masuk_ibfk_1` FOREIGN KEY (`kode_barang`) REFERENCES `gudang` (`kode_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `barang_masuk_ibfk_2` FOREIGN KEY (`id_supplier`) REFERENCES `tb_supplier` (`id_supplier`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `barang_masuk_ibfk_3` FOREIGN KEY (`id_users`) REFERENCES `users` (`id_users`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `blending`
+--
+ALTER TABLE `blending`
+  ADD CONSTRAINT `blending_ibfk_1` FOREIGN KEY (`kode_sbp`) REFERENCES `sbp` (`kode_sbp`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `crushingicf`

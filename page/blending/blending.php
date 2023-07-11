@@ -10,6 +10,7 @@
           <thead>
             <tr>
               <th>No</th>
+              <th>Kode SBP</th>
               <th>Tanggal</th>
               <th>Start</th>
               <th>Finish</th>
@@ -19,7 +20,6 @@
               <th>Green</th>
               <th>Catatan</th>
               <th>Pengaturan</th>
-
             </tr>
           </thead>
 
@@ -28,13 +28,15 @@
             <?php
 
             $no = 1;
-            $sql = mysqli_query($koneksi,"select * from blending order by tanggal desc");
+            $sql = mysqli_query($koneksi,"select * from blending
+            INNER JOIN sbp on blending.kode_sbp = sbp.kode_sbp order by tanggal desc");
             while ($data = mysqli_fetch_assoc($sql)) {
 
             ?>
 
               <tr>
                 <td><?php echo $no++; ?></td>
+                <td><?php echo $data['kode_sbp'] ?></td>
                 <td><?php echo $data['tanggal'] ?></td>
                 <td><?php echo $data['start'] ?></td>
                 <td><?php echo $data['finish'] ?></td>

@@ -23,6 +23,30 @@ $level = $tampil['level'];
 
                     <form method="POST" enctype="multipart/form-data">
 
+
+                        <label for="">Kode SBP | Nama SBP</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <select name="kode_sbp" id="select_kodesbp" class="form-control" value="">
+                                    <?php
+                                    $kodesbpselect = mysqli_query($koneksi, "select * from blending inner join sbp on blending.kode_sbp = sbp.kode_sbp where id_blending = $id_blending");
+                                    $selectedkodesbp = "";
+
+                                    while ($tampilkodesbp = mysqli_fetch_assoc($kodesbpselect)) {
+                                        $selectedkodesbp = $tampilkodesbp['kode_sbp'];
+                                        echo "<option value='$tampilkodesbp[kode_sbp]' selected>$tampilkodesbp[kode_sbp] | $tampilkodesbp[nama_sbp]</option>";
+                                    }
+
+                                    $sql = $koneksi->query("select * from sbp where kode_sbp != '$selectedkodesbp' order by kode_sbp");
+
+                                    while ($data = $sql->fetch_assoc()) {
+                                        echo "<option value='$data[kode_sbp]'>$data[kode_sbp] | $data[nama_sbp]</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+
                         <label for="">Tanggal</label>
                         <div class="form-group">
                             <div class="form-line">
@@ -88,6 +112,7 @@ $level = $tampil['level'];
                     <?php
 
                     if (isset($_POST['simpan'])) {
+                        $kode_sbp = $_POST['kode_sbp'];
                         $tanggal = $_POST['tanggal'];
                         $start = $_POST['start'];
                         $finish = $_POST['finish'];
@@ -105,9 +130,9 @@ $level = $tampil['level'];
                             $koneksi->begin_transaction();
 
                             // Lakukan perubahan pada database
-                            $sql = "UPDATE blending SET tanggal=?, start=?, finish=?, plan=?, gcrush=?, bcrush=?, ycrush=?, catatan=? WHERE id_blending=?";
+                            $sql = "UPDATE blending SET kode_sbp =?, tanggal=?, start=?, finish=?, plan=?, gcrush=?, bcrush=?, ycrush=?, catatan=? WHERE id_blending=?";
                             $stmt = $koneksi->prepare($sql);
-                            $stmt->bind_param("sssssssss", $tanggal, $start, $finish, $plan, $gcrush, $bcrush, $ycrush, $catatan, $id_blending);
+                            $stmt->bind_param("ssssssssss", $kode_sbp, $tanggal, $start, $finish, $plan, $gcrush, $bcrush, $ycrush, $catatan, $id_blending);
                             $stmt->execute();
 
                             if ($stmt->affected_rows > 0) {
