@@ -52,7 +52,7 @@ if (!isset($_SESSION['pegawai'])) {
 
   <!-- LEAFLET JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  
+
   <link rel="stylesheet" href="../vendor/sweetalert2/sweetalert2.min.css" id="theme-styles">
 </head>
 
@@ -178,12 +178,20 @@ if (!isset($_SESSION['pegawai'])) {
         </a>
       </li>
 
-   
+
       <li class="nav-item active">
-        <a class="nav-link" href="?page=transfer">
-          <i class="fas fa-fw fa-industry"></i>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransfer" aria-expanded="true" aria-controls="collapseTransfer">
+          <i class="fas fa-fw fa-folder"></i>
           <span>TRANSFER</span>
         </a>
+        <div id="collapseTransfer" class="collapse" aria-labelledby="headingTransfer" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header text-dark">Menu:</h6>
+            <a class="collapse-item" href="?page=transfer">Data Transfer</a>
+            <a class="collapse-item" href="../page/laporan/produksibb/surattransfer.php">Dokumen Muatan</a>
+          </div>
+        </div>
+      </li>
       </li>
 
 
