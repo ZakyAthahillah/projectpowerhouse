@@ -34,7 +34,7 @@
 							$no = 1;
 							$sql = $koneksi->query("select * from barang_masuk 
 							INNER JOIN users ON barang_masuk.id_users = users.id_users
-							inner join tb_supplier on barang_masuk.id_supplier = tb_supplier.id_supplier");
+							inner join tb_supplier on barang_masuk.id_supplier = tb_supplier.id_supplier order by tanggal desc");
 							while ($data = $sql->fetch_assoc()) {
 
 							?>

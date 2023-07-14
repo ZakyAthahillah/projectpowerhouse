@@ -9,7 +9,7 @@
            
           </div> -->
 
-  <h1 class="text-primary text-center">POWERHOUSE APP <?= $_SESSION['id_users']?></h1>
+  <h1 class="text-primary text-center">POWERHOUSE APP</h1>
 
   <br></br>
 
