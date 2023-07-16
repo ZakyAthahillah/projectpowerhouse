@@ -90,40 +90,6 @@
 						</div>
 						<div class="tampung11"></div>
 
-						<label for="">Jumlah Keluar RC ICF</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="text" name="jumlahkeluar" id="og" onkeyup="sum2()" class="form-control" />
-
-							</div>
-						</div>
-
-
-						<label for="">Jumlah Masuk RC Jetty</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="text" name="jumlahmasuk" id="mirror" onmousemove="sum1()" class="form-control" />
-
-							</div>
-						</div>
-
-
-						<label for="totalkeluar">Total Stock RC ICF</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input readonly="readonly" name="totalkeluar" id="totalkeluar" type="text" class="form-control">
-							</div>
-						</div>
-
-						<label for="totalmasuk">Total Stock RC Jetty</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input readonly="readonly" name="totalmasuk" id="totalmasuk" type="text" class="form-control">
-							</div>
-						</div>
-
-						<div class="tampung1"></div>
-
 
 						<label for="">Haul Truck</label>
 						<div class="form-group">
@@ -163,14 +129,14 @@
 
 					</form>
 
-					<script>
+					<!-- <script>
 						const ogInput = document.getElementById("og")
 						const mirrorInput = document.getElementById("mirror")
 
 						ogInput.addEventListener("input", () => {
 							mirrorInput.value = ogInput.value
 						})
-					</script>
+					</script> -->
 
 					<?php
 					// Memulai transaksi
@@ -190,12 +156,6 @@
 							$id_rcicf = $pecah_rcicf[0];
 							$nama_rcicf = $pecah_rcicf[1];
 
-							$jumlahmasuk = $_POST['jumlahmasuk'];
-							$jumlahkeluar = $_POST['jumlahkeluar'];
-
-							$totalmasuk = $_POST['totalmasuk'];
-							$totalkeluar = $_POST['totalkeluar'];
-
 							$start = $_POST['start'];
 
 							$id_haultruck = $_POST['haultruck'];
@@ -203,10 +163,10 @@
 							$catatan = "Dalam Proses";
 
 							// Mengubah perintah INSERT menjadi objek prepared statement
-							$stmt = $koneksi->prepare("INSERT INTO transfer(tanggal, start, id_rcjty, id_rcicf, jumlah, id_haultruck, id_optht, id_users, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+							$stmt = $koneksi->prepare("INSERT INTO transfer(tanggal, start, id_rcjty, id_rcicf, id_haultruck, id_optht, id_users, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 							// Mengikat parameter ke pernyataan persiapan
-							$stmt->bind_param("sssssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $jumlahkeluar, $id_haultruck, $id_optht, $id_users, $catatan);
+							$stmt->bind_param("ssssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $id_haultruck, $id_optht, $id_users, $catatan);
 
 							// Menjalankan pernyataan persiapan
 							$stmt->execute();

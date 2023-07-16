@@ -7,6 +7,7 @@ include "../../koneksi.php";
 //membuat objek baru bernama pdf dari class FPDF
 //dan melakukan setting kertas l : landscape, A5 : ukuran kertas
 $pdf = new FPDF('l', 'mm', 'A4');
+$pdf->SetTitle('Laporan Riwayat Pengirim Barang');
 // membuat halaman baru
 $pdf->AddPage();
 // menyetel font yang digunakan, font yang digunakan adalah arial, bold dengan ukuran 16

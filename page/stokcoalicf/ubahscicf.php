@@ -10,7 +10,7 @@ $tampil = $sql2->fetch_assoc();
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Ubah Stock Coal ICF<a href="?page=stokcoalicf" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+            <h6 class="m-0 font-weight-bold text-primary">Ubah RC ICF<a href="?page=stokcoalicf" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">

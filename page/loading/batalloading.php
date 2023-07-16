@@ -8,6 +8,7 @@ $tampil = $sql2->fetch_assoc();
 $rcjty = $tampil['nama_rcjty'];
 $barge = $tampil['nama_barge'];
 $kode_sbp = $tampil['kode_sbp'];
+$nama_sbp = $tampil['nama_sbp'];
 $start = $tampil['start'];
 $finish = $tampil['finish'];
 $warna = $tampil['warna'];
@@ -43,10 +44,10 @@ $tambah = $jumlah2 + $jumlah;
 
                     <form method="POST" enctype="multipart/form-data">
 
-                        <label for="">Kode SBP</label>
+                        <label for="">Kode SBP | Nama SBP</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="kode_sbp" class="form-control" id="kode_sbp" value="<?php echo $kode_sbp; ?>" readonly />
+                                <input type="text" name="kode_sbp" class="form-control" id="kode_sbp" value="<?php echo $kode_sbp. ' | '. $nama_sbp; ?>" readonly />
                             </div>
                         </div>
 

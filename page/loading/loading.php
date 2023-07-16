@@ -73,7 +73,7 @@
                   <?php
                   $id_loading_array = explode(", ", $id_loading_gabung);
                   foreach ($id_loading_array as $id_loading) {
-                    echo '<li><a href="?page=loading&aksi=batalloading&id_loading=' . $id_loading . '"><i class="fas fa-trash text-danger"></i></a></li>';
+                    echo '<li><a href="?page=loading&aksi=batalloading&id_loading=' . $id_loading . '"><i class="fas fa-ban text-danger"></i></a></li>';
                   }
                   ?>
                 </ul>

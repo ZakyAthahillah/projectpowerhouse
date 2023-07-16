@@ -40,14 +40,14 @@
                         <label for="">Start</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="time" name="start" class="form-control" id="start" value=">" />
+                                <input type="date" name="start" class="form-control" id="start" value=">" />
                             </div>
                         </div>
 
                         <label for="">Finish</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="time" name="finish" class="form-control" id="finish" value="" />
+                                <input type="date" name="finish" class="form-control" id="finish" value="" />
                             </div>
                         </div>
 
@@ -59,7 +59,7 @@
                             </div>
                         </div>
 
-                        <label for="">Blue</label>
+                        <label for="">Blue Crush</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="blue" id="blue" class="form-control" />
@@ -67,7 +67,7 @@
                             </div>
                         </div>
 
-                        <label for="">Yellow</label>
+                        <label for="">Yellow Crush</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="yellow" id="yellow" class="form-control" />
@@ -75,7 +75,7 @@
                         </div>
 
 
-                        <label for="">Green</label>
+                        <label for="">Green Crush</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="green" class="form-control" />

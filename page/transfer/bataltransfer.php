@@ -3,6 +3,7 @@ $id_transfer = $_GET['id_transfer'];
 $sql2 = $koneksi->query("select * from transfer
 inner join scicf on transfer.id_rcicf = scicf.id_rcicf
 inner join scjty on transfer.id_rcjty = scjty.id_rcjty
+INNER JOIN operatorht ON transfer.id_optht = operatorht.id_optht
 inner join haultruck on transfer.id_haultruck = haultruck.id_haultruck where id_transfer = '$id_transfer'");
 
 $tampil = $sql2->fetch_assoc();
@@ -16,6 +17,8 @@ $jumlah = $tampil['jumlah'];
 $catatan = $tampil['catatan'];
 $id_rcicf = $tampil['id_rcicf'];
 $id_rcjty = $tampil['id_rcjty'];
+$haultruck = $tampil['nama_haultruck'];
+$nama_optht = $tampil['nama_optht'];
 
 $level = $tampil['level'];
 
@@ -81,6 +84,20 @@ $tambah = $jumlah2 + $jumlah;
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="transferto" class="form-control" id="transferto" value="<?php echo $rcjty; ?>" readonly />
+                            </div>
+                        </div>
+                        
+                        <label for="">Haul Truck</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" name="haultruck" id="haultruck" class=" form-control" value="<?php echo $haultruck; ?>" readonly />
+                            </div>
+                        </div>
+
+                        <label for="">Operator</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" name="optht" id="optht" class=" form-control" value="<?php echo $nama_optht; ?>" readonly />
                             </div>
                         </div>
 

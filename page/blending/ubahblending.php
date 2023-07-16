@@ -57,14 +57,14 @@ $level = $tampil['level'];
                         <label for="">Start</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="time" name="start" class="form-control" id="start" value="<?php echo $tampil['start']; ?>" />
+                                <input type="date" name="start" class="form-control" id="start" value="<?php echo $tampil['start']; ?>" />
                             </div>
                         </div>
 
                         <label for="">Finish</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="time" name="finish" class="form-control" id="finish" value="<?php echo $tampil['finish']; ?>" />
+                                <input type="date" name="finish" class="form-control" id="finish" value="<?php echo $tampil['finish']; ?>" />
                             </div>
                         </div>
 

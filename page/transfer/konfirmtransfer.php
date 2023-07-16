@@ -3,6 +3,7 @@ $id_transfer = $_GET['id_transfer'];
 $sql2 = $koneksi->query("select * from transfer
 inner join scicf on transfer.id_rcicf = scicf.id_rcicf
 inner join scjty on transfer.id_rcjty = scjty.id_rcjty
+INNER JOIN operatorht ON transfer.id_optht = operatorht.id_optht
 inner join haultruck on transfer.id_haultruck = haultruck.id_haultruck where id_transfer = '$id_transfer'");
 
 $tampil = $sql2->fetch_assoc();
@@ -11,10 +12,11 @@ $rcjty = $tampil['nama_rcjty'];
 $start = $tampil['start'];
 $warna = $tampil['warna'];
 $tanggal = $tampil['tanggal'];
-$jumlah = $tampil['jumlah'];
 $catatan = $tampil['catatan'];
 $id_rcicf = $tampil['id_rcicf'];
 $id_rcjty = $tampil['id_rcjty'];
+$haultruck = $tampil['nama_haultruck'];
+$nama_optht = $tampil['nama_optht'];
 
 $level = $tampil['level'];
 
@@ -26,9 +28,6 @@ $jumlah2 = $tampil2['stok'];
 $sql4 =  $koneksi->query("SELECT * FROM scjty where id_rcjty = '$id_rcjty'");
 $tampil3 = $sql4->fetch_assoc();
 $jumlah3 = $tampil3['stok'];
-
-$tambah = $jumlah3 + $jumlah;
-$kurang = $jumlah2 - $jumlah;
 
 
 ?>
@@ -69,25 +68,38 @@ $kurang = $jumlah2 - $jumlah;
                             </div>
                         </div>
 
-                        <label for="">Transfer From</label>
+                        <label for="">Transfer From (ROM ICF)</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="transferfrom" class="form-control" id="transferfrom" value="<?php echo $rcicf; ?>" readonly />
                             </div>
                         </div>
 
-                        <label for="">Transfer To</label>
+                        <label for="">Transfer To (ROM Jetty)</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="transferto" class="form-control" id="transferto" value="<?php echo $rcjty; ?>" readonly />
                             </div>
                         </div>
 
+                        <label for="">Haul Truck</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" name="haultruck" id="haultruck" class=" form-control" value="<?php echo $haultruck; ?>" readonly />
+                            </div>
+                        </div>
+
+                        <label for="">Operator</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" name="optht" id="optht" class=" form-control" value="<?php echo $nama_optht; ?>" readonly />
+                            </div>
+                        </div>
 
                         <label for="">Jumlah</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="jumlahtransfer" id="jumlahtransfer" class=" form-control" value="<?php echo $jumlah; ?>" readonly />
+                                <input type="text" name="jumlahtransfer" id="jumlahtransfer" class=" form-control" required />
                             </div>
                         </div>
 
@@ -104,6 +116,13 @@ $kurang = $jumlah2 - $jumlah;
 
                     try {
                         if (isset($_POST['simpan'])) {
+
+                            $jumlah = $_POST['jumlahtransfer'];
+                            $finish = $_POST['finish'];
+
+                            $tambah = $jumlah3 + $jumlah;
+                            $kurang = $jumlah2 - $jumlah;
+
                             $sql = "UPDATE scicf SET stok = ? WHERE id_rcicf = ?";
                             $stmt1 = $koneksi->prepare($sql);
                             $stmt1->bind_param("ss", $kurang, $id_rcicf);
@@ -114,9 +133,9 @@ $kurang = $jumlah2 - $jumlah;
                             $stmt2->bind_param("ss", $tambah, $id_rcjty);
                             $stmt2->execute();
 
-                            $sql3 = "UPDATE transfer SET catatan = 'Selesai' WHERE id_transfer = ?";
+                            $sql3 = "UPDATE transfer SET jumlah = ? , finish = ?, catatan = 'Selesai' WHERE id_transfer = ?";
                             $stmt3 = $koneksi->prepare($sql3);
-                            $stmt3->bind_param("s", $id_transfer);
+                            $stmt3->bind_param("sss", $jumlah, $finish, $id_transfer);
                             $stmt3->execute();
 
                             $sql4 = "UPDATE transfer SET id_users = ? WHERE id_transfer = ?";

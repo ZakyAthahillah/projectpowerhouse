@@ -15,9 +15,9 @@
               <th>Start</th>
               <th>Finish</th>
               <th>Plan</th>
-              <th>Blue</th>
-              <th>Yellow</th>
-              <th>Green</th>
+              <th>Blue Crush</th>
+              <th>Yellow Crush</th>
+              <th>Green Crush</th>
               <th>Catatan</th>
               <th>Pengaturan</th>
             </tr>

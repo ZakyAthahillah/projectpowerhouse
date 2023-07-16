@@ -10,7 +10,7 @@ $nama_sbp = $tampil['nama_sbp'];
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Ubah Status SBP<a href="?page=sbp" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+            <h6 class="m-0 font-weight-bold text-primary">Ubah Data SBP<a href="?page=sbp" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">

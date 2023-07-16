@@ -81,14 +81,6 @@ $level = $tampil['level'];
                             </div>
                         </div>
 
-
-                        <label for="">Jumlah</label>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <input type="text" name="jumlahtransfer" id="jumlahtransfer" class=" form-control" value="<?php echo $tampil['jumlah']; ?>" />
-                            </div>
-                        </div>
-
                         <label for="">Haul Truck</label>
                         <div class="form-group">
                             <div class="form-line">
@@ -149,8 +141,6 @@ $level = $tampil['level'];
                         $id_rcicf = $pecah_rcicf[0];
                         $nama_rcicf = $pecah_rcicf[1];
 
-                        $jumlah = $_POST['jumlahtransfer'];
-
                         $id_optht = $_POST['optht'];
                         $id_haultruck = $_POST['haultruck'];
 
@@ -161,9 +151,9 @@ $level = $tampil['level'];
                             $koneksi->begin_transaction();
 
                             // Lakukan perubahan pada database
-                            $sql = "UPDATE transfer SET tanggal=?, start=?, id_rcjty=?, id_rcicf=?, jumlah=?, id_haultruck=?, id_optht=? WHERE id_transfer=?";
+                            $sql = "UPDATE transfer SET tanggal=?, start=?, id_rcjty=?, id_rcicf=?, id_haultruck=?, id_optht=? WHERE id_transfer=?";
                             $stmt = $koneksi->prepare($sql);
-                            $stmt->bind_param("ssssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $jumlah, $id_haultruck, $id_optht, $id_transfer);
+                            $stmt->bind_param("sssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $id_haultruck, $id_optht, $id_transfer);
                             $stmt->execute();
 
                             if ($stmt->affected_rows > 0) {
