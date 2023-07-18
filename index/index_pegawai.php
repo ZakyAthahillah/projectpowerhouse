@@ -336,7 +336,7 @@ if (!isset($_SESSION['pegawai'])) {
   <script>
     function fetchNotificationCount() {
       $.ajax({
-        url: "../notification_count_handler.php", // Ubah sesuai dengan URL yang benar ke file PHP yang akan menghitung jumlah notifikasi
+        url: "../notification_count_handler.php", 
         type: "GET",
         dataType: "json",
         success: function(data) {
@@ -349,7 +349,7 @@ if (!isset($_SESSION['pegawai'])) {
       });
     }
 
-    // Perbarui jumlah notifikasi setiap 5 detik (atau sesuaikan sesuai dengan kebutuhan Anda)
+ 
     setInterval(fetchNotificationCount, 1000);
   </script>
 

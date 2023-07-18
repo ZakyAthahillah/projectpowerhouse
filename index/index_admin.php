@@ -422,9 +422,7 @@ if (!isset($_SESSION['admin'])) {
 
   <!-- COUNTER NOTIF SBP -->
   <script>
-    // Tambahkan skrip JavaScript untuk menangani klik pada ikon notifikasi
     $("#alertsDropdown").click(function() {
-      // Ganti URL halaman yang ingin diarahkan (misalnya, halaman "sbp")
       window.location.href = "?page=sbp";
     });
   </script>

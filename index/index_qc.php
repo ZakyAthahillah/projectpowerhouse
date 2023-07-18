@@ -288,9 +288,7 @@ if (!isset($_SESSION['qc'])) {
 
   <!-- COUNTER NOTIF SBP -->
   <script>
-    // Tambahkan skrip JavaScript untuk menangani klik pada ikon notifikasi
     $("#alertsDropdown").click(function() {
-      // Ganti URL halaman yang ingin diarahkan (misalnya, halaman "sbp")
       window.location.href = "?page=sbp";
     });
   </script>
@@ -298,7 +296,7 @@ if (!isset($_SESSION['qc'])) {
   <script>
     function fetchNotificationCount() {
       $.ajax({
-        url: "../notification_count_handler.php", // Ubah sesuai dengan URL yang benar ke file PHP yang akan menghitung jumlah notifikasi
+        url: "../notification_count_handler.php",
         type: "GET",
         dataType: "json",
         success: function(data) {
@@ -311,7 +309,6 @@ if (!isset($_SESSION['qc'])) {
       });
     }
 
-    // Perbarui jumlah notifikasi setiap 5 detik (atau sesuaikan sesuai dengan kebutuhan Anda)
     setInterval(fetchNotificationCount, 1000);
   </script>
 
