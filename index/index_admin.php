@@ -51,7 +51,7 @@ if (!isset($_SESSION['admin'])) {
 
   <!-- LEAFLET JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  
+
   <link rel="stylesheet" href="../vendor/sweetalert2/sweetalert2.min.css" id="theme-styles">
 </head>
 
@@ -319,6 +319,17 @@ if (!isset($_SESSION['admin'])) {
                 <i class="fa fa-id-card"></i>
               </a>
             </li> -->
+
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="?page=sbp" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter" id="notification-counter">
+              </a>
+              <!-- Dropdown - Alerts -->
+            </li>
+
+
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
@@ -408,6 +419,36 @@ if (!isset($_SESSION['admin'])) {
 
   <!-- Page level custom scripts -->
   <script src="../js/demo/datatables-demo.js"></script>
+
+  <!-- COUNTER NOTIF SBP -->
+  <script>
+    // Tambahkan skrip JavaScript untuk menangani klik pada ikon notifikasi
+    $("#alertsDropdown").click(function() {
+      // Ganti URL halaman yang ingin diarahkan (misalnya, halaman "sbp")
+      window.location.href = "?page=sbp";
+    });
+  </script>
+
+  <script>
+    function fetchNotificationCount() {
+      $.ajax({
+        url: "../notification_count_handler.php", 
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+          var notificationCounterElement = $("#notification-counter");
+          notificationCounterElement.text(data.count);
+        },
+        error: function() {
+          console.log("Gagal mengambil data notifikasi.");
+        }
+      });
+    }
+
+   
+    setInterval(fetchNotificationCount, 1000);
+  </script>
+
 
 
   <!--SCRIPT GET BARANG-->

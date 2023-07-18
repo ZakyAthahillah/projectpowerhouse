@@ -1,7 +1,7 @@
  <?php
  
- $id = $_GET['id'];
- $sql = $koneksi->query("delete from users where id = '$id'");
+ $id = $_GET['id_users'];
+ $sql = $koneksi->query("delete from users where id_users = '$id'");
 
  if ($sql) {
  

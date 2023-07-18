@@ -14,7 +14,6 @@
             <th>Start</th>
             <th>Transfer From (ICF)</th>
             <th>Transfer To (JETTY)</th>
-            <th>Jumlah</th>
             <th>Haul Truck</th>
             <th>Operator</th>
             <th>Status</th>
@@ -57,7 +56,6 @@
             $nama_rcjty_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_rcjty_gabung']) . '</li>';
             $nama_haultruck_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_haultruck_gabung']) . '</li>';
             $catatan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['catatan_gabung']) . '</li>';
-            $jumlah_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_gabung']) . '</li>';
             $nama_optht_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_optht_gabung']) . '</li>';
             $nama_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_gabung']) . '</li>';
             $id_transfer_gabung = $data['id_transfer_gabung'];
@@ -69,7 +67,6 @@
               <td><?php echo $start_gabung; ?></td>
               <td><?php echo $nama_rcicf_gabung; ?></td>
               <td><?php echo $nama_rcjty_gabung; ?></td>
-              <td><?php echo $jumlah_gabung; ?></td>
               <td><?php echo $nama_haultruck_gabung; ?></td>
               <td><?php echo $nama_optht_gabung; ?></td>
               <td><?php echo $catatan_gabung; ?></td>

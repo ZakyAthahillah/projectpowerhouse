@@ -18,7 +18,7 @@ function koneksiDB() {
 }
 
 function selectAllData() {
-    $query = "SELECT * FROM sbp";
+    $query = "SELECT * FROM sbp order by status ='Upload Baru' desc";
     $result = mysqli_query(koneksiDB(), $query);
     return $result;
 }
