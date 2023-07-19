@@ -82,7 +82,7 @@ if (isset($_POST['submit'])) {
     $pdf->Ln(10);
     $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
     $pdf->Ln(10);
-    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
+    $pdf->Cell(0, 10, 'Section Head', 0, 1, 'R');
 
     $pdf->Output();
 }
@@ -163,7 +163,7 @@ if (isset($_POST['submits'])) {
     $pdf->Ln(10);
     $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
     $pdf->Ln(10);
-    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'R');
+    $pdf->Cell(0, 10, 'Section Head', 0, 1, 'R');
 
     $pdf->Output();
 }

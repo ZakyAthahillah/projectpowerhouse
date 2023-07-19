@@ -38,6 +38,7 @@
 								<td><?php echo number_format($row['size'] / (1024 * 1024), 2) ?>MB</td>
 								<td><?php echo $row['status']; ?></td>
 								<td>
+									<a href="../page/blending/bacasbp.php?url=<?php echo $row['berkas']; ?>" class="btn btn-success btn-circle"><i class="fa fa-eye"></i></a>
 									<a href="?page=sbp&aksi=ubahsbp&kode_sbp=<?php echo $row['kode_sbp'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
 									<a href="../page/blending/downloadsbp.php?url=<?php echo $row['berkas']; ?>" class="btn btn-info btn-circle"><i class="fa fa-download"></i></a>
 									<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=sbp&aksi=hapussbp&kode_sbp=<?php echo $row['kode_sbp']; ?>" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>

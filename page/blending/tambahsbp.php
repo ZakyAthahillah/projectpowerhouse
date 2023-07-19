@@ -23,15 +23,16 @@
 						</div>
 
 
-						<label for="">Upload File</label>
+						<label for="">Upload File <span class="text-danger">*</span></label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="file" name="berkas" accept="application/pdf" class="form-control">
+								<input type="file" name="berkas" accept="application/pdf" class="form-control" required>
 							</div>
 						</div>
 						<button type="submit" class="btn btn-primary">Upload File</button>
-
 					</form>
+					<hr>
+					<p><span class="text-danger">*</span>) Pastikan nama file yang di input tidak pernah digunakan sebelumnya</p>
 				</div>
 			</div>
 		</div>

@@ -63,6 +63,13 @@ if (isset($_POST['submit'])) {
         $pdf->Cell(30, 6, $hasil['gcrush'], 1, 0, 'C');
         $pdf->Cell(30, 6, $hasil['catatan'], 1, 1, 'C');
     }
+
+    // Menambahkan tanda tangan
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Section Head', 0, 1, 'R');
+
     // Mengakhiri dokumen PDF
     $pdf->Output();
 }
@@ -120,6 +127,13 @@ if (isset($_POST['submits'])) {
         $pdf->Cell(30, 6, $hasil['gcrush'], 1, 0, 'C');
         $pdf->Cell(30, 6, $hasil['catatan'], 1, 1, 'C');
     }
+
+    // Menambahkan tanda tangan
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Mengetahui,', 0, 1, 'R');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Section Head', 0, 1, 'R');
+
     // Mengakhiri dokumen PDF
     $pdf->Output();
 }
