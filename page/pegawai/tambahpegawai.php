@@ -10,15 +10,16 @@
 
 
   				<div class="body">
-
-  					<label for="">NIK</label>
-  					<div class="form-group">
-  						<div class="form-line">
-  							<input type="text" maxlength="16"  name="nik" class="form-control"  required/>
-  						</div>
-  					</div>
-
   					<form method="POST" enctype="multipart/form-data">
+						
+  						<label for="">NIK</label>
+  						<div class="form-group">
+  							<div class="form-line">
+  								<input type="text" maxlength="16" name="nik" class="form-control" required />
+  							</div>
+  						</div>
+
+
   						<label for="">Nama</label>
   						<div class="form-group">
   							<div class="form-line">

@@ -4,9 +4,9 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Data Haul Truck</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Data Dump Truck</h6>
       <br>
-      <a href="?page=haultruck&aksi=tambahhaultruck" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
+      <a href="?page=dumptruck&aksi=tambahdumptruck" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -14,7 +14,7 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Haul Truck</th>
+              <th>Dump Truck</th>
               <th>Status</th>
               <th>Pengaturan</th>
 
@@ -26,21 +26,21 @@
             <?php
 
             $no = 1;
-            $sql = $koneksi->query("select * from haultruck");
+            $sql = $koneksi->query("select * from dumptruck");
             while ($data = $sql->fetch_assoc()) {
 
             ?>
 
               <tr>
                 <td><?php echo $no++; ?></td>
-                <td><?php echo $data['nama_haultruck'] ?></td>
+                <td><?php echo $data['nama_dumptruck'] ?></td>
                 <td><?php echo $data['status'] ?></td>
 
 
 
                 <td>
-                  <a href="?page=haultruck&aksi=ubahhaultruck&id_haultruck=<?php echo $data['id_haultruck'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                  <button onclick="confirmDelete('<?php echo $data['id_haultruck'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
+                  <a href="?page=dumptruck&aksi=ubahdumptruck&id_dumptruck=<?php echo $data['id_dumptruck'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
+                  <button onclick="confirmDelete('<?php echo $data['id_dumptruck'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>
             <?php } ?>
@@ -57,7 +57,7 @@
 </div>
 
 <script>
-  function confirmDelete(idHaultruck) {
+  function confirmDelete(iddumptruck) {
     Swal.fire({
       icon: 'warning',
       title: 'Konfirmasi',
@@ -68,7 +68,7 @@
       cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "?page=haultruck&aksi=hapushaultruck&id_haultruck=" + idHaultruck;
+        window.location.href = "?page=dumptruck&aksi=hapusdumptruck&id_dumptruck=" + iddumptruck;
       }
     });
   }

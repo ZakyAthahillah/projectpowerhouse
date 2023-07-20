@@ -19,9 +19,9 @@
               }
             }
 
-            if ($page == "haultruck") {
+            if ($page == "dumptruck") {
               if ($aksi == "") {
-                include "../page/haultruck/haultruck_pegawai.php";
+                include "../page/dumptruck/dumptruck_pegawai.php";
               }
             }
 

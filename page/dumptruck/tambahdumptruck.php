@@ -3,7 +3,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tambah Data Haul Truck<a href="?page=haultruck" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tambah Data Dump Truck<a href="?page=dumptruck" class="btn btn-success float-right"><i class="fas fa-arrow-left"> Kembali</i></a></h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -14,10 +14,10 @@
                     <form method="POST" enctype="multipart/form-data">
 
 
-                        <label for="">Nama Haul Truck</label>
+                        <label for="">Nama Dump Truck</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="nama_haultruck" class="form-control" />
+                                <input type="text" name="nama_dumptruck" class="form-control" />
                             </div>
                         </div>
 
@@ -43,14 +43,14 @@
                     <?php
 
                     if (isset($_POST['simpan'])) {
-                        $nama_haultruck = $_POST['nama_haultruck'];
+                        $nama_dumptruck = $_POST['nama_dumptruck'];
                         $status = $_POST['status'];
 
 
 
 
 
-                        $sql = $koneksi->query("insert into haultruck (nama_haultruck, status) values('$nama_haultruck', '$status')");
+                        $sql = $koneksi->query("insert into dumptruck (nama_dumptruck, status) values('$nama_dumptruck', '$status')");
 
                         if ($sql) {
                             echo "
@@ -61,7 +61,7 @@
 									icon: 'success',
 									confirmButtonText: 'OK'
 								}).then(() => {
-									window.location.href = '?page=haultruck';
+									window.location.href = '?page=dumptruck';
 								});
 							</script>
 							";
@@ -74,7 +74,7 @@
 									icon: 'error',
 									confirmButtonText: 'OK'
 								}).then(() => {
-									window.location.href = '?page=haultruck';
+									window.location.href = '?page=dumptruck';
 								});
 							</script>
 							";

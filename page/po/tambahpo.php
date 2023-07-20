@@ -44,7 +44,7 @@
                                 while ($row = $result->fetch_assoc()) {
                                     $id = $row["kode_barang"];
                                     $name = $row["nama_barang"];
-                                    echo "<option value='$id'>$name</option>";
+                                    echo "<option value='$id'>$id | $name</option>";
                                 }
                             }
                             $conn->close();
@@ -91,7 +91,7 @@
                         while ($row = $result->fetch_assoc()) {
                             $id = $row["kode_barang"];
                             $name = $row["nama_barang"];
-                            echo "<option value='$id'>$name</option>";
+                            echo "<option value='$id'>$id | $name</option>";
                         }
                     }
 

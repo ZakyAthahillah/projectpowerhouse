@@ -4,7 +4,7 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Data Operator Haul Truck</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Data Operator Dump Truck</h6>
       <br>
       <a href="?page=optht&aksi=tambahoptht" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
     </div>

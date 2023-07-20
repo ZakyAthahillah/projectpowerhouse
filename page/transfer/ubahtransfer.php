@@ -4,7 +4,7 @@ $sql2 = $koneksi->query("select * from transfer
 INNER JOIN operatorht ON transfer.id_optht = operatorht.id_optht
 inner join scicf on transfer.id_rcicf = scicf.id_rcicf
 inner join scjty on transfer.id_rcjty = scjty.id_rcjty
-inner join haultruck on transfer.id_haultruck = haultruck.id_haultruck where id_transfer = '$id_transfer'");
+inner join dumptruck on transfer.id_dumptruck = dumptruck.id_dumptruck where id_transfer = '$id_transfer'");
 
 $tampil = $sql2->fetch_assoc();
 
@@ -81,18 +81,18 @@ $level = $tampil['level'];
                             </div>
                         </div>
 
-                        <label for="">Haul Truck</label>
+                        <label for="">Dump Truck</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <select name="haultruck" id="select_haultruck" class="form-control" required>
+                                <select name="dumptruck" id="select_dumptruck" class="form-control" required>
                                     <?php
-                                    echo "<option value='$tampil[id_haultruck]'>$tampil[nama_haultruck]</option>";
+                                    echo "<option value='$tampil[id_dumptruck]'>$tampil[nama_dumptruck]</option>";
 
-                                    $sql = $koneksi->query("SELECT * FROM haultruck ORDER BY id_haultruck");
+                                    $sql = $koneksi->query("SELECT * FROM dumptruck ORDER BY id_dumptruck");
                                     while ($data = $sql->fetch_assoc()) {
                                         // Cek apakah opsi merupakan opsi yang terpilih
-                                        if ($data['id_haultruck'] !== $tampil['id_haultruck']) {
-                                            echo "<option value='$data[id_haultruck]'>$data[nama_haultruck]</option>";
+                                        if ($data['id_dumptruck'] !== $tampil['id_dumptruck']) {
+                                            echo "<option value='$data[id_dumptruck]'>$data[nama_dumptruck]</option>";
                                         }
                                     }
                                     ?>
@@ -142,7 +142,7 @@ $level = $tampil['level'];
                         $nama_rcicf = $pecah_rcicf[1];
 
                         $id_optht = $_POST['optht'];
-                        $id_haultruck = $_POST['haultruck'];
+                        $id_dumptruck = $_POST['dumptruck'];
 
                         $koneksi->autocommit(false); // Mematikan autocommit
 
@@ -151,9 +151,9 @@ $level = $tampil['level'];
                             $koneksi->begin_transaction();
 
                             // Lakukan perubahan pada database
-                            $sql = "UPDATE transfer SET tanggal=?, start=?, id_rcjty=?, id_rcicf=?, id_haultruck=?, id_optht=? WHERE id_transfer=?";
+                            $sql = "UPDATE transfer SET tanggal=?, start=?, id_rcjty=?, id_rcicf=?, id_dumptruck=?, id_optht=? WHERE id_transfer=?";
                             $stmt = $koneksi->prepare($sql);
-                            $stmt->bind_param("sssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $id_haultruck, $id_optht, $id_transfer);
+                            $stmt->bind_param("sssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $id_dumptruck, $id_optht, $id_transfer);
                             $stmt->execute();
 
                             if ($stmt->affected_rows > 0) {

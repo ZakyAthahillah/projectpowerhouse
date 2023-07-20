@@ -194,9 +194,9 @@ if (!isset($_SESSION['admin'])) {
         <div id="collapseMDPB" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=haultruck">Data Hauling Truck</a>
+            <a class="collapse-item" href="?page=dumptruck">Data Dump Truck</a>
             <a class="collapse-item" href="?page=barge">Data Barge</a>
-            <a class="collapse-item" href="?page=optht">Data Operator Haul Truck</a>
+            <a class="collapse-item" href="?page=optht">Data Operator Dump Truck</a>
           </div>
         </div>
       </li>
@@ -282,7 +282,7 @@ if (!isset($_SESSION['admin'])) {
             <a class="collapse-item" href="?page=laporan_crushingicf">Laporan Data Crushing ICF</a>
             <a class="collapse-item" href="?page=laporan_blending">Laporan Data Blending</a>
             <a class="collapse-item" href="?page=laporan_loading">Laporan Data Loading</a>
-            <a class="collapse-item" href="?page=laporan_transhaul">Data Transfer Haul Truck</a>
+            <a class="collapse-item" href="?page=laporan_transhaul">Data Transfer dump Truck</a>
           </div>
         </div>
       </li>
@@ -615,7 +615,7 @@ if (!isset($_SESSION['admin'])) {
   <script src="../select2/js/select2.min.js"></script>
 
   <script>
-    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item,#select_kodesbp,#select_haultruck,#select_optht").select2({
+    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item,#select_kodesbp,#select_dumptruck,#select_optht").select2({
       theme: 'bootstrap4',
       placeholder: "- Pilih -"
     });

@@ -4,7 +4,7 @@ $sql2 = $koneksi->query("select * from transfer
 inner join scicf on transfer.id_rcicf = scicf.id_rcicf
 inner join scjty on transfer.id_rcjty = scjty.id_rcjty
 INNER JOIN operatorht ON transfer.id_optht = operatorht.id_optht
-inner join haultruck on transfer.id_haultruck = haultruck.id_haultruck where id_transfer = '$id_transfer'");
+inner join dumptruck on transfer.id_dumptruck = dumptruck.id_dumptruck where id_transfer = '$id_transfer'");
 
 $tampil = $sql2->fetch_assoc();
 $rcicf = $tampil['nama_rcicf'];
@@ -17,7 +17,7 @@ $jumlah = $tampil['jumlah'];
 $catatan = $tampil['catatan'];
 $id_rcicf = $tampil['id_rcicf'];
 $id_rcjty = $tampil['id_rcjty'];
-$haultruck = $tampil['nama_haultruck'];
+$dumptruck = $tampil['nama_dumptruck'];
 $nama_optht = $tampil['nama_optht'];
 
 $level = $tampil['level'];
@@ -90,7 +90,7 @@ $tambah = $jumlah2 + $jumlah;
                         <label for="">Haul Truck</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="haultruck" id="haultruck" class=" form-control" value="<?php echo $haultruck; ?>" readonly />
+                                <input type="text" name="dumptruck" id="dumptruck" class=" form-control" value="<?php echo $dumptruck; ?>" readonly />
                             </div>
                         </div>
 

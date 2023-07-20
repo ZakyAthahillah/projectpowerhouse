@@ -480,7 +480,7 @@ if (!isset($_SESSION['qc'])) {
   <script src="../select2/js/select2.min.js"></script>
 
   <script>
-    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item,#select_kodesbp,#select_haultruck,#select_optht").select2({
+    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item,#select_kodesbp,#select_dumptruck,#select_optht").select2({
       theme: 'bootstrap4',
       placeholder: "- Pilih -"
     });

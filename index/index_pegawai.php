@@ -156,9 +156,9 @@ if (!isset($_SESSION['pegawai'])) {
         <div id="collapseMDPB" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=haultruck">Data Hauling Truck</a>
+            <a class="collapse-item" href="?page=dumptruck">Data Dump Truck</a>
             <a class="collapse-item" href="?page=barge">Data Barge</a>
-            <a class="collapse-item" href="?page=optht">Data Operator Haul Truck</a>
+            <a class="collapse-item" href="?page=optht">Data Operator Dump Truck</a>
           </div>
         </div>
       </li>
@@ -485,7 +485,7 @@ if (!isset($_SESSION['pegawai'])) {
   <script src="../select2/js/select2.min.js"></script>
 
   <script>
-    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item,#select_kodesbp,#select_haultruck,#select_optht").select2({
+    $("#select_pegawai,#select_barang,#select_suplier,#select_lokasi,#select_satuan,#select_jenis,#select_crushingjty,#select_crushingicf,#select_transfericf,#select_transferjty,#select_loadingjty,#select_bargejty,#item,#select_kodesbp,#select_dumptruck,#select_optht").select2({
       theme: 'bootstrap4',
       placeholder: "- Pilih -"
     });

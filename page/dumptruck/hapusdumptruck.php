@@ -1,7 +1,7 @@
 <?php
 
-$id = $_GET['id_haultruck'];
-$sql = $koneksi->query("delete from haultruck where id_haultruck = '$id'");
+$id = $_GET['id_dumptruck'];
+$sql = $koneksi->query("delete from dumptruck where id_dumptruck = '$id'");
 
 if ($sql) {
 
@@ -13,7 +13,7 @@ if ($sql) {
         icon: 'success',
         confirmButtonText: 'OK'
     }).then(() => {
-        window.location.href = '?page=haultruck';
+        window.location.href = '?page=dumptruck';
     });
 </script>
 ";
@@ -26,7 +26,7 @@ if ($sql) {
         icon: 'error',
         confirmButtonText: 'OK'
     }).then(() => {
-        window.location.href = '?page=haultruck';
+        window.location.href = '?page=dumptruck';
     });
 </script>
 ";

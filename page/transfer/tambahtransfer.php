@@ -91,16 +91,16 @@
 						<div class="tampung11"></div>
 
 
-						<label for="">Haul Truck</label>
+						<label for="">Dump Truck</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="haultruck" id="select_haultruck" class="form-control" required>
+								<select name="dumptruck" id="select_dumptruck" class="form-control" required>
 									<option value="">----------SILAHKAN PILIH----------</option>
 									<?php
 
-									$sql = $koneksi->query("select * from haultruck order by id_haultruck");
+									$sql = $koneksi->query("select * from dumptruck order by id_dumptruck");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_haultruck]'>$data[nama_haultruck]</option>";
+										echo "<option value='$data[id_dumptruck]'>$data[nama_dumptruck]</option>";
 									}
 									?>
 
@@ -158,15 +158,15 @@
 
 							$start = $_POST['start'];
 
-							$id_haultruck = $_POST['haultruck'];
+							$id_dumptruck = $_POST['dumptruck'];
 							$id_optht = $_POST['optht'];
 							$catatan = "Dalam Proses";
 
 							// Mengubah perintah INSERT menjadi objek prepared statement
-							$stmt = $koneksi->prepare("INSERT INTO transfer(tanggal, start, id_rcjty, id_rcicf, id_haultruck, id_optht, id_users, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+							$stmt = $koneksi->prepare("INSERT INTO transfer(tanggal, start, id_rcjty, id_rcicf, id_dumptruck, id_optht, id_users, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 							// Mengikat parameter ke pernyataan persiapan
-							$stmt->bind_param("ssssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $id_haultruck, $id_optht, $id_users, $catatan);
+							$stmt->bind_param("ssssssss", $tanggal, $start, $id_rcjty, $id_rcicf, $id_dumptruck, $id_optht, $id_users, $catatan);
 
 							// Menjalankan pernyataan persiapan
 							$stmt->execute();

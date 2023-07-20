@@ -4,7 +4,7 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Data Haul Truck</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Data Dump Truck</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -12,7 +12,7 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Haul Truck</th>
+              <th>Dump Truck</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -22,14 +22,14 @@
             <?php
 
             $no = 1;
-            $sql = $koneksi->query("select * from haultruck");
+            $sql = $koneksi->query("select * from dumptruck");
             while ($data = $sql->fetch_assoc()) {
 
             ?>
 
               <tr>
                 <td><?php echo $no++; ?></td>
-                <td><?php echo $data['nama_haultruck'] ?></td>
+                <td><?php echo $data['nama_dumptruck'] ?></td>
                 <td><?php echo $data['status'] ?></td>
               </tr>
             <?php } ?>

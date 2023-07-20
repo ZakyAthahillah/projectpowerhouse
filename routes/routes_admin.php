@@ -126,19 +126,19 @@
               }
             }
 
-            if ($page == "haultruck") {
+            if ($page == "dumptruck") {
               if ($aksi == "") {
-                include "../page/haultruck/haultruck.php";
+                include "../page/dumptruck/dumptruck.php";
               }
-              if ($aksi == "tambahhaultruck") {
-                include "../page/haultruck/tambahhaultruck.php";
+              if ($aksi == "tambahdumptruck") {
+                include "../page/dumptruck/tambahdumptruck.php";
               }
-              if ($aksi == "ubahhaultruck") {
-                include "../page/haultruck/ubahhaultruck.php";
+              if ($aksi == "ubahdumptruck") {
+                include "../page/dumptruck/ubahdumptruck.php";
               }
 
-              if ($aksi == "hapushaultruck") {
-                include "../page/haultruck/hapushaultruck.php";
+              if ($aksi == "hapusdumptruck") {
+                include "../page/dumptruck/hapusdumptruck.php";
               }
             }
 

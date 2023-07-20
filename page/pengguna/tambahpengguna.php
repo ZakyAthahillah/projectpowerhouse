@@ -56,7 +56,7 @@
 							<label for="">Foto</label>
                             <div class="form-group">
                                <div class="form-line">
-                                <input type="file" name="foto" class="form-control" />
+                                <input type="file" name="foto" class="form-control" required/>
 									 
 							</div>
                             </div>
