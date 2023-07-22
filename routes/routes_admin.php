@@ -330,6 +330,23 @@
               }
             }
 
+            if ($page == "dokmuatan") {
+              if ($aksi == "") {
+                include "../page/dokmuatan/dokmuatan.php";
+              }
+              if ($aksi == "tambahdokmuatan") {
+                include "../page/dokmuatan/tambahdokmuatan.php";
+              }
+              if ($aksi == "ubahdokmuatan") {
+                include "../page/dokmuatan/ubahdokmuatan.php";
+              }
+              if ($aksi == "hapusdokmuatan") {
+                include "../page/dokmuatan/hapusdokmuatan.php";
+              }
+              if ($aksi == "printdokmuatan") {
+                include "../page/dokmuatan/printdokmuatan.php";
+              }
+            }
 
             if ($page == "crushingjty") {
               if ($aksi == "") {
@@ -487,11 +504,12 @@
               }
             }
 
-            if ($page == "laporan_transhaul") {
+            if ($page == "laporan_rekapdokmuatan") {
               if ($aksi == "") {
-                include "../page/laporan/produksibb/laporan_transhaul.php";
+                include "../page/laporan/produksibb/laporan_rekapdokmuatan.php";
               }
             }
+
 
             if ($page == "laporan_po") {
               if ($aksi == "") {

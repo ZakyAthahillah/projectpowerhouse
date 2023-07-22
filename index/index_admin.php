@@ -239,7 +239,7 @@ if (!isset($_SESSION['admin'])) {
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu:</h6>
             <a class="collapse-item" href="?page=transfer">Data Transfer</a>
-            <a class="collapse-item" href="../page/laporan/produksibb/surattransfer.php">Dokumen Muatan</a>
+            <a class="collapse-item" href="?page=dokmuatan">Dokumen Muatan</a>
           </div>
         </div>
       </li>
@@ -282,7 +282,7 @@ if (!isset($_SESSION['admin'])) {
             <a class="collapse-item" href="?page=laporan_crushingicf">Laporan Data Crushing ICF</a>
             <a class="collapse-item" href="?page=laporan_blending">Laporan Data Blending</a>
             <a class="collapse-item" href="?page=laporan_loading">Laporan Data Loading</a>
-            <a class="collapse-item" href="?page=laporan_transhaul">Data Transfer dump Truck</a>
+            <a class="collapse-item" href="?page=laporan_rekapdokmuatan">Rekap Dokumen Muatan</a>
           </div>
         </div>
       </li>
