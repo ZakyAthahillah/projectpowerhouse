@@ -37,6 +37,7 @@
                 <td>
                 <a href="?page=stokcoaljty&aksi=ubahscjty&id_rcjty=<?php echo $data['id_rcjty'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
                 <a href="?page=stokcoaljty&aksi=viewscjty&id_rcjty=<?php echo $data['id_rcjty'] ?>" class="btn btn-primary btn-circle"><i class="fas fa-info"></i></a>
+                <button onclick="confirmDelete('<?php echo $data['id_rcjty'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>
             <?php } ?>
@@ -51,3 +52,21 @@
   </div>
 
 </div>
+
+<script>
+  function confirmDelete(idScjty) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Konfirmasi',
+      text: 'Apakah anda yakin akan menghapus data ini?',
+      showCancelButton: true,
+      confirmButtonText: 'Hapus',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "?page=stokcoaljty&aksi=hapusscjty&id_rcjty=" + idScjty;
+      }
+    });
+  }
+</script>

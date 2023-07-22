@@ -4,7 +4,7 @@
 		var jumlahkeluar = document.getElementById('jumlahkeluar').value;
 		var result = parseFloat(stok) - parseFloat(jumlahkeluar);
 		if (!isNaN(result)) {
-			document.getElementById('jumlah').value = result;
+			document.getElementById('jumlah').value = (result % 1 === 0) ? result : result.toFixed(2);
 		}
 	}
 </script>

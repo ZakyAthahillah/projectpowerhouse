@@ -1,13 +1,16 @@
 <script>
 	function sum() {
-		var stok = document.getElementById('stok').value;
-		var jumlahmasuk = document.getElementById('jumlahmasuk').value;
-		var result = parseFloat(stok) + parseFloat(jumlahmasuk);
+		var stok = parseFloat(document.getElementById('stok').value);
+		var jumlahmasuk = parseFloat(document.getElementById('jumlahmasuk').value);
+		var result = stok + jumlahmasuk;
+
 		if (!isNaN(result)) {
-			document.getElementById('jumlah').value = result;
+			document.getElementById('jumlah').value = (result % 1 === 0) ? result : result.toFixed(2);
 		}
 	}
 </script>
+
+
 
 
 <div class="container-fluid">

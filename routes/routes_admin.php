@@ -242,6 +242,9 @@
               if ($aksi == "ubahscjty") {
                 include "../page/stokcoaljty/ubahscjty.php";
               }
+              if ($aksi == "hapusscjty") {
+                include "../page/stokcoaljty/hapusscjty.php";
+              }
             }
 
             if ($page == "stokcoalicf") {
@@ -256,6 +259,9 @@
               }
               if ($aksi == "ubahscicf") {
                 include "../page/stokcoalicf/ubahscicf.php";
+              }
+              if ($aksi == "hapusscicf") {
+                include "../page/stokcoalicf/hapusscicf.php";
               }
             }
     
