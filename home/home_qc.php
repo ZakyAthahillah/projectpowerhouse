@@ -102,7 +102,7 @@
 
             $data_loading = array();
             $labels_loading = array();
-            $sql_loading = "SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, SUM(beltscale) AS total_jumlah FROM loading WHERE YEAR(tanggal) BETWEEN $selectedMinYear AND $selectedMaxYear GROUP BY bulan, tahun ORDER BY tahun, bulan";
+            $sql_loading = "SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, SUM(jumlah) AS total_jumlah FROM loading WHERE YEAR(tanggal) BETWEEN $selectedMinYear AND $selectedMaxYear GROUP BY bulan, tahun ORDER BY tahun, bulan";
             $result_loading = $koneksi->query($sql_loading);
             if ($result_loading->num_rows > 0) {
               while ($row = $result_loading->fetch_assoc()) {

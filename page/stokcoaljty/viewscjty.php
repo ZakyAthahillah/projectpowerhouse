@@ -29,7 +29,7 @@ $data = mysqli_fetch_assoc($sql2);
                 $tamps2 = mysqli_fetch_assoc($q2);
                 $total2 = $tamps2['jum'];
 
-                $q3 = mysqli_query($koneksi, "SELECT SUM(beltscale) AS jum  FROM loading WHERE id_rcjty = $id");
+                $q3 = mysqli_query($koneksi, "SELECT SUM(jumlah) AS jum  FROM loading WHERE id_rcjty = $id");
                 $tamps = mysqli_fetch_assoc($q3);
                 $total3 = $tamps['jum'];
 
@@ -142,7 +142,7 @@ $data = mysqli_fetch_assoc($sql2);
                 <th>Loading From</th>
                 <th>Warna</th>
                 <th>Loading To</th>
-                <th>Belstscale</th>
+                <th>Jumlah</th>
                 <th>Catatan</th>
             </thead>
             <tbody>
@@ -164,7 +164,7 @@ $data = mysqli_fetch_assoc($sql2);
                         <td><?php echo $data['nama_rcjty'] ?></td>
                         <td><?php echo $data['warna'] ?></td>
                         <td><?php echo $data['nama_barge'] ?></td>
-                        <td><?php echo $data['beltscale'] ?></td>
+                        <td><?php echo $data['jumlah'] ?></td>
                         <td><?php echo $data['catatan'] ?></td>
                     </tr>
                 <?php } ?>

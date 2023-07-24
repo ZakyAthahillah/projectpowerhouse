@@ -17,7 +17,7 @@
             <th>Loading From</th>
             <th>Warna</th>
             <th>Loading To</th>
-            <th>Beltscale</th>
+            <th>Jumlah</th>
             <th>Catatan</th>
             <th>Penginput</th>
             <th>Pengaturan</th>
@@ -28,11 +28,11 @@
           $no = 1;
           $sql = mysqli_query($koneksi, "SELECT loading.kode_sbp,
         GROUP_CONCAT(tanggal SEPARATOR ', ') AS tanggal_gabung,
-        GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_gabung,
+        GROUP_CONCAT(nama_rcjty SEPARATOR ', ') AS nama_rcjty_gabung,
         GROUP_CONCAT(nama_barge SEPARATOR ', ') AS barge_gabung,
         GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
         GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
-        GROUP_CONCAT(beltscale SEPARATOR ', ') AS beltscale_gabung,
+        GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
         GROUP_CONCAT(warna SEPARATOR ', ') AS warna_gabung,
         GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
         GROUP_CONCAT(nama SEPARATOR ', ') AS nama_gabung,
@@ -47,9 +47,9 @@
             $tanggal_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['tanggal_gabung']) . '</li>';
             $start_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['start_gabung']) . '</li></ul>';
             $finish_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['finish_gabung']) . '</li></ul>';
-            $nama_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_gabung']) . '</li></ul>';
+            $nama_rcjty_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_rcjty_gabung']) . '</li></ul>';
             $barge_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['barge_gabung']) . '</li></ul>';
-            $beltscale_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['beltscale_gabung']) . '</li></ul>';
+            $jumlah_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_gabung']) . '</li></ul>';
             $warna_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['warna_gabung']) . '</li></ul>';
             $catatan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['catatan_gabung']) . '</li></ul>';
             $nama_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_gabung']) . '</li></ul>';
@@ -62,10 +62,10 @@
               <td><?php echo $tanggal_gabung ?></td>
               <td><?php echo $start_gabung ?></td>
               <td><?php echo $finish_gabung ?></td>
-              <td><?php echo $nama_gabung ?></td>
+              <td><?php echo $nama_rcjty_gabung ?></td>
               <td><?php echo $warna_gabung ?></td>
               <td><?php echo $barge_gabung ?></td>
-              <td><?php echo $beltscale_gabung ?></td>
+              <td><?php echo $jumlah_gabung ?></td>
               <td><?php echo $catatan_gabung ?></td>
               <td><?php echo $nama_gabung ?></td>
               <td>

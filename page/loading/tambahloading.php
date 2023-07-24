@@ -156,7 +156,7 @@
 							$finish = $_POST['finish'];
 							$catatan = $_POST['catatan'];
 
-							$sql = "INSERT INTO loading(kode_sbp, tanggal, start, finish, id_rcjty, id_barge, beltscale, catatan, id_users) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+							$sql = "INSERT INTO loading(kode_sbp, tanggal, start, finish, id_rcjty, id_barge, jumlah, catatan, id_users) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 							$stmt1 = $koneksi->prepare($sql);
 							$stmt1->bind_param("sssssssss", $kode_sbp, $tanggal, $start, $finish, $id_rcjty, $id_barge, $jumlahkeluar, $catatan, $id_users);
 							$stmt1->execute();

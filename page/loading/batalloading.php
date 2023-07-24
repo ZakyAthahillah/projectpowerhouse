@@ -13,7 +13,7 @@ $start = $tampil['start'];
 $finish = $tampil['finish'];
 $warna = $tampil['warna'];
 $tanggal = $tampil['tanggal'];
-$jumlah = $tampil['beltscale'];
+$jumlah = $tampil['jumlah'];
 $catatan = $tampil['catatan'];
 $id_rcjty = $tampil['id_rcjty'];
 
