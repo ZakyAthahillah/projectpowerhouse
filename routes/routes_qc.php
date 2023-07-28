@@ -40,6 +40,9 @@
               if ($aksi == "hapusblending") {
                 include "../page/blending/hapusblending.php";
               }
+              if ($aksi == "kalkulatorfq") {
+                include "../page/blending/kalkulatorfq.php";
+              }
             }
 
 
@@ -98,4 +101,3 @@
                 include "../page/laporan/produksibb/laporan_loading.php";
               }
             }
-

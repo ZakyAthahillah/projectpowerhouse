@@ -74,6 +74,9 @@
               if ($aksi == "hapusblending") {
                 include "../page/blending/hapusblending.php";
               }
+              if ($aksi == "kalkulatorfq") {
+                include "../page/blending/kalkulatorfq.php";
+              }
             }
 
             if ($page == "jenisbarang") {

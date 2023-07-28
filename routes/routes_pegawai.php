@@ -118,6 +118,23 @@
               }
             }
   
+            if ($page == "dokmuatan") {
+              if ($aksi == "") {
+                include "../page/dokmuatan/dokmuatan.php";
+              }
+              if ($aksi == "tambahdokmuatan") {
+                include "../page/dokmuatan/tambahdokmuatan.php";
+              }
+              if ($aksi == "ubahdokmuatan") {
+                include "../page/dokmuatan/ubahdokmuatan.php";
+              }
+              if ($aksi == "hapusdokmuatan") {
+                include "../page/dokmuatan/hapusdokmuatan.php";
+              }
+              if ($aksi == "printdokmuatan") {
+                include "../page/dokmuatan/printdokmuatan.php";
+              }
+            }
 
             if ($page == "oos") {
               if ($aksi == "") {

@@ -16,7 +16,7 @@
     $getb = mysqli_query($koneksi, "select * from gudang");
     $hgetb = mysqli_num_rows($getb)
     ?>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-4 col-md-6 mb-4">
       <div class="card border-bottom-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
@@ -36,35 +36,12 @@
       </div>
     </div>
 
-    <?php
-    $getbk = mysqli_query($koneksi, "SELECT * FROM barang_masuk");
-    $hbm = mysqli_num_rows($getbk);
-    ?>
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-bottom-primary shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <a href="?page=barangmasuk">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                  <h4>Barang Masuk</h4>
-                </div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $hbm; ?> RIWAYAT</div>
-              </a>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-arrow-left fa-2x text-primary"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <?php
     $getbk = mysqli_query($koneksi, "SELECT * FROM barang_keluar");
     $hbk = mysqli_num_rows($getbk);
     ?>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-4 col-md-6 mb-4">
       <div class="card border-bottom-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
@@ -85,7 +62,7 @@
     </div>
 
     <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-4 col-md-6 mb-4">
       <div class="card border-bottom-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">

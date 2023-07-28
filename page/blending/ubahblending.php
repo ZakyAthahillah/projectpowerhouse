@@ -54,20 +54,6 @@ $level = $tampil['level'];
                             </div>
                         </div>
 
-                        <label for="">Start</label>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <input type="date" name="start" class="form-control" id="start" value="<?php echo $tampil['start']; ?>" />
-                            </div>
-                        </div>
-
-                        <label for="">Finish</label>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <input type="date" name="finish" class="form-control" id="finish" value="<?php echo $tampil['finish']; ?>" />
-                            </div>
-                        </div>
-
                         <label for="">Plan</label>
                         <div class="form-group">
                             <div class="form-line">
@@ -114,8 +100,6 @@ $level = $tampil['level'];
                     if (isset($_POST['simpan'])) {
                         $kode_sbp = $_POST['kode_sbp'];
                         $tanggal = $_POST['tanggal'];
-                        $start = $_POST['start'];
-                        $finish = $_POST['finish'];
                         $plan = $_POST['plan'];
                         $ycrush = $_POST['ycrush'];
                         $bcrush = $_POST['bcrush'];
@@ -130,9 +114,9 @@ $level = $tampil['level'];
                             $koneksi->begin_transaction();
 
                             // Lakukan perubahan pada database
-                            $sql = "UPDATE blending SET kode_sbp =?, tanggal=?, start=?, finish=?, plan=?, gcrush=?, bcrush=?, ycrush=?, catatan=? WHERE id_blending=?";
+                            $sql = "UPDATE blending SET kode_sbp =?, tanggal=?, plan=?, gcrush=?, bcrush=?, ycrush=?, catatan=? WHERE id_blending=?";
                             $stmt = $koneksi->prepare($sql);
-                            $stmt->bind_param("ssssssssss", $kode_sbp, $tanggal, $start, $finish, $plan, $gcrush, $bcrush, $ycrush, $catatan, $id_blending);
+                            $stmt->bind_param("ssssssss", $kode_sbp, $tanggal, $plan, $gcrush, $bcrush, $ycrush, $catatan, $id_blending);
                             $stmt->execute();
 
                             if ($stmt->affected_rows > 0) {

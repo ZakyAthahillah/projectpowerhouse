@@ -12,8 +12,6 @@
               <th>No</th>
               <th>Kode SBP</th>
               <th>Tanggal</th>
-              <th>Start</th>
-              <th>Finish</th>
               <th>Plan</th>
               <th>Blue Crush</th>
               <th>Yellow Crush</th>
@@ -38,17 +36,14 @@
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $data['kode_sbp'] ?></td>
                 <td><?php echo $data['tanggal'] ?></td>
-                <td><?php echo $data['start'] ?></td>
-                <td><?php echo $data['finish'] ?></td>
                 <td><?php echo $data['plan'] ?></td>
                 <td><?php echo $data['bcrush'] ?></td>
                 <td><?php echo $data['ycrush'] ?></td>
                 <td><?php echo $data['gcrush'] ?></td>
                 <td><?php echo $data['catatan'] ?></td>
-
-
                 <td>
                   <a href="?page=blending&aksi=ubahblending&id_blending=<?php echo $data['id_blending'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
+                  <a href="?page=blending&aksi=kalkulatorfq&id_blending=<?php echo $data['id_blending'] ?>" class="btn btn-dark btn-circle"><i class="fas fa-calculator"></i></a>
                   <button onclick="confirmDelete('<?php echo $data['id_blending'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>

@@ -37,20 +37,6 @@
                             </div>
                         </div>
 
-                        <label for="">Start</label>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <input type="date" name="start" class="form-control" id="start" value=">" />
-                            </div>
-                        </div>
-
-                        <label for="">Finish</label>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <input type="date" name="finish" class="form-control" id="finish" value="" />
-                            </div>
-                        </div>
-
                         <label for="">Plan</label>
                         <div class="form-group">
                             <div class="form-line">
@@ -98,8 +84,6 @@
                     if (isset($_POST['simpan'])) {
                         $kode_sbp = $_POST['kode_sbp'];
                         $tanggal = $_POST['tanggal'];
-                        $start = $_POST['start'];
-                        $finish = $_POST['finish'];
                         $plan = $_POST['plan'];
                         $blue = $_POST['blue'];
                         $yellow = $_POST['yellow'];
@@ -110,8 +94,8 @@
                         $koneksi->autocommit(FALSE);
 
                         try {
-                            $sql = $koneksi->prepare("INSERT INTO blending (kode_sbp, tanggal, start, finish, plan, bcrush, ycrush, gcrush, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                            $sql->bind_param("sssssssss", $kode_sbp, $tanggal, $start, $finish, $plan, $blue, $yellow, $green, $catatan);
+                            $sql = $koneksi->prepare("INSERT INTO blending (kode_sbp, tanggal, plan, bcrush, ycrush, gcrush, catatan) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            $sql->bind_param("sssssss", $kode_sbp, $tanggal, $plan, $blue, $yellow, $green, $catatan);
                             $sql->execute();
 
                             // Commit transaksi jika semua query berhasil
