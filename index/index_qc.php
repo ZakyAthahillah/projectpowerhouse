@@ -123,8 +123,8 @@ if (!isset($_SESSION['qc'])) {
         <div id="collapseBlending" class="collapse" aria-labelledby="headingBlending" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Menu:</h6>
-            <a class="collapse-item" href="?page=blending">Data Blending</a>
             <a class="collapse-item" href="?page=sbp">SBP</a>
+            <a class="collapse-item" href="?page=blending">Data Blending</a>
           </div>
         </div>
       </li>

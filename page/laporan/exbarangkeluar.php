@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
 
 
     // Menampilkan data dalam tabel
-    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFont('Arial', '', 10);
     $tampil = mysqli_query($koneksi, "select * from barang_keluar
     inner join pegawai on barang_keluar.id_pegawai = pegawai.id_pegawai where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
@@ -113,7 +113,7 @@ if (isset($_POST['submits'])) {
 
 
     // Menampilkan data dalam tabel
-    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFont('Arial', '', 10);
     $tampil = mysqli_query($koneksi, "select * from barang_keluar
     inner join pegawai on barang_keluar.id_pegawai = pegawai.id_pegawai");
     while ($hasil = mysqli_fetch_assoc($tampil)) {

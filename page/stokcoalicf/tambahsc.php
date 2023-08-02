@@ -24,7 +24,11 @@
                         <label for="">Warna</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="warna" class="form-control" />
+                                <select name="warna" id="select_warna" class="form-control">
+                                    <option value='KUNING'>KUNING</option>
+                                    <option value='HIJAU'>HIJAU</option>
+                                    <option value='BIRU'>BIRU</option>
+                                </select>
                             </div>
                         </div>
 

@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
     $pdf->Cell(35, 10, 'Loading From', 1, 0, 'C');
     $pdf->Cell(35, 10, 'Warna', 1, 0, 'C');
     $pdf->Cell(35, 10, 'Loading To', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Beltscale', 1, 1, 'C');
+    $pdf->Cell(35, 10, 'Jumlah', 1, 1, 'C');
 
     $pdf->SetFont('Arial', '', 12);
     $no = 1;
@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
     GROUP_CONCAT(nama_barge SEPARATOR ', ') AS barge_gabung,
     GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
     GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
-    GROUP_CONCAT(beltscale SEPARATOR ', ') AS beltscale_gabung,
+    GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
     GROUP_CONCAT(warna SEPARATOR ', ') AS warna_gabung,
     GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung
     FROM loading
@@ -72,10 +72,10 @@ if (isset($_POST['submit'])) {
         $barge_gabung = explode(", ", $data['barge_gabung']);
         $start_gabung = explode(", ", $data['start_gabung']);
         $finish_gabung = explode(", ", $data['finish_gabung']);
-        $beltscale_gabung = explode(", ", $data['beltscale_gabung']);
+        $jumlah_gabung = explode(", ", $data['jumlah_gabung']);
         $warna_gabung = explode(", ", $data['warna_gabung']);
         // Mencari jumlah baris terbanyak dari grup concat
-        $maxRows = max(count($tanggal_gabung), count($nama_gabung), count($barge_gabung), count($start_gabung), count($finish_gabung), count($beltscale_gabung), count($warna_gabung));
+        $maxRows = max(count($tanggal_gabung), count($nama_gabung), count($barge_gabung), count($start_gabung), count($finish_gabung), count($jumlah_gabung), count($warna_gabung));
 
         // Menyusun ulang data agar memiliki jumlah baris yang sama
         $tanggal_gabung = array_pad($tanggal_gabung, $maxRows, '');
@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
         $barge_gabung = array_pad($barge_gabung, $maxRows, '');
         $start_gabung = array_pad($start_gabung, $maxRows, '');
         $finish_gabung = array_pad($finish_gabung, $maxRows, '');
-        $beltscale_gabung = array_pad($beltscale_gabung, $maxRows, '');
+        $jumlah_gabung = array_pad($jumlah_gabung, $maxRows, '');
         $warna_gabung = array_pad($warna_gabung, $maxRows, '');
 
 
@@ -100,7 +100,7 @@ if (isset($_POST['submit'])) {
             $pdf->Cell(35, 7, $nama_gabung[$i], 1, 0, 'C');
             $pdf->Cell(35, 7, $warna_gabung[$i], 1, 0, 'C');
             $pdf->Cell(35, 7, $barge_gabung[$i], 1, 0, 'C');
-            $pdf->Cell(35, 7, $beltscale_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(35, 7, $jumlah_gabung[$i], 1, 0, 'C');
 
             $pdf->Ln();
         }
@@ -152,7 +152,7 @@ if (isset($_POST['submits'])) {
     $pdf->Cell(35, 10, 'Loading From', 1, 0, 'C');
     $pdf->Cell(35, 10, 'Warna', 1, 0, 'C');
     $pdf->Cell(35, 10, 'Loading To', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Beltscale', 1, 1, 'C');
+    $pdf->Cell(35, 10, 'Jumlah', 1, 1, 'C');
 
     $pdf->SetFont('Arial', '', 12);
     $no = 1;
@@ -162,7 +162,7 @@ if (isset($_POST['submits'])) {
     GROUP_CONCAT(nama_barge SEPARATOR ', ') AS barge_gabung,
     GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
     GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
-    GROUP_CONCAT(beltscale SEPARATOR ', ') AS beltscale_gabung,
+    GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
     GROUP_CONCAT(warna SEPARATOR ', ') AS warna_gabung,
     GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung
     FROM loading
@@ -177,10 +177,10 @@ if (isset($_POST['submits'])) {
         $barge_gabung = explode(", ", $data['barge_gabung']);
         $start_gabung = explode(", ", $data['start_gabung']);
         $finish_gabung = explode(", ", $data['finish_gabung']);
-        $beltscale_gabung = explode(", ", $data['beltscale_gabung']);
+        $jumlah_gabung = explode(", ", $data['jumlah_gabung']);
         $warna_gabung = explode(", ", $data['warna_gabung']);
         // Mencari jumlah baris terbanyak dari grup concat
-        $maxRows = max(count($tanggal_gabung), count($nama_gabung), count($barge_gabung), count($start_gabung), count($finish_gabung), count($beltscale_gabung), count($warna_gabung));
+        $maxRows = max(count($tanggal_gabung), count($nama_gabung), count($barge_gabung), count($start_gabung), count($finish_gabung), count($jumlah_gabung), count($warna_gabung));
 
         // Menyusun ulang data agar memiliki jumlah baris yang sama
         $tanggal_gabung = array_pad($tanggal_gabung, $maxRows, '');
@@ -188,7 +188,7 @@ if (isset($_POST['submits'])) {
         $barge_gabung = array_pad($barge_gabung, $maxRows, '');
         $start_gabung = array_pad($start_gabung, $maxRows, '');
         $finish_gabung = array_pad($finish_gabung, $maxRows, '');
-        $beltscale_gabung = array_pad($beltscale_gabung, $maxRows, '');
+        $jumlah_gabung = array_pad($jumlah_gabung, $maxRows, '');
         $warna_gabung = array_pad($warna_gabung, $maxRows, '');
 
 
@@ -205,7 +205,7 @@ if (isset($_POST['submits'])) {
             $pdf->Cell(35, 7, $nama_gabung[$i], 1, 0, 'C');
             $pdf->Cell(35, 7, $warna_gabung[$i], 1, 0, 'C');
             $pdf->Cell(35, 7, $barge_gabung[$i], 1, 0, 'C');
-            $pdf->Cell(35, 7, $beltscale_gabung[$i], 1, 0, 'C');
+            $pdf->Cell(35, 7, $jumlah_gabung[$i], 1, 0, 'C');
 
             $pdf->Ln();
         }

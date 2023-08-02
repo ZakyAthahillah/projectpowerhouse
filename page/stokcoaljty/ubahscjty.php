@@ -2,6 +2,7 @@
 $id = $_GET['id_rcjty'];
 $sql2 = $koneksi->query("select * from scjty where id_rcjty = '$id'");
 $tampil = $sql2->fetch_assoc();
+$warna = $tampil['warna'];
 
 ?>
 
@@ -30,7 +31,11 @@ $tampil = $sql2->fetch_assoc();
                         <label for="">Warna</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" name="warna" value="<?php echo $tampil['warna']; ?>" class="form-control" />
+                                <select name="warna" id="select_warna" class="form-control">
+                                    <option <?php if ($warna == 'KUNING') echo 'selected'; ?> value='KUNING'>KUNING</option>
+                                    <option <?php if ($warna == 'HIJAU') echo 'selected'; ?> value='HIJAU'>HIJAU</option>
+                                    <option <?php if ($warna == 'BIRU') echo 'selected'; ?> value='BIRU'>BIRU</option>
+                                </select>
                             </div>
                         </div>
 

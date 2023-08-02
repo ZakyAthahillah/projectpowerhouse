@@ -15,7 +15,7 @@
             <th>Loading From</th>
             <th>Warna</th>
             <th>Loading To</th>
-            <th>Beltscale</th>
+            <th>Jumlah</th>
             <th>Catatan</th>
           </tr>
           
@@ -29,7 +29,7 @@
         GROUP_CONCAT(nama_barge SEPARATOR ', ') AS barge_gabung,
         GROUP_CONCAT(start SEPARATOR ', ') AS start_gabung,
         GROUP_CONCAT(finish SEPARATOR ', ') AS finish_gabung,
-        GROUP_CONCAT(beltscale SEPARATOR ', ') AS beltscale_gabung,
+        GROUP_CONCAT(jumlah SEPARATOR ', ') AS jumlah_gabung,
         GROUP_CONCAT(warna SEPARATOR ', ') AS warna_gabung,
         GROUP_CONCAT(catatan SEPARATOR ', ') AS catatan_gabung,
         GROUP_CONCAT(id_loading SEPARATOR ', ') AS id_loading_gabung
@@ -43,7 +43,7 @@
             $finish_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['finish_gabung']) . '</li></ul>';
             $nama_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['nama_gabung']) . '</li></ul>';
             $barge_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['barge_gabung']) . '</li></ul>';
-            $beltscale_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['beltscale_gabung']) . '</li></ul>';
+            $jumlah_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['jumlah_gabung']) . '</li></ul>';
             $warna_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['warna_gabung']) . '</li></ul>';
             $catatan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['catatan_gabung']) . '</li></ul>';
             $id_loading_gabung = $data['id_loading_gabung'];
@@ -58,7 +58,7 @@
               <td><?php echo $nama_gabung ?></td>
               <td><?php echo $warna_gabung ?></td>
               <td><?php echo $barge_gabung ?></td>
-              <td><?php echo $beltscale_gabung ?></td>
+              <td><?php echo $jumlah_gabung ?></td>
               <td><?php echo $catatan_gabung ?></td>
 
 

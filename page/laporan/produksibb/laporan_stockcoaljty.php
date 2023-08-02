@@ -32,7 +32,7 @@
             $tamps2 = mysqli_fetch_assoc($q2);
             $total2 = $tamps2['jum'];
 
-            $q3 = mysqli_query($koneksi, "SELECT SUM(beltscale) AS jum  FROM loading WHERE id_rcjty = $id");
+            $q3 = mysqli_query($koneksi, "SELECT SUM(jumlah) AS jum  FROM loading WHERE id_rcjty = $id");
             $tamps = mysqli_fetch_assoc($q3);
             $total3 = $tamps['jum'];
 

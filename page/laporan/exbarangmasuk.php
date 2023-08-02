@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
 
 
     // Menampilkan data dalam tabel
-    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFont('Arial', '', 10);
     $tampil = mysqli_query($koneksi, "select * from barang_masuk 
     inner join tb_supplier on barang_masuk.id_supplier = tb_supplier.id_supplier where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
@@ -114,7 +114,7 @@ if (isset($_POST['submits'])) {
 
 
     // Menampilkan data dalam tabel
-    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFont('Arial', '', 10);
     $tampil = mysqli_query($koneksi, "select * from barang_masuk 
     inner join tb_supplier on barang_masuk.id_supplier = tb_supplier.id_supplier");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
@@ -155,7 +155,7 @@ if (isset($_POST['submits'])) {
     <div class="container">
         <div class="form-group">
             <div class="form-line">
-                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN BARANG MASUK BERDASARKAN BULAN DAN TAHUN<</h6>
+                <h6 class="m-0 font-weight-bold text-primary">PRINT LAPORAN BARANG MASUK BERDASARKAN BULAN DAN TAHUN</h6>
                 </h6>
             </div>
         </div>

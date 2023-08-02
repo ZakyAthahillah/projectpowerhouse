@@ -169,7 +169,7 @@
 									icon: 'success',
 									confirmButtonText: 'OK'
 								}).then(() => {
-									window.location.href = '?page=barge';
+									window.location.href = '?page=dokmuatan';
 								});
 							</script>
 							";
@@ -182,7 +182,7 @@
 									icon: 'error',
 									confirmButtonText: 'OK'
 								}).then(() => {
-									window.location.href = '?page=barge';
+									window.location.href = '?page=dokmuatan';
 								});
 							</script>
 							";
