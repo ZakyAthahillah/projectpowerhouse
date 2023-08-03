@@ -73,7 +73,7 @@
 
 									$sql = $koneksi->query("select * from scjty order by id_rcjty");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty]</option>";
+										echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty] ($data[warna])</option>";
 									}
 									?>
 

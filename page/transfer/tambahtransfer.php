@@ -52,7 +52,7 @@
 							</div>
 						</div>
 
-						<label for="">Transfer From (ROM ICF)</label>
+						<label for="">Transfer From (ICF)</label>
 						<div class="form-group">
 							<div class="form-line">
 								<select name="transferfrom" id="select_transfericf" class="form-control" required>
@@ -61,7 +61,7 @@
 
 									$sql = $koneksi->query("select * from scicf order by id_rcicf");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[nama_rcicf]</option>";
+										echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[nama_rcicf] ($data[warna])</option>";
 									}
 									?>
 
@@ -72,7 +72,7 @@
 						<div class="tampung12"></div>
 
 
-						<label for="">Transfer To (ROM Jetty)</label>
+						<label for="">Transfer To (Jetty)</label>
 						<div class="form-group">
 							<div class="form-line">
 								<select name="transferto" id="select_transferjty" class="form-control" required>
@@ -81,7 +81,7 @@
 
 									$sql = $koneksi->query("select * from scjty order by id_rcjty");
 									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty]</option>";
+										echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty] ($data[warna])</option>";
 									}
 									?>
 

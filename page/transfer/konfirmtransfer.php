@@ -68,17 +68,32 @@ $jumlah3 = $tampil3['stok'];
                             </div>
                         </div>
 
-                        <label for="">Transfer From (ROM ICF)</label>
+                        <label for="">Transfer From (ICF)</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="transferfrom" class="form-control" id="transferfrom" value="<?php echo $rcicf; ?>" readonly />
                             </div>
                         </div>
 
-                        <label for="">Transfer To (ROM Jetty)</label>
+                        <label for="stok">Stok <?= $rcicf ?> ICF</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input readonly="readonly" id="stokicf" type="number" class="form-control" value="<?php echo $jumlah2; ?>" readonly></input>
+                            </div>
+                        </div>
+
+
+                        <label for="">Transfer To (Jetty)</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="transferto" class="form-control" id="transferto" value="<?php echo $rcjty; ?>" readonly />
+                            </div>
+                        </div>
+
+                        <label for="stok">Stok <?= $rcjty ?> Jetty</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input readonly="readonly" id="stokicf" type="number" class="form-control" value="<?php echo $jumlah3; ?>" readonly></input>
                             </div>
                         </div>
 
@@ -123,30 +138,43 @@ $jumlah3 = $tampil3['stok'];
                             $tambah = $jumlah3 + $jumlah;
                             $kurang = $jumlah2 - $jumlah;
 
-                            $sql = "UPDATE scicf SET stok = ? WHERE id_rcicf = ?";
-                            $stmt1 = $koneksi->prepare($sql);
-                            $stmt1->bind_param("ss", $kurang, $id_rcicf);
-                            $stmt1->execute();
+                            if ($kurang < 0) {
+                                echo "
+                                <script>
+                                    Swal.fire({
+                                        title: 'GAGAL!',
+                                        text: 'Stok Tidak Mencukupi, Transfer Gagal',
+                                        icon: 'warning',
+                                        confirmButtonText: 'OK'
+                                    });
+                                </script>
+                            ";
+                            } else {
 
-                            $sql2 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
-                            $stmt2 = $koneksi->prepare($sql2);
-                            $stmt2->bind_param("ss", $tambah, $id_rcjty);
-                            $stmt2->execute();
+                                $sql = "UPDATE scicf SET stok = ? WHERE id_rcicf = ?";
+                                $stmt1 = $koneksi->prepare($sql);
+                                $stmt1->bind_param("ss", $kurang, $id_rcicf);
+                                $stmt1->execute();
 
-                            $sql3 = "UPDATE transfer SET jumlah = ? , finish = ?, catatan = 'Selesai' WHERE id_transfer = ?";
-                            $stmt3 = $koneksi->prepare($sql3);
-                            $stmt3->bind_param("sss", $jumlah, $finish, $id_transfer);
-                            $stmt3->execute();
+                                $sql2 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
+                                $stmt2 = $koneksi->prepare($sql2);
+                                $stmt2->bind_param("ss", $tambah, $id_rcjty);
+                                $stmt2->execute();
 
-                            $sql4 = "UPDATE transfer SET id_users = ? WHERE id_transfer = ?";
-                            $stmt4 = $koneksi->prepare($sql4);
-                            $stmt4->bind_param("ss", $id_users, $id_transfer);
-                            $stmt4->execute();
+                                $sql3 = "UPDATE transfer SET jumlah = ? , finish = ?, catatan = 'Selesai' WHERE id_transfer = ?";
+                                $stmt3 = $koneksi->prepare($sql3);
+                                $stmt3->bind_param("sss", $jumlah, $finish, $id_transfer);
+                                $stmt3->execute();
 
-                            // Menyimpan perubahan
-                            $koneksi->commit();
+                                $sql4 = "UPDATE transfer SET id_users = ? WHERE id_transfer = ?";
+                                $stmt4 = $koneksi->prepare($sql4);
+                                $stmt4->bind_param("ss", $id_users, $id_transfer);
+                                $stmt4->execute();
 
-                            echo "
+                                // Menyimpan perubahan
+                                $koneksi->commit();
+
+                                echo "
                             <script>
                                 Swal.fire({
                                     title: 'SUKSES!',
@@ -158,6 +186,7 @@ $jumlah3 = $tampil3['stok'];
                                 });
                             </script>
                         ";
+                            }
                         }
                     } catch (Exception $e) {
                         // Membatalkan transaksi jika terjadi kesalahan

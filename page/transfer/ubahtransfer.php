@@ -41,18 +41,18 @@ $level = $tampil['level'];
                             </div>
                         </div>
 
-                        <label for="">Transfer From (ROM ICF)</label>
+                        <label for="">Transfer From (ICF)</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <select name="transferfrom" id="select_transfericf" class="form-control" required>
                                     <?php
-                                    echo "<option value='$tampil[id_rcicf].$tampil[nama_rcicf]'>$tampil[nama_rcicf]</option>";
+                                    echo "<option value='$tampil[id_rcicf].$tampil[nama_rcicf]'>$tampil[nama_rcicf] ($tampil[warna])</option>";
 
                                     $sql = $koneksi->query("SELECT * FROM scicf ORDER BY id_rcicf");
                                     while ($data = $sql->fetch_assoc()) {
                                         // Cek apakah opsi merupakan opsi yang terpilih
                                         if ($data['id_rcicf'] !== $tampil['id_rcicf']) {
-                                            echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[nama_rcicf]</option>";
+                                            echo "<option value='$data[id_rcicf].$data[nama_rcicf]'>$data[nama_rcicf] ($data[warna])</option>";
                                         }
                                     }
                                     ?>
@@ -62,18 +62,18 @@ $level = $tampil['level'];
 
 
 
-                        <label for="">Transfer To (ROM Jetty)</label>
+                        <label for="">Transfer To (Jetty)</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <select name="transferto" id="select_transferjty" class="form-control" required>
                                     <?php
-                                    echo "<option value='$tampil[id_rcjty].$tampil[nama_rcjty]'>$tampil[nama_rcjty]</option>";
+                                    echo "<option value='$tampil[id_rcjty].$tampil[nama_rcjty]'>$tampil[nama_rcjty] ($tampil[warna])</option>";
 
                                     $sql = $koneksi->query("SELECT * FROM scjty ORDER BY id_rcjty");
                                     while ($data = $sql->fetch_assoc()) {
                                         // Cek apakah opsi merupakan opsi yang terpilih
                                         if ($data['id_rcjty'] !== $tampil['id_rcjty']) {
-                                            echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty]</option>";
+                                            echo "<option value='$data[id_rcjty].$data[nama_rcjty]'>$data[nama_rcjty] ($data[warna])</option>";
                                         }
                                     }
                                     ?>

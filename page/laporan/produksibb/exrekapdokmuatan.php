@@ -24,6 +24,14 @@ if (isset($_POST['submit'])) {
     $pdf->Cell(282, 7, 'REKAPITULASI DOKUMEN TIKET MUATAN BATUBARA', 1, 1, 'C', true);
     $pdf->Ln(2);
     $pdf->SetTextColor(0, 0, 0);
+    $imagePath = '../../../img/BYAN.JK.png'; // Ganti dengan path gambar Anda
+    $x = 10; // Koordinat X untuk posisi gambar
+    $y = 3; // Koordinat Y untuk posisi gambar
+    $width = 20; // Lebar gambar
+    $height = 25; // Tinggi gambar akan disesuaikan secara proporsional
+    $pdf->Image($imagePath, $x, $y, $width, $height);
+
+    $pdf->Ln(2);
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(0, 10, 'Bulan / Tahun : ' . 'Bulan ' . $bulan . ' Tahun ' . $tahun, 0, 1, 'L');
 
@@ -96,9 +104,16 @@ if (isset($_POST['submits'])) {
     $pdf->SetFillColor(0, 0, 255);
     $pdf->SetTextColor(255, 255, 255);
     $pdf->Cell(282, 7, 'REKAPITULASI DOKUMEN TIKET MUATAN BATUBARA', 1, 1, 'C', true);
+    $imagePath = '../../../img/BYAN.JK.png'; // Ganti dengan path gambar Anda
+    $x = 10; // Koordinat X untuk posisi gambar
+    $y = 3; // Koordinat Y untuk posisi gambar
+    $width = 20; // Lebar gambar
+    $height = 25; // Tinggi gambar akan disesuaikan secara proporsional
+    $pdf->Image($imagePath, $x, $y, $width, $height);
     $pdf->Ln(5);
 
     $pdf->SetTextColor(0, 0, 0);
+    
     $pdf->SetFont('Arial', 'B', 8);
     $pdf->Cell(20, 10, 'Tanggal', 1, 0, 'C'); // Sel Company
     $pdf->Cell(20, 10, 'Nomor', 1, 0, 'C'); // Sel Company

@@ -73,21 +73,21 @@ $tambah = $jumlah2 + $jumlah;
                             </div>
                         </div>
 
-                        <label for="">Transfer From</label>
+                        <label for="">Transfer From (ICF)</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="transferfrom" class="form-control" id="transferfrom" value="<?php echo $rcicf; ?>" readonly />
                             </div>
                         </div>
 
-                        <label for="">Transfer To</label>
+                        <label for="">Transfer To (Jetty)</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="transferto" class="form-control" id="transferto" value="<?php echo $rcjty; ?>" readonly />
                             </div>
                         </div>
                         
-                        <label for="">Haul Truck</label>
+                        <label for="">Dump Truck</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="dumptruck" id="dumptruck" class=" form-control" value="<?php echo $dumptruck; ?>" readonly />

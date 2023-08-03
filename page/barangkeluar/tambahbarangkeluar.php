@@ -94,8 +94,6 @@
   						<div class="form-group">
   							<div class="form-line">
   								<input readonly="readonly" name="total" id="total" type="number" class="form-control">
-
-
   							</div>
   						</div>
 
@@ -153,9 +151,15 @@
 								$sisa2 = $total;
 								if ($sisa2 < 0) {
 									echo "
-									<script type='text/javascript'>
-										alert('Stok Barang Habis, Transaksi Tidak Dapat Dilakukan');
-										window.location.href = '?page=barangkeluar&aksi=tambahbarangkeluar';
+									<script>
+										Swal.fire({
+											title: 'GAGAL!',
+											text: 'Stok Tidak Mencukupi, Transaksi Gagal',
+											icon: 'warning',
+											confirmButtonText: 'OK'
+										}).then(() => {
+											window.location.href = '?page=barangkeluar&aksi=tambahbarangkeluar';
+										});
 									</script>
 								";
 								} else {

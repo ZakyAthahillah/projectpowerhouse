@@ -16,14 +16,7 @@ if (mysqli_num_rows($result) > 0) {
     <label for="stok">Stok</label>
     <div class="form-group">
       <div class="form-line">
-        <input readonly="readonly" id="stokout" type="number" class="form-control" value="<?php echo $row["stok"]; ?>">
-
-
-
-
-        </input>
-
-
+        <input readonly="readonly" id="stokout" type="number" class="form-control" value="<?php echo $row["stok"]; ?>"></input>
       </div>
     </div>
 <?php
