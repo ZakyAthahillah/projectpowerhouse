@@ -26,7 +26,7 @@
           <?php
 
           $no = 1;
-          $sql = mysqli_query($koneksi, "SELECT blending.kode_sbp,
+          $sql = mysqli_query($koneksi, "SELECT blending.id_blending, blending.kode_sbp,
           GROUP_CONCAT(tanggal SEPARATOR ', ') AS tanggal_gabung,
           GROUP_CONCAT(plan SEPARATOR ', ') AS plan_gabung,
           GROUP_CONCAT(bcrush SEPARATOR ', ') AS bcrush_gabung,
@@ -36,8 +36,8 @@
           GROUP_CONCAT(id_blending SEPARATOR ', ') AS id_blending_gabung
           FROM blending
           INNER JOIN sbp ON blending.kode_sbp = sbp.kode_sbp 
-          GROUP BY kode_sbp
-          ORDER BY tanggal desc");
+          GROUP BY blending.kode_sbp
+          ORDER BY tanggal asc");
           while ($data = mysqli_fetch_assoc($sql)) {
             $tanggal_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['tanggal_gabung']) . '</li>';
             $plan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['plan_gabung']) . '</li></ul>';
@@ -79,7 +79,7 @@
                     <?php
                     $id_blending_array = explode(", ", $id_blending_gabung);
                     foreach ($id_blending_array as $id_blending) {
-                      echo '<li><a onclick="confirmDelete(\'' . $data['id_blending'] . '\')"><i class="fas fa-trash text-danger"></i></a></li>';
+                      echo '<li><a onclick="confirmDelete(\'' . $id_blending . '\')"><i class="fas fa-trash text-danger"></i></a></li>';
                     }
                     ?>
                   </ul>

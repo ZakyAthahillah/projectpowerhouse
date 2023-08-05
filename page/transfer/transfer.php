@@ -93,7 +93,7 @@
                     <?php
                     $id_transfer_array = explode(", ", $id_transfer_gabung);
                     foreach ($id_transfer_array as $id_transfer) {
-                      echo '<li><a onclick="confirmDelete(\'' . $data['id_transfer'] . '\')"><i class="fas fa-trash text-danger"></i></a></li>';
+                      echo '<li><a onclick="confirmDelete(\'' . $id_transfer . '\')"><i class="fas fa-trash text-danger"></i></a></li>';
                     }
                     ?>
                   </ul>
