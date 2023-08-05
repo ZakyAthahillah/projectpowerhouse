@@ -156,20 +156,32 @@
 							$finish = $_POST['finish'];
 							$catatan = $_POST['catatan'];
 
-							$sql = "INSERT INTO loading(kode_sbp, tanggal, start, finish, id_rcjty, id_barge, jumlah, catatan, id_users) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-							$stmt1 = $koneksi->prepare($sql);
-							$stmt1->bind_param("sssssssss", $kode_sbp, $tanggal, $start, $finish, $id_rcjty, $id_barge, $jumlahkeluar, $catatan, $id_users);
-							$stmt1->execute();
+							if ($jumlah < 0) {
+								echo "
+                                <script>
+                                    Swal.fire({
+                                        title: 'GAGAL!',
+                                        text: 'Stok Tidak Mencukupi, Loading Gagal',
+                                        icon: 'warning',
+                                        confirmButtonText: 'OK'
+                                    });
+                                </script>
+                            ";
+							} else {
+								$sql = "INSERT INTO loading(kode_sbp, tanggal, start, finish, id_rcjty, id_barge, jumlah, catatan, id_users) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+								$stmt1 = $koneksi->prepare($sql);
+								$stmt1->bind_param("sssssssss", $kode_sbp, $tanggal, $start, $finish, $id_rcjty, $id_barge, $jumlahkeluar, $catatan, $id_users);
+								$stmt1->execute();
 
-							$sql2 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
-							$stmt2 = $koneksi->prepare($sql2);
-							$stmt2->bind_param("ss", $jumlah, $id_rcjty);
-							$stmt2->execute();
+								$sql2 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
+								$stmt2 = $koneksi->prepare($sql2);
+								$stmt2->bind_param("ss", $jumlah, $id_rcjty);
+								$stmt2->execute();
 
-							// Menyimpan perubahan
-							$koneksi->commit();
+								// Menyimpan perubahan
+								$koneksi->commit();
 
-							echo "
+								echo "
 							<script>
 								Swal.fire({
 									title: 'SUKSES!',
@@ -181,6 +193,7 @@
 								});
 							</script>
 						";
+							}
 						}
 					} catch (Exception $e) {
 						// Membatalkan transaksi jika terjadi kesalahan

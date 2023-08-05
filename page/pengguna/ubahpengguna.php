@@ -86,14 +86,33 @@ $level = $tampil['level'];
 
 						if ($sql) {
 							$koneksi->commit(); // Melakukan commit jika semua query berhasil dieksekusi
-					?>
-							<script type="text/javascript">
-								alert("Data Berhasil Diubah");
-								window.location.href = "?page=pengguna";
-							</script>
-					<?php
+
+								echo "
+								<script>
+									Swal.fire({
+										title: 'SUKSES!',
+										text: 'Data Berhasil Diubah',
+										icon: 'success',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=pengguna';
+									});
+								</script>
+								";
 						} else {
 							$koneksi->rollback(); // Mengembalikan transaksi jika terjadi kesalahan
+							echo "
+								<script>
+									Swal.fire({
+										title: 'ERROR!',
+										text: 'Data Gagal Diubah',
+										icon: 'error',
+										confirmButtonText: 'OK'
+									}).then(() => {
+										window.location.href = '?page=pengguna';
+									});
+								</script>
+								";
 						}
 					}
 					?>

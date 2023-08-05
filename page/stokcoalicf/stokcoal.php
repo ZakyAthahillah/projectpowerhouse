@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Stock Coal Rom ICF</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Stock Coal ICF</h6>
     <br>
     <a href="?page=stokcoalicf&aksi=tambahsc" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
   </div>
@@ -13,7 +13,7 @@
             <th>Nama RC</th>
             <th>Warna</th>
             <th>Stok</th>
-            <th>Selengkapnya</th>
+            <th>Aksi</th>
 
           </tr>
         </thead>

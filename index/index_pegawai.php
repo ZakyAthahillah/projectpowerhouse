@@ -26,6 +26,7 @@ if (!isset($_SESSION['pegawai'])) {
   <meta name="author" content="">
 
   <title>POWERHOUSE APP</title>
+  <link rel="icon" href="../img/BYAN.JK.png" type="image/x-icon">
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

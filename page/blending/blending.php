@@ -17,7 +17,7 @@
               <th>Yellow Crush</th>
               <th>Green Crush</th>
               <th>Catatan</th>
-              <th>Pengaturan</th>
+              <th>Aksi</th>
             </tr>
           </thead>
 

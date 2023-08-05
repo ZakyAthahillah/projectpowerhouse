@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
         INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
         INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
         INNER JOIN dumptruck ON transfer.id_dumptruck = dumptruck.id_dumptruck
-        WHERE MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'
+        WHERE MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun' AND catatan = 'Selesai'
         GROUP BY transfer.tanggal
         ORDER BY transfer.tanggal ASC
         ");
@@ -181,6 +181,7 @@ if (isset($_POST['submits'])) {
         INNER JOIN scicf ON transfer.id_rcicf = scicf.id_rcicf
         INNER JOIN scjty ON transfer.id_rcjty = scjty.id_rcjty
         INNER JOIN dumptruck ON transfer.id_dumptruck = dumptruck.id_dumptruck
+        WHERE catatan = 'Selesai'
         GROUP BY transfer.tanggal
         ORDER BY transfer.tanggal ASC");
 

@@ -18,7 +18,7 @@
             <th>Operator</th>
             <th>Status</th>
             <th>Penginput</th>
-            <th>Pengaturan</th>
+            <th>Aksi</th>
 
           </tr>
         </thead>
@@ -129,7 +129,7 @@
             <th>Operator</th>
             <th>Status</th>
             <th>Konfirmator</th>
-            <th>Pengaturan</th>
+            <th>Aksi</th>
 
           </tr>
         </thead>

@@ -32,7 +32,7 @@
 						<button type="submit" class="btn btn-primary">Upload File</button>
 					</form>
 					<hr>
-					<p><span class="text-danger">*</span>) Pastikan nama file yang di input tidak pernah digunakan sebelumnya</p>
+					<p><span class="text-danger">*</span>) <span class="text-danger">Pastikan nama file yang di input tidak pernah digunakan sebelumnya</span></p>
 				</div>
 			</div>
 		</div>

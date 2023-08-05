@@ -61,7 +61,7 @@ if (isset($_POST['hitung'])) {
                             </div>
                         </div>
 
-                        <label for="">TFQ</label>
+                        <label for="">Total Flow Quantity</label>
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" name="tfq" class="form-control" value="<?= $tfq ?>" required />

@@ -14,6 +14,7 @@ include 'koneksi.php';
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>POWERHOUSE APP</title>
+	<link rel="icon" href="img/BYAN.JK.png" type="image/x-icon">
 
 	<!-- Custom fonts for this template-->
 	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -45,10 +46,6 @@ include 'koneksi.php';
 			margin-top: 150px;
 		}
 	</style>
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
 </head>
 
 <body>
@@ -135,7 +132,7 @@ if (isset($_POST['login'])) {
 	$password = md5(mysqli_real_escape_string($koneksi, $passwordsalt));
 	// $password = $_POST['password'];
 	$level = $_POST['level'];
-	$sql = mysqli_query($koneksi, "SELECT * FROM users WHERE username='{$username}' AND password='{$password}'");
+	$sql = mysqli_query($koneksi, "SELECT * FROM users WHERE username='{$username}' AND password='{$password}' AND level='{$level}'");
 	$ketemu = $sql->num_rows;
 	$data = $sql->fetch_assoc();
 

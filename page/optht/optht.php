@@ -15,7 +15,7 @@
             <tr>
               <th>No</th>
               <th>Nama</th>
-              <th>Pengaturan</th>
+              <th>Aksi</th>
             </tr>
           </thead>
 

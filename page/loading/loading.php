@@ -20,7 +20,7 @@
             <th>Jumlah</th>
             <th>Catatan</th>
             <th>Penginput</th>
-            <th>Pengaturan</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
