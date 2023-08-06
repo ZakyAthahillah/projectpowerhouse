@@ -38,30 +38,26 @@ if (isset($_POST['submit'])) {
 
     // Menambahkan header tabel
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(35, 10, 'Kode SBP', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Tanggal', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Start', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Finish', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Plan', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Blue Crush', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Yellow Crush', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Green Crush', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Catatan', 1, 1, 'C');
+    $pdf->Cell(40, 10, 'Kode SBP', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Plan', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Blue Crush', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Yellow Crush', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Green Crush', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Catatan', 1, 1, 'C');
 
 
     // Menampilkan data dalam tabel
     $pdf->SetFont('Arial', '', 12);
     $tampil = mysqli_query($koneksi, "select * from blending inner join sbp on blending.kode_sbp = sbp.kode_sbp where MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
-        $pdf->Cell(35, 6, $hasil['kode_sbp'], 1, 0, 'C');
-        $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['start'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['finish'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['plan'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['bcrush'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['ycrush'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['gcrush'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['catatan'], 1, 1, 'C');
+        $pdf->Cell(40, 6, $hasil['kode_sbp'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['tanggal'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['plan'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['bcrush'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['ycrush'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['gcrush'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['catatan'], 1, 1, 'C');
     }
 
     // Menambahkan tanda tangan
@@ -102,30 +98,26 @@ if (isset($_POST['submits'])) {
 
     // Menambahkan header tabel
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(35, 10, 'Kode SBP', 1, 0, 'C');
-    $pdf->Cell(35, 10, 'Tanggal', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Start', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Finish', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Plan', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Blue Crush', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Yellow Crush', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Green Crush', 1, 0, 'C');
-    $pdf->Cell(30, 10, 'Catatan', 1, 1, 'C');
+    $pdf->Cell(40, 10, 'Kode SBP', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Tanggal', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Plan', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Blue Crush', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Yellow Crush', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Green Crush', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Catatan', 1, 1, 'C');
 
 
     // Menampilkan data dalam tabel
     $pdf->SetFont('Arial', '', 12);
     $tampil = mysqli_query($koneksi, "select * from blending inner join sbp on blending.kode_sbp = sbp.kode_sbp");
     while ($hasil = mysqli_fetch_assoc($tampil)) {
-        $pdf->Cell(35, 6, $hasil['kode_sbp'], 1, 0, 'C');
-        $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['start'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['finish'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['plan'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['bcrush'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['ycrush'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['gcrush'], 1, 0, 'C');
-        $pdf->Cell(30, 6, $hasil['catatan'], 1, 1, 'C');
+        $pdf->Cell(40, 6, $hasil['kode_sbp'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['tanggal'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['plan'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['bcrush'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['ycrush'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['gcrush'], 1, 0, 'C');
+        $pdf->Cell(40, 6, $hasil['catatan'], 1, 1, 'C');
     }
 
     // Menambahkan tanda tangan

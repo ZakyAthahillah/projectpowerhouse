@@ -45,21 +45,21 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal" />
+								<input type="date" name="tanggal" class="form-control" id="tanggal" required />
 							</div>
 						</div>
 
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" />
+								<input type="time" name="start" class="form-control" id="start" required />
 							</div>
 						</div>
 
 						<label for="">Finish</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" />
+								<input type="time" name="finish" class="form-control" id="finish" required />
 							</div>
 						</div>
 
@@ -103,7 +103,7 @@
 						<label for="">Jumlah</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" name="jumlahkeluar" id="jumlahkeluar" onkeyup="sum()" class="form-control" />
+								<input type="text" name="jumlahkeluar" id="jumlahkeluar" onkeyup="sum()" class="form-control" required/>
 
 							</div>
 						</div>
@@ -111,7 +111,7 @@
 						<label for="jumlah">Total Stok</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input readonly="readonly" name="jumlah" id="jumlah" type="number" class="form-control">
+								<input readonly="readonly" name="jumlah" id="jumlah" type="number" class="form-control" required>
 							</div>
 						</div>
 
@@ -121,7 +121,7 @@
 						<label for="">Catatan</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" name="catatan" class="form-control" />
+								<input type="text" name="catatan" class="form-control"/>
 							</div>
 						</div>
 
