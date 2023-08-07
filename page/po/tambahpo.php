@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <button type="button" onclick="addForm()" class="btn btn-success">Tambah Form</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" onclick="return confirm('Apakah Anda Yakin Untuk Menyimpan ?')" class="btn btn-primary">Simpan</button>
             </form>
 
             <script>
