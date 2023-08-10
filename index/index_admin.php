@@ -427,7 +427,7 @@ if (!isset($_SESSION['admin'])) {
     });
   </script>
 
-  <script>
+<script>
     function fetchNotificationCount() {
       $.ajax({
         url: "../notification_count_handler.php", 
@@ -435,7 +435,7 @@ if (!isset($_SESSION['admin'])) {
         dataType: "json",
         success: function(data) {
           var notificationCounterElement = $("#notification-counter");
-          notificationCounterElement.text(data.count);
+          notificationCounterElement.text(data.countUploadBaru);
         },
         error: function() {
           console.log("Gagal mengambil data notifikasi.");
@@ -443,10 +443,9 @@ if (!isset($_SESSION['admin'])) {
       });
     }
 
-   
+    // Panggil fungsi fetchNotificationCount setiap 1000ms (1 detik)
     setInterval(fetchNotificationCount, 1000);
-  </script>
-
+</script>
 
 
   <!--SCRIPT GET BARANG-->

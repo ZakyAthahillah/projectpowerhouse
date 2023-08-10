@@ -120,9 +120,9 @@ if (!isset($_SESSION['pegawai'])) {
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="?page=barangmasuk">
+        <a class="nav-link" href="?page=barangkeluar">
           <i class="fas fa-fw fas fa-arrow-right"></i>
-          <span>BARANG MASUK</span>
+          <span>BARANG KELUAR</span>
         </a>
       </li>
 

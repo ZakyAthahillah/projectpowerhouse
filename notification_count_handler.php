@@ -1,28 +1,31 @@
 <?php
 
-function getNotificationCount() {
-    include 'koneksi.php';
+include 'koneksi.php';
 
-    $sql = "SELECT COUNT(*) as count FROM sbp WHERE status = 'Upload Baru'";
+function getNotificationCount($table, $status) {
+    global $koneksi;
 
-
+    $sql = "SELECT COUNT(*) as count FROM $table WHERE status = '$status'";
     $result = mysqli_query($koneksi, $sql);
-
 
     if ($result) {
         $row = mysqli_fetch_assoc($result);
         $count = $row['count'];
-
-
         mysqli_free_result($result);
-
-
         return $count;
     }
 
     return 0;
 }
 
-$count = getNotificationCount();
-echo json_encode(array("count" => $count));
+$countUploadBaru = getNotificationCount('sbp', 'Upload Baru');
+$countWarehouse = getNotificationCount('po', 'P-O akan diproses oleh warehouse');
+
+$response = array(
+    "countUploadBaru" => $countUploadBaru,
+    "countWarehouse" => $countWarehouse
+);
+
+echo json_encode($response);
+
 ?>
