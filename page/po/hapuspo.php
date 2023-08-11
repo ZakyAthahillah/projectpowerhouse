@@ -1,7 +1,7 @@
 <?php
 
-$kode_po = $_GET['kode_po'];
-$sql = $koneksi->query("delete from po where kode_po = '$kode_po'");
+$id_po = $_GET['id'];
+$sql = $koneksi->query("delete from po where id = '$id_po'");
 
 if ($sql) {
 

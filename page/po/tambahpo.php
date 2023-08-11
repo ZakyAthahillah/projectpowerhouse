@@ -15,7 +15,7 @@
                             <input type="date" name="tanggal" class="form-control" id="tanggal" />
                         </div>
                     </div>
-                    <label for="">Nomor PO</label>
+                    <label for="nopo">Kode Pre - Order</label>
                     <div class="form-group">
                         <div class="form-line">
                             <input type="text" name="nopo" class="form-control" id="nopo" />

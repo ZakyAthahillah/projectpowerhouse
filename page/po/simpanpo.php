@@ -17,7 +17,7 @@ if (isset($_POST['item']) && isset($_POST['input'])) {
     $inputs = $_POST['input'];
     $tanggal = $_POST['tanggal'];
     $status = "P-O akan diproses oleh warehouse";
-    $id = "PRO-" . $_POST['nopo'];
+    $id = $_POST['nopo'];
 
     // Menyimpan data ke database dengan ID yang sama
     for ($i = 0; $i < count($items); $i++) {
