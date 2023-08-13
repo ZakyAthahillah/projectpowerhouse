@@ -11,6 +11,8 @@ $total = 0;
 $yellowResult = 0;
 $greenResult = 0;
 $blueResult = 0;
+$estimasi_jam = 0;
+$estimasi_menit = 0;
 
 if (isset($_POST['hitung'])) {
     $ycrush = isset($_POST['ycrush']) ? (float)$_POST['ycrush'] : 0;
@@ -24,6 +26,8 @@ if (isset($_POST['hitung'])) {
         $yellowResult = round($ycrush / $total * $tfq, 2);
         $greenResult = round($gcrush / $total * $tfq, 2);
         $blueResult = round($bcrush / $total * $tfq, 2);
+        $estimasi_jam = floor($total / $tfq);
+        $estimasi_menit = round(($total / $tfq - $estimasi_jam) * 60);
     }
 }
 ?>
@@ -85,7 +89,7 @@ if (isset($_POST['hitung'])) {
                                 $kuning_namarcjty[] = $row_kuning['nama_rcjty'];
                             }
 
-                            
+
                             $rchijau = mysqli_query($koneksi, "SELECT nama_rcjty FROM scjty WHERE warna = 'HIJAU'");
                             $hijau_namarcjty = array();
                             while ($row_hijau = mysqli_fetch_assoc($rchijau)) {
@@ -97,7 +101,7 @@ if (isset($_POST['hitung'])) {
                             while ($row_biru = mysqli_fetch_assoc($rcbiru)) {
                                 $biru_namarcjty[] = $row_biru['nama_rcjty'];
                             }
-                            
+
                             $kuning_namarcjty_tampil = implode(' / ', $kuning_namarcjty);
                             $hijau_namarcjty_tampil = implode(' / ', $hijau_namarcjty);
                             $biru_namarcjty_tampil = implode(' / ', $biru_namarcjty);
@@ -107,6 +111,7 @@ if (isset($_POST['hitung'])) {
                             <p class="list-group-item list-group-item-action font-weight-bold"><button type="button" class="btn btn-warning"></button> Yellow Crushed ( <?= $kuning_namarcjty_tampil ?> ) : <span class="text-danger"><?= $yellowResult ?></span> TON</p>
                             <p class="list-group-item list-group-item-action font-weight-bold"><button type="button" class="btn btn-success"></button> Green Crushed ( <?= $hijau_namarcjty_tampil ?> ) : <span class="text-danger"><?= $greenResult ?></span> TON</p>
                             <p class="list-group-item list-group-item-action font-weight-bold"><button type="button" class="btn btn-primary"></button> Blue Crushed ( <?= $biru_namarcjty_tampil ?> ) : <span class="text-danger"><?= $blueResult ?></span> TON</p>
+                            <p class="list-group-item list-group-item-action font-weight-bold">Estimasi Selesai : <span class="text-danger"><?= $estimasi_jam ?></span> JAM <span class="text-danger"><?= $estimasi_menit ?></span> MENIT</p>
                         </div>
                     </form>
                 </div>

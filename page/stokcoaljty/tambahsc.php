@@ -28,6 +28,7 @@
                                     <option value='KUNING'>KUNING</option>
                                     <option value='HIJAU'>HIJAU</option>
                                     <option value='BIRU'>BIRU</option>
+                                    <option value='KUNING/HIJAU/BIRU'>KUNING/HIJAU/BIRU</option>
                                 </select>
                             </div>
                         </div>

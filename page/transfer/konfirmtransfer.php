@@ -93,7 +93,7 @@ $jumlah3 = $tampil3['stok'];
                         <label for="stok">Stok <?= $rcjty ?> Jetty</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input readonly="readonly" id="stokicf" type="number" class="form-control" value="<?php echo $jumlah3; ?>" readonly></input>
+                                <input readonly="readonly" id="stokjty" type="number" class="form-control" value="<?php echo $jumlah3; ?>" readonly></input>
                             </div>
                         </div>
 

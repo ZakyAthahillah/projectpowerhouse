@@ -19,7 +19,15 @@ $sql3 =  $koneksi->query("SELECT * FROM scjty where id_rcjty = '$id_rcjty'");
 $tampil2 = $sql3->fetch_assoc();
 $jumlah2 = $tampil2['stok'];
 
+
+$sql5 =  $koneksi->query("SELECT * FROM scjty WHERE nama_rcjty LIKE '%uncrushed%'");
+$tampil3 = $sql5->fetch_assoc();
+$jumlah3 = $tampil3['stok'];
+$iduc = $tampil3['id_rcjty'];
+
+
 $kurang = $jumlah2 - $jumlah;
+$tambah = $jumlah3 + $jumlah;
 
 
 ?>
@@ -105,6 +113,11 @@ $kurang = $jumlah2 - $jumlah;
                             $stmt2 = $koneksi->prepare($sql2);
                             $stmt2->bind_param("s", $id_crushing);
                             $stmt2->execute();
+
+                            $sql4 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
+                            $stmt3 = $koneksi->prepare($sql4);
+                            $stmt3->bind_param("ss", $tambah, $iduc);
+                            $stmt3->execute();
 
                             // Menyimpan perubahan
                             $koneksi->commit();

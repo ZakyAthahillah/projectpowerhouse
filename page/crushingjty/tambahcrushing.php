@@ -32,23 +32,46 @@
 						<label for="">Tanggal</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="date" name="tanggal" class="form-control" id="tanggal" required/>
+								<input type="date" name="tanggal" class="form-control" id="tanggal" required />
 							</div>
 						</div>
 
 						<label for="">Start</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="start" class="form-control" id="start" required/>
+								<input type="time" name="start" class="form-control" id="start" required />
 							</div>
 						</div>
 
 						<label for="">Finish</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="time" name="finish" class="form-control" id="finish" required/>
+								<input type="time" name="finish" class="form-control" id="finish" required />
 							</div>
 						</div>
+
+
+						<?php
+						$uc = mysqli_query($koneksi, "SELECT * FROM scjty WHERE nama_rcjty LIKE '%uncrushed%'");
+						$tampiluc = mysqli_fetch_assoc($uc);
+						$iduc = $tampiluc['id_rcjty'];
+						$ucnama = $tampiluc['nama_rcjty'];
+						$ucstok = $tampiluc['stok'];
+						?>
+						<label for="">Crushing From</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" name="crushingfrom" class="form-control" id="crushingfrom" value="<?= $ucnama ?>" readonly />
+							</div>
+						</div>
+
+						<label for="">Stok</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" name="ucstok" class="form-control" id="ucstok" value="<?= $ucstok ?>" readonly />
+							</div>
+						</div>
+
 
 
 						<label for="">Crushing To</label>
@@ -73,7 +96,7 @@
 						<label for="">Jumlah</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" name="jumlahmasuk" id="jumlahmasuk" onkeyup="sum()" class="form-control" required/>
+								<input type="text" name="jumlahmasuk" id="jumlahmasuk" onkeyup="sum()" class="form-control" required />
 
 							</div>
 						</div>
@@ -120,20 +143,40 @@
 							$finish = $_POST['finish'];
 							$catatan = $_POST['catatan'];
 
-							$sql = "INSERT INTO crushingjty (tanggal, start, finish, id_rcjty, jumlah, catatan, id_users) VALUES (?, ?, ?, ?, ?, ?, ?)";
-							$stmt1 = $koneksi->prepare($sql);
-							$stmt1->bind_param("sssssss", $tanggal, $start, $finish, $id_rcjty, $jumlahmasuk, $catatan, $id_users);
-							$stmt1->execute();
+							$kurang = $ucstok - $jumlahmasuk;
 
-							$sql2 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
-							$stmt2 = $koneksi->prepare($sql2);
-							$stmt2->bind_param("ss", $jumlah, $id_rcjty);
-							$stmt2->execute();
+							if ($kurang < 0) {
+								echo "
+                                <script>
+                                    Swal.fire({
+                                        title: 'GAGAL!',
+                                        text: 'Stok Tidak Mencukupi, Crushing Gagal',
+                                        icon: 'warning',
+                                        confirmButtonText: 'OK'
+                                    });
+                                </script>
+                            ";
+							} else {
 
-							// Menyimpan perubahan
-							$koneksi->commit();
+								$sql = "INSERT INTO crushingjty (tanggal, start, finish, id_rcjty, jumlah, catatan, id_users) VALUES (?, ?, ?, ?, ?, ?, ?)";
+								$stmt1 = $koneksi->prepare($sql);
+								$stmt1->bind_param("sssssss", $tanggal, $start, $finish, $id_rcjty, $jumlahmasuk, $catatan, $id_users);
+								$stmt1->execute();
 
-							echo "
+								$sql2 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
+								$stmt2 = $koneksi->prepare($sql2);
+								$stmt2->bind_param("ss", $jumlah, $id_rcjty);
+								$stmt2->execute();
+
+								$sql3 = "UPDATE scjty SET stok = ? WHERE id_rcjty = ?";
+								$stmt3 = $koneksi->prepare($sql3);
+								$stmt3->bind_param("ss", $kurang, $iduc);
+								$stmt3->execute();
+
+								// Menyimpan perubahan
+								$koneksi->commit();
+
+								echo "
 							<script>
 								Swal.fire({
 									title: 'SUKSES!',
@@ -145,6 +188,7 @@
 								});
 							</script>
 						";
+							}
 						}
 					} catch (Exception $e) {
 						// Membatalkan transaksi jika terjadi kesalahan

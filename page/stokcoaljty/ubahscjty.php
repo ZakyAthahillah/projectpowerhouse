@@ -35,6 +35,7 @@ $warna = $tampil['warna'];
                                     <option <?php if ($warna == 'KUNING') echo 'selected'; ?> value='KUNING'>KUNING</option>
                                     <option <?php if ($warna == 'HIJAU') echo 'selected'; ?> value='HIJAU'>HIJAU</option>
                                     <option <?php if ($warna == 'BIRU') echo 'selected'; ?> value='BIRU'>BIRU</option>
+                                    <option <?php if ($warna == 'KUNING/HIJAU/BIRU') echo 'selected'; ?> value='KUNING/HIJAU/BIRU'>KUNING/HIJAU/BIRU</option>
                                 </select>
                             </div>
                         </div>
