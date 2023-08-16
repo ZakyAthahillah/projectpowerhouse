@@ -157,9 +157,6 @@ if (!isset($_SESSION['admin'])) {
       </li>
 
       <!-- Heading -->
-
-
-
       <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLaporan" aria-expanded="true" aria-controls="collapseLaporan">
           <i class="fas fa-fw fa-folder"></i>
@@ -176,6 +173,7 @@ if (!isset($_SESSION['admin'])) {
             <a class="collapse-item" href="?page=laporan_penerima">Laporan Penerima Barang</a>
             <a class="collapse-item" href="?page=laporan_pengirim">Laporan Pengirim Barang</a>
             <a class="collapse-item" href="?page=laporan_po">Laporan Pre-Order</a>
+            <a class="collapse-item" href="?page=laporan_rekom">Laporan Rekomendasi</a>
           </div>
         </div>
       </li>
@@ -442,8 +440,6 @@ if (!isset($_SESSION['admin'])) {
         }
       });
     }
-
-    // Panggil fungsi fetchNotificationCount setiap 1000ms (1 detik)
     setInterval(fetchNotificationCount, 1000);
 </script>
 
@@ -451,14 +447,14 @@ if (!isset($_SESSION['admin'])) {
   <!--SCRIPT GET BARANG-->
   <script>
     jQuery(document).ready(function($) {
-      $('#select_barang').change(function() { // Jika Select Box id provinsi dipilih
-        var tamp = $(this).val(); // Ciptakan variabel provinsi
+      $('#select_barang').change(function() { 
+        var tamp = $(this).val(); 
         $.ajax({
-          type: 'POST', // Metode pengiriman data menggunakan POST
-          url: '../page/barangmasuk/get_barang.php', // File yang akan memproses data
-          data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-          success: function(data) { // Jika berhasil
-            $('.tampung').html(data); // Berikan hasil ke id kota
+          type: 'POST', 
+          url: '../page/barangmasuk/get_barang.php', 
+          data: 'tamp=' + tamp, 
+          success: function(data) { 
+            $('.tampung').html(data); 
           }
 
 
@@ -470,14 +466,14 @@ if (!isset($_SESSION['admin'])) {
   <!--SCRIPT GET RCJTY-->
   <script>
     jQuery(document).ready(function($) {
-      $('#select_crushingjty,#select_transferjty,#select_loadingjty').change(function() { // Jika Select Box id provinsi dipilih
-        var tamp = $(this).val(); // Ciptakan variabel provinsi
+      $('#select_crushingjty,#select_transferjty,#select_loadingjty').change(function() { 
+        var tamp = $(this).val(); 
         $.ajax({
-          type: 'POST', // Metode pengiriman data menggunakan POST
-          url: '../page/crushingjty/get_rc.php', // File yang akan memproses data
-          data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-          success: function(data) { // Jika berhasil
-            $('.tampung').html(data); // Berikan hasil ke id kota
+          type: 'POST', 
+          url: '../page/crushingjty/get_rc.php', 
+          data: 'tamp=' + tamp, 
+          success: function(data) { 
+            $('.tampung').html(data); 
           }
 
 
@@ -489,14 +485,14 @@ if (!isset($_SESSION['admin'])) {
   <!--SCRIPT GET RCICF-->
   <script>
     jQuery(document).ready(function($) {
-      $('#select_crushingicf').change(function() { // Jika Select Box id provinsi dipilih
-        var tamp = $(this).val(); // Ciptakan variabel provinsi
+      $('#select_crushingicf').change(function() { 
+        var tamp = $(this).val(); 
         $.ajax({
-          type: 'POST', // Metode pengiriman data menggunakan POST
-          url: '../page/crushingicf/get_rc.php', // File yang akan memproses data
-          data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-          success: function(data) { // Jika berhasil
-            $('.tampung').html(data); // Berikan hasil ke id kota
+          type: 'POST', 
+          url: '../page/crushingicf/get_rc.php', 
+          data: 'tamp=' + tamp, 
+          success: function(data) { 
+            $('.tampung').html(data); 
           }
 
 
@@ -509,14 +505,14 @@ if (!isset($_SESSION['admin'])) {
   <!-- TRANSFER -->
   <script>
     jQuery(document).ready(function($) {
-      $('#select_transferjty').change(function() { // Jika Select Box id provinsi dipilih
-        var tamp = $(this).val(); // Ciptakan variabel provinsi
+      $('#select_transferjty').change(function() { 
+        var tamp = $(this).val(); 
         $.ajax({
-          type: 'POST', // Metode pengiriman data menggunakan POST
-          url: '../page/transfer/get_rcjty.php', // File yang akan memproses data
-          data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-          success: function(data) { // Jika berhasil
-            $('.tampung11').html(data); // Berikan hasil ke id kota
+          type: 'POST', 
+          url: '../page/transfer/get_rcjty.php', 
+          data: 'tamp=' + tamp, 
+          success: function(data) { 
+            $('.tampung11').html(data); 
           }
 
 
@@ -527,14 +523,14 @@ if (!isset($_SESSION['admin'])) {
 
   <script>
     jQuery(document).ready(function($) {
-      $('#select_transfericf').change(function() { // Jika Select Box id provinsi dipilih
-        var tamp = $(this).val(); // Ciptakan variabel provinsi
+      $('#select_transfericf').change(function() { 
+        var tamp = $(this).val(); 
         $.ajax({
-          type: 'POST', // Metode pengiriman data menggunakan POST
-          url: '../page/transfer/get_rcicf.php', // File yang akan memproses data
-          data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-          success: function(data) { // Jika berhasil
-            $('.tampung12').html(data); // Berikan hasil ke id kota
+          type: 'POST', 
+          url: '../page/transfer/get_rcicf.php', 
+          data: 'tamp=' + tamp, 
+          success: function(data) { 
+            $('.tampung12').html(data); 
           }
 
 
@@ -546,14 +542,14 @@ if (!isset($_SESSION['admin'])) {
   <!-- SCRIPT GET SATUAN  -->
   <script>
     jQuery(document).ready(function($) {
-      $('#select_barang').change(function() { // Jika Select Box id  dipilih
-        var tamp = $(this).val(); // Ciptakan variabel 
+      $('#select_barang').change(function() { 
+        var tamp = $(this).val(); 
         $.ajax({
-          type: 'POST', // Metode pengiriman data menggunakan POST
-          url: '../page/barangmasuk/get_satuan.php', // File yang akan memproses data
-          data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-          success: function(data) { // Jika berhasil
-            $('.tampung1').html(data); // Berikan hasil ke id 
+          type: 'POST', 
+          url: '../page/barangmasuk/get_satuan.php', 
+          data: 'tamp=' + tamp, 
+          success: function(data) { 
+            $('.tampung1').html(data);
           }
 
 

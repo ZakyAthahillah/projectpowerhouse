@@ -68,6 +68,19 @@ $level = $tampil['level'];
 
 
 
+						<label for="">Jumlah Min</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" name="min" value="<?php echo $tampil['min']; ?>" class="form-control" />
+							</div>
+						</div>
+
+						<label for="">Jumlah Max</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" name="max" value="<?php echo $tampil['max']; ?>" class="form-control" />
+							</div>
+						</div>
 
 
 
@@ -141,10 +154,12 @@ $level = $tampil['level'];
 
 
 						$lokasi = $_POST['lokasi'];
+						$min = $_POST['min'];
+						$max = $_POST['max'];
 
 
 
-						$sql = $koneksi->query("update gudang set kode_barang='$kode_barang', nama_barang='$nama_barang', id_jenis='$jenis_barang', id_satuan='$satuan', id_lokasi='$lokasi' where kode_barang='$kode_barang'");
+						$sql = $koneksi->query("update gudang set kode_barang='$kode_barang', nama_barang='$nama_barang', min = '$min', max = '$max', id_jenis='$jenis_barang', id_satuan='$satuan', id_lokasi='$lokasi' where kode_barang='$kode_barang'");
 
 						if ($sql) {
 							echo "

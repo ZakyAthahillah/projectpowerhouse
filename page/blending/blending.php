@@ -37,7 +37,7 @@
           FROM blending
           INNER JOIN sbp ON blending.kode_sbp = sbp.kode_sbp 
           GROUP BY blending.kode_sbp
-          ORDER BY tanggal asc");
+          ORDER BY tanggal desc");
           while ($data = mysqli_fetch_assoc($sql)) {
             $tanggal_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['tanggal_gabung']) . '</li>';
             $plan_gabung = '<li style="list-style-type: circle;">' . str_replace(", ", "</li><li style='list-style-type: circle;'>", $data['plan_gabung']) . '</li></ul>';

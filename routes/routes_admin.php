@@ -433,6 +433,12 @@
               }
             }
 
+            if ($page == "laporan_rekom") {
+              if ($aksi == "") {
+                include "../page/laporan/laporan_rekom.php";
+              }
+            }
+
             if ($page == "laporan_barangkeluar") {
               if ($aksi == "") {
                 include "../page/laporan/laporan_barangkeluar.php";

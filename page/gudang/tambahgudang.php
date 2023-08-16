@@ -90,6 +90,24 @@ $jumlah = 0;
 							</div>
 						</div>
 
+						<label for="">Jumlah Min</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" name="min" class="form-control"  />
+
+
+							</div>
+						</div>
+
+						<label for="">Jumlah Max</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" name="max" class="form-control" />
+
+
+							</div>
+						</div>
+
 
 						<label for="">Satuan Barang</label>
 						<div class="form-group">
@@ -148,10 +166,12 @@ $jumlah = 0;
 						$lokasi = $_POST['lokasi'];
 
 						$jumlah = $_POST['jumlah'];
+						$min = $_POST['min'];
+						$max = $_POST['max'];
 
 
 						try {
-							$sql = $koneksi->query("INSERT INTO gudang (kode_barang, nama_barang, id_jenis, jumlah, id_satuan, id_lokasi) VALUES ('$kode_barang', '$nama_barang', '$jenis_barang', '$jumlah', '$satuan', '$lokasi')");
+							$sql = $koneksi->query("INSERT INTO gudang (kode_barang, nama_barang, id_jenis, jumlah, min, max, id_satuan, id_lokasi) VALUES ('$kode_barang', '$nama_barang', '$jenis_barang', '$jumlah','$min', '$max', '$satuan', '$lokasi')");
 
 							if ($sql) {
 								echo "

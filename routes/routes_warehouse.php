@@ -112,6 +112,12 @@ if ($page == "laporan_gudang") {
   }
 }
 
+if ($page == "laporan_rekom") {
+  if ($aksi == "") {
+    include "../page/laporan/laporan_rekom.php";
+  }
+}
+
 
 
 if ($page == "laporan_porang") {

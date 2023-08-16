@@ -169,6 +169,7 @@ if (!isset($_SESSION['warehouse'])) {
             <a class="collapse-item" href="?page=laporan_penerima">Laporan Penerima Barang</a>
             <a class="collapse-item" href="?page=laporan_pengirim">Laporan Pengirim Barang</a>
             <a class="collapse-item" href="?page=laporan_po">Laporan Pre-Order</a>
+            <a class="collapse-item" href="?page=laporan_rekom">Laporan Rekomendasi</a>
           </div>
         </div>
       </li>

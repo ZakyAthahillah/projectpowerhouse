@@ -1,9 +1,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Data Barang</h6>
-    <br>
-    <a href="?page=gudang&aksi=tambahgudang" class="btn btn-primary"><i class="fas fa-plus-circle"> Tambah</i></a>
+    <h6 class="m-0 font-weight-bold text-primary">Laporan Rekomendasi Barang</h6>
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -19,15 +17,11 @@
             <th>Jumlah Max</th>
             <th>Satuan</th>
             <th>Lokasi</th>
-            <th>Pengaturan</th>
-
+            <th>Rekomendasi</th>
           </tr>
         </thead>
-
-
         <tbody>
           <?php
-
           $no = 1;
           $sql = mysqli_query($koneksi, "select * from gudang 
             inner join lokasi on gudang.id_lokasi = lokasi.id_lokasi
@@ -35,9 +29,17 @@
             inner join jenis_barang on gudang.id_jenis = jenis_barang.id_jenis
             order by kode_barang");
           while ($data = mysqli_fetch_assoc($sql)) {
+            $rekomendasi = "";
+            if ($data['jumlah'] < $data['min']) {
+              $rekomendasi = "Barang kurang, segera melakukan pre-order barang";
+            } elseif ($data['jumlah'] > $data['max']) {
+              $rekomendasi = "Barang berlebih, dilarang melakukan pre-order barang";
+            }
 
+            if ($data['jumlah'] >= $data['min'] && $data['jumlah'] <= $data['max']) {
+              continue;
+            }
           ?>
-
             <tr>
               <td><?php echo $no++; ?></td>
               <td><?php echo $data['kode_barang'] ?></td>
@@ -48,37 +50,12 @@
               <td><?php echo $data['max'] ?></td>
               <td><?php echo $data['satuan'] ?></td>
               <td><?php echo $data['lokasi'] ?></td>
-              <td>
-                <a href="?page=gudang&aksi=ubahgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-warning btn-circle"><i class="fas fa-wrench"></i></a>
-                <button onclick="confirmDelete('<?php echo $data['kode_barang'] ?>')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
-              </td>
+              <td><?php echo $rekomendasi ?></td>
             </tr>
           <?php } ?>
-
         </tbody>
       </table>
-
-      </tbody>
-      </table>
+      <a href="../page/laporan/exrekom.php" class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i></a>
     </div>
   </div>
 </div>
-
-
-<script>
-  function confirmDelete(kodeBarang) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Konfirmasi',
-      text: 'Apakah anda yakin akan menghapus data ini?',
-      showCancelButton: true,
-      confirmButtonText: 'Hapus',
-      confirmButtonColor: '#d33',
-      cancelButtonText: 'Batal'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = "?page=gudang&aksi=hapusgudang&kode_barang=" + kodeBarang;
-      }
-    });
-  }
-</script>

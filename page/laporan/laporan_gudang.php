@@ -55,9 +55,6 @@
           </tbody>
         </table>
         <a href="../page/laporan/exgudang.php" class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i></a>
-
-        </tbody>
-        </table>
       </div>
     </div>
   </div>

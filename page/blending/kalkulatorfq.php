@@ -111,7 +111,6 @@ if (isset($_POST['hitung'])) {
                             <p class="list-group-item list-group-item-action font-weight-bold"><button type="button" class="btn btn-warning"></button> Yellow Crushed ( <?= $kuning_namarcjty_tampil ?> ) : <span class="text-danger"><?= $yellowResult ?></span> TON</p>
                             <p class="list-group-item list-group-item-action font-weight-bold"><button type="button" class="btn btn-success"></button> Green Crushed ( <?= $hijau_namarcjty_tampil ?> ) : <span class="text-danger"><?= $greenResult ?></span> TON</p>
                             <p class="list-group-item list-group-item-action font-weight-bold"><button type="button" class="btn btn-primary"></button> Blue Crushed ( <?= $biru_namarcjty_tampil ?> ) : <span class="text-danger"><?= $blueResult ?></span> TON</p>
-                            <p class="list-group-item list-group-item-action font-weight-bold">Estimasi Selesai : <span class="text-danger"><?= $estimasi_jam ?></span> JAM <span class="text-danger"><?= $estimasi_menit ?></span> MENIT</p>
                         </div>
                     </form>
                 </div>
