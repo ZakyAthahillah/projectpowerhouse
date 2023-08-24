@@ -50,9 +50,9 @@ while ($hasil = mysqli_fetch_assoc($tampil)) {
         $pdf->Cell(10, 6, $hasil['max'], 1, 0, 'C'); 
       
         if ($hasil['jumlah'] < $hasil['min']) {
-            $pdf->Cell(105, 6, 'Barang kurang, segera melakukan pre-order barang', 1, 1);
+            $pdf->Cell(105, 6, 'Disarankan untuk segera melakukan pre-order barang', 1, 1);
         } else if ($hasil['jumlah'] > $hasil['max']) {
-            $pdf->Cell(105, 6, 'Barang berlebih, dilarang melakukan pre-order barang', 1, 1);
+            $pdf->Cell(105, 6, 'Disarankan untuk tidak melakukan pre-order barang', 1, 1);
         } else {
             $pdf->Cell(105, 6, '', 1, 1); 
         }

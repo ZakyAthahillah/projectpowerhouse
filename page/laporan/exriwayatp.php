@@ -53,7 +53,7 @@ $pdf->Cell(25, 6, 'JUMLAH', 1, 1, 'C');
 
 $pdf->SetFont('Arial', '', 12);
 //koneksi ke database
-$tampil = mysqli_query($koneksi, "select * from barang_keluar where id_pegawai='$id'");
+$tampil = mysqli_query($koneksi, "select * from barang_keluar where id_pegawai='$id' order by tanggal desc");
 while ($hasil = mysqli_fetch_assoc($tampil)) {
        $pdf->Cell(35, 6, $hasil['tanggal'], 1, 0, 'C');
     $pdf->Cell(80, 6, $hasil['kode_barang'], 1, 0);
