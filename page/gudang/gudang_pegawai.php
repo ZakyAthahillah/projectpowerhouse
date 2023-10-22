@@ -15,6 +15,8 @@
             <th>Nama Barang</th>
             <th>Jenis Barang</th>
             <th>Jumlah</th>
+            <th>Jumlah Min</th>
+            <th>Jumlah Max</th>
             <th>Satuan</th>
             <th>Lokasi</th>
           </tr>
@@ -40,6 +42,8 @@
               <td><?php echo $data['nama_barang'] ?></td>
               <td><?php echo $data['jenis_barang'] ?></td>
               <td><?php echo $data['jumlah'] ?></td>
+              <td><?php echo $data['min'] ?></td>
+              <td><?php echo $data['max'] ?></td>
               <td><?php echo $data['satuan'] ?></td>
               <td><?php echo $data['lokasi'] ?></td>
             </tr>
